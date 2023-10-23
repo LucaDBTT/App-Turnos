@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33801.447
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turnos", "Turnos\Turnos.csproj", "{6C8ADD06-5532-4DD6-A6CF-32CAD56CE424}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{CE61A885-3595-4182-9517-BC49C047744F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6C8ADD06-5532-4DD6-A6CF-32CAD56CE424}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C8ADD06-5532-4DD6-A6CF-32CAD56CE424}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C8ADD06-5532-4DD6-A6CF-32CAD56CE424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE61A885-3595-4182-9517-BC49C047744F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE61A885-3595-4182-9517-BC49C047744F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE61A885-3595-4182-9517-BC49C047744F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE61A885-3595-4182-9517-BC49C047744F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
