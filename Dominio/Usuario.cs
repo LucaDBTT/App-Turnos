@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Dominio
 {
     public class Usuario : Persona
     {
-            public string Contrasena { get; set; }
-            public string Rol { get; set; }
+        public Coberturas Cobertura { get; set; }
+        public int NroAfiliado { get; set; }
+        public string Contrasena { get; set; }
+        public bool Estado { get; set; }
+
     }
 }

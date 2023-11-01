@@ -8,7 +8,11 @@ namespace Dominio
 {
     public class Medico : Persona
     {
-        public List<Especialidad> Especialidades { get; set; }
-        public string HorarioTrabajo { get; set; }
+        public int Legajo { get; set; }
+        public Especialidad Especialidad { get; set; }
+        public Sede Sede { get; set; }
+        public string Contraseña { get; set; }
+        public bool  Estado { get; set; }
+
     }
 }

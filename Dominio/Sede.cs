@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Paciente : Persona
+   public class Sede
     {
-        // agregar propiedades específicas de Paciente si son necesarias.
+        public int ídSede { get; set; }
+        public string NombreSede { get; set; }
     }
 }
