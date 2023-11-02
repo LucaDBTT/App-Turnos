@@ -54,10 +54,9 @@
       <Project>{ce61a885-3595-4182-9517-bc49c047744f}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Turnos\Turnos.csproj">
-      <Project>{6c8add06-5532-4dd6-a6cf-32cad56ce424}</Project>
-      <Name>Turnos</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

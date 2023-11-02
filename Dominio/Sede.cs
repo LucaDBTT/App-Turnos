@@ -10,5 +10,6 @@ namespace Dominio
     {
         public int ídSede { get; set; }
         public string NombreSede { get; set; }
+
     }
 }

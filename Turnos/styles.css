@@ -71,8 +71,75 @@
 }
 
 .navbar-nav .nav-item {
-    margin-right: 15px; /* Ajusta el valor según la cantidad de espacio que deseas entre los elementos */
+    margin-right: 15px; 
 }
 
 
 
+.gridview-style {
+    width: 80%;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    margin-top: 50px;
+}
+
+.gridview-header {
+    background-color: #e7e7e7;
+    border: 1px solid #333;
+}
+
+.gridview-row-alt {
+    border: 1px solid #ccc; /* Agrega un borde a las filas impares */
+}
+.gridview-row {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #ccc;
+}
+
+.gridview-row-alt {
+    background-color: #333;
+    color: #fff;
+}
+
+.gridview-cell {
+    border: 1px solid #ccc; /* Agrega un borde a las celdas */
+}
+
+.Profesionales {
+    font-size: 30px;
+    color: #28a745;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 40px;
+}
+
+.card-container {
+    position: relative;
+    width: 200px;
+}
+
+.card {
+    margin-top:80px;
+    position: absolute;
+    top: 20px;
+    margin-left:40px; /* Ajusta la posición horizontal (más a la izquierda) según tu preferencia */
+    width: 700px; /* Ajusta el ancho de la tarjeta según tu preferencia */
+}
+
+
+.card-container a {
+    background-image: linear-gradient(45deg, #215b30, #14421f);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card-container a:hover {
+        background-image: linear-gradient(45deg, #14421f, #215b30);
+}
