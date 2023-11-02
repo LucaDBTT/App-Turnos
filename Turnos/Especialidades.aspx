@@ -9,7 +9,7 @@
     <RowStyle CssClass="gridview-row" />
     <HeaderStyle CssClass="gridview-header" />
     <Columns>
-        <asp:BoundField DataField="Legajo" HeaderText="Legajo" />
+        <asp:BoundField DataField="Legajo" HeaderText="Legajo" Visible="false"/>
         <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
         <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
         <asp:BoundField DataField="Especialidad.Nombre" HeaderText="Especialidad" />
