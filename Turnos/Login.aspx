@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <section class="card">
+    <section class="card-login">
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">

@@ -11,8 +11,17 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://i.pinimg.com/564x/32/a8/a6/32a8a6e1e6e17924a0a74654ef033bbe.jpg" class="d-block w-100" alt="Slide 1" style="height: 400px; object-fit: cover;">
+        <div class="position-relative">
+            <img src="https://www.galeno.com.ar/_next/image/?url=https%3A%2F%2Fcms.galeno.com.ar%2FdA%2F60b951df-5ebc-4ae2-91ed-4c286932b9ff&w=1920&q=75" class="d-block w-100" alt="Slide 1" style="height: 400px; object-fit: cover;">
+            <div class="card card-container">
+                <div class="card-body">
+                    <h5 class="card-title">Profesionales y Especialidades</h5>
+                    <p class="card-text">Conoce todo nuestro personal y las especialidades que ofrecemos.</p>
+                    <a href="/Especialidades.aspx" class="btn btn-primary">Conocenos</a>
+                </div>
+            </div>
         </div>
+    </div>
         <div class="carousel-item">
             <img src="https://www.rgpeo.com/wp-content/uploads/2020/05/AdobeStock_215071271-1024x341.jpeg" class="d-block w-100" alt="Slide 2" style="height: 400px; object-fit: cover;">
         </div>
@@ -29,6 +38,7 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+
 
 </asp:Content>
 

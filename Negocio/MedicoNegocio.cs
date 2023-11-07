@@ -9,7 +9,7 @@ using Dominio;
 
 namespace Negocio
 {
-    class MedicoNegocio
+    public class MedicoNegocio
     {
         public List<Medico> ListarMedicos()
         {
@@ -24,7 +24,7 @@ namespace Negocio
                 {
                     Medico aux = new Medico();
 
-                    aux.Legajo = (int)datos.lector["legajo"];
+                    aux.Legajo = (long)datos.lector["legajo"];
                     aux.Nombre = (string)datos.lector["nombre"];
                     aux.Apellido = (string)datos.lector["apellido"];
                     aux.Sede = new Sede();
