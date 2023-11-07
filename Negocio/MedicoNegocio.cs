@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+//using System.Windows.Forms;
 using Dominio;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Negocio
 {
@@ -44,5 +44,78 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+
+
+        public void AgregarMedico(Medico nuevo)
+        {
+            try
+            {
+                using (AccesoDatos Datos = new AccesoDatos())
+                {
+                    Datos.SetearQuery("insert into Profesionales (nombre, apellido, idEspecialidad,idSede,contraseña, estado) VALUES ('" + nuevo.Nombre + "','" + nuevo.Apellido + "',,'" + nuevo.Especialidad.Id + "','" + nuevo.Sede.ídSede + "',,'" + nuevo.Contraseña + "', '" + nuevo.Estado + "')");
+                    
+                    Datos.ejecutarAccion();
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public void Modificar(Medico nuevo)
+        {
+            AccesoDatos Datos = new AccesoDatos();
+            
+            try
+            {
+                Datos.SetearQuery("UPDATE PROFESIONALES SET nombre = @Nombre, apellido = @apellido, idEspecialidad = @idEspecialidad,idSede = @idSede,contraseña = @contraseña, estado = @estado WHERE legajo = @legajo");
+                
+                Datos.setearParametros("@nombre", nuevo.Nombre);
+                Datos.setearParametros("@apellido", nuevo.Apellido);
+                Datos.setearParametros("@idEspecialidad", nuevo.Especialidad.Id);
+                Datos.setearParametros("@idSede", nuevo.Sede.ídSede);
+                Datos.setearParametros("@contraseña", nuevo.Contraseña);
+                Datos.setearParametros("@legajo", nuevo.Legajo);
+                Datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
+
+        public void bajaFisica(int legajo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+           // DialogResult dialogo = MessageBox.Show("Esta seguro que desea eliminar el articulo?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            try
+            {
+                //if (dialogo == DialogResult.Yes)
+                
+                    datos.SetearQuery("delete from PROFECIONALES where legajo = @legajo");
+                    datos.setearParametros("@legajo", legajo);
+                    datos.ejecutarAccion();
+                   // MessageBox.Show("Articulo eliminado con exito");
+
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }
+
