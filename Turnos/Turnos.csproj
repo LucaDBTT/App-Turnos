@@ -99,6 +99,7 @@
     <Content Include="Especialidades.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
+    <Content Include="Modificar.aspx" />
     <Content Include="Patologias.aspx" />
     <Content Include="styles.css" />
     <Content Include="Turnos.aspx" />
@@ -128,6 +129,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modificar.aspx.cs">
+      <DependentUpon>Modificar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modificar.aspx.designer.cs">
+      <DependentUpon>Modificar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Patologias.aspx.cs">
       <DependentUpon>Patologias.aspx</DependentUpon>

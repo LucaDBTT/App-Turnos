@@ -16,12 +16,30 @@ namespace Turnos
         {
             if (!IsPostBack)
             {
-                MedicoNegocio negocio = new MedicoNegocio();
-                List<Medico> listaMedicos = negocio.ListarMedicos();
-
-                dataGridViewMedicos.DataSource = listaMedicos;
-                dataGridViewMedicos.DataBind();
+                BindGridViewData();
             }
+        }
+
+        protected void dataGridViewMedicos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dataGridViewMedicos.PageIndex = e.NewPageIndex;
+            BindGridViewData();
+        }
+
+        private void BindGridViewData()
+        {
+            MedicoNegocio negocio = new MedicoNegocio();
+            List<Medico> listaMedicos = negocio.ListarMedicos();
+
+            dataGridViewMedicos.DataSource = listaMedicos;
+            dataGridViewMedicos.DataBind();
+        }
+
+        protected void dataGridViewMedicos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridViewRow selectedRow = dataGridViewMedicos.SelectedRow;
+            string Legajo = dataGridViewMedicos.DataKeys[selectedRow.RowIndex].Value.ToString();
+            Response.Redirect("Modificar.aspx?Legajo=" + Legajo);
         }
     }
 }

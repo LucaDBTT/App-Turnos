@@ -5,7 +5,8 @@
 
     <h1 class="Profesionales">Nuestros Profesionales y sus especialidades</h1>
 
-    <asp:GridView ID="dataGridViewMedicos" runat="server" AutoGenerateColumns="False" CssClass="gridview-style">
+    <asp:GridView ID="dataGridViewMedicos" runat="server" AutoGenerateColumns="False" CssClass="gridview-style" DataKeyNames="Legajo"
+        AllowPaging="true" PageSize="10" OnPageIndexChanging="dataGridViewMedicos_PageIndexChanging" OnSelectedIndexChanged="dataGridViewMedicos_SelectedIndexChanged">
     <RowStyle CssClass="gridview-row" />
     <HeaderStyle CssClass="gridview-header" />
     <Columns>
@@ -14,6 +15,7 @@
         <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
         <asp:BoundField DataField="Especialidad.Nombre" HeaderText="Especialidad" />
         <asp:BoundField DataField="Sede.NombreSede" HeaderText="Sede" />
+        <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" SelectText="Modificar"/>
     </Columns>
 </asp:GridView>
 

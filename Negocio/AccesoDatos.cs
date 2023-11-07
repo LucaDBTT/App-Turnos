@@ -34,6 +34,12 @@ namespace Negocio
             Comando.Parameters.AddWithValue(nombre, valor);
         }
 
+        public void SetearProcedimiento(string sp)
+        {
+            Comando.CommandType = System.Data.CommandType.StoredProcedure;
+            Comando.CommandText = sp;
+        }
+
         public void SetearQuery(string Query)
         {
             Comando.CommandType = System.Data.CommandType.Text;
