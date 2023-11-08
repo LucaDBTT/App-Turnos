@@ -41,5 +41,6 @@ namespace Turnos
             string Legajo = dataGridViewMedicos.DataKeys[selectedRow.RowIndex].Value.ToString();
             Response.Redirect("Modificar.aspx?Legajo=" + Legajo);
         }
-    }
+
+        }
 }

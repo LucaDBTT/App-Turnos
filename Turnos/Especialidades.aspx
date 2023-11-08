@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/WebMaster.Master" AutoEventWireup="true" CodeBehind="Especialidades.aspx.cs" Inherits="Turnos.Especialidades" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -7,16 +8,17 @@
 
     <asp:GridView ID="dataGridViewMedicos" runat="server" AutoGenerateColumns="False" CssClass="gridview-style" DataKeyNames="Legajo"
         AllowPaging="true" PageSize="10" OnPageIndexChanging="dataGridViewMedicos_PageIndexChanging" OnSelectedIndexChanged="dataGridViewMedicos_SelectedIndexChanged">
-    <RowStyle CssClass="gridview-row" />
-    <HeaderStyle CssClass="gridview-header" />
-    <Columns>
-        <asp:BoundField DataField="Legajo" HeaderText="Legajo" Visible="false"/>
-        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-        <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
-        <asp:BoundField DataField="Especialidad.Nombre" HeaderText="Especialidad" />
-        <asp:BoundField DataField="Sede.NombreSede" HeaderText="Sede" />
-        <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" SelectText="Modificar"/>
-    </Columns>
-</asp:GridView>
+        <RowStyle CssClass="gridview-row" />
+        <HeaderStyle CssClass="gridview-header" />
+        <Columns>
+            <asp:BoundField DataField="Legajo" HeaderText="Legajo" Visible="false" />
+            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+            <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
+            <asp:BoundField DataField="Especialidad.Nombre" HeaderText="Especialidad" />
+            <asp:BoundField DataField="Sede.NombreSede" HeaderText="Sede" />
+            <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" SelectText="Modificar" />
+        </Columns>
+    </asp:GridView>
 
+    <a href="AgregarMedico.aspx" class="btn btn-primary">Agregar Medico</a>
 </asp:Content>

@@ -13,6 +13,5 @@ namespace Dominio
         public Sede Sede { get; set; }
         public string Contraseña { get; set; }
         public bool  Estado { get; set; }
-
     }
 }
