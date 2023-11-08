@@ -53,9 +53,9 @@ namespace Negocio
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
 
-                    Datos.SetearQuery("INSERT INTO Profesionales (legajo, nombre, apellido, idEspecialidad, idSede, contraseña, estado) VALUES (@legajo, @Nombre, @Apellido, @IdEspecialidad, @IdSede, @Contraseña, @Estado)");
+                    Datos.SetearQuery("INSERT INTO Profesionales ( nombre, apellido, idEspecialidad, idSede, contraseña, estado) VALUES ( @Nombre, @Apellido, @IdEspecialidad, @IdSede, @Contraseña, @Estado)");
 
-                    Datos.setearParametros("@legajo", nuevo.Legajo);
+                   
                     Datos.setearParametros("@Nombre", nuevo.Nombre);
                     Datos.setearParametros("@Apellido", nuevo.Apellido);
                     Datos.setearParametros("@IdEspecialidad", nuevo.Especialidad.Id);

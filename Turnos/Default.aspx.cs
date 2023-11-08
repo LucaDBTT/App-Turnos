@@ -15,5 +15,10 @@ namespace Turnos
         {
             
         }
+
+        protected void btnAceptar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarMedico.aspx",false);
+        }
     }
 }
