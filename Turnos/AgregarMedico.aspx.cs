@@ -12,9 +12,11 @@ namespace Turnos
 {
     public partial class AgregarMedico : System.Web.UI.Page
     {
-       
+        public bool ConfirmaEliminacion { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            ConfirmaEliminacion = false;
             ///configuarion agregar
             if (!IsPostBack)
             {
@@ -92,7 +94,28 @@ namespace Turnos
             }
         }
 
+        protected void btnElminar_Click(object sender, EventArgs e)
+        {
+            ConfirmaEliminacion = true;
+        }
+        protected void btnConfirmaEliminar_Click(object sender, EventArgs e)
+        {
+            string legajo = Request.QueryString["Legajo"];
 
-   
+            try
+            {
+                MedicoNegocio negocio = new MedicoNegocio();
+                negocio.bajaFisica(int.Parse(legajo));
+
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex);
+            }
+        }
+
+
+
     }
 }

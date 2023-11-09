@@ -50,20 +50,6 @@ namespace Turnos
             ConfirmaEliminacion = true;
         }
 
-      /*  protected void btnConfirmaEliminar_Click(object sender, EventArgs e)
-        {
-            
-            try
-            {
-                MedicoNegocio negocio = new MedicoNegocio();
-                negocio.bajaFisica(int.Parse(txtLegajo.text))
-
-            }
-            catch (Exception ex)
-            {
-
-                Session.Add("error",ex)
-            }
-        }*/
+     
     }
 }

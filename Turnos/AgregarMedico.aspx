@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <section class="card-login">
 
         <div class="login-container">
@@ -35,6 +35,27 @@
             <div class="mb-3">
                 <asp:Button runat="server" ID="btnAgregar" Text="Agregar"  CssClass="btn btn-primary" OnClick="btnAgregar_Click" />
             </div>
+
+             <div class="row">
+                <div class="col-6">
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate >
+
+
+                    <div class="mb-3">
+                        <asp:Button Text="Eliminar" ID="btnElminar" CssClass="btn btn-danger" runat="server" OnClick="btnElminar_Click" />
+                    </div>
+
+                     <%if(ConfirmaEliminacion) 
+                         { %>
+                    <div class="mb-3">
+                    <asp:CheckBox  runat="server" Text="Confirmar eliminacion"  ID="chkConfirmaEliminacion" />
+                    <asp:Button runat="server" Text="Eliminar" ID="btnConfirmaEliminar" CssClass="btn btn-outline-danger"   />
+                    </div>
+                     <% } %>
+
+                        </ContentTemplate>   
+                    </asp:UpdatePanel>
 
         </div>
 
