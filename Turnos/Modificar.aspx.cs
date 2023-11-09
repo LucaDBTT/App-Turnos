@@ -11,8 +11,10 @@ namespace Turnos
 {
     public partial class Modificar : System.Web.UI.Page
     {
+        public bool ConfirmaEliminacion { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            ConfirmaEliminacion = false;
             if (!IsPostBack)
             {
                 CargarSedes();
@@ -25,7 +27,7 @@ namespace Turnos
             SedeNegocio sedeNegocio = new SedeNegocio();
             ddlSedes.DataSource = sedeNegocio.ListarSedes();
             ddlSedes.DataTextField = "nombreSede";  // Nombre de la propiedad a mostrar en el DropDownList
-            ddlSedes.DataValueField = "ídSede";      // Nombre de la propiedad para el valor de las opciones
+            ddlSedes.DataValueField = "IdSede";      // Nombre de la propiedad para el valor de las opciones
             ddlSedes.DataBind();
         }
 
@@ -42,5 +44,26 @@ namespace Turnos
         {
             Response.Redirect("Default.aspx");
         }
+
+        protected void btnElminar_Click(object sender, EventArgs e)
+        {
+            ConfirmaEliminacion = true;
+        }
+
+      /*  protected void btnConfirmaEliminar_Click(object sender, EventArgs e)
+        {
+            
+            try
+            {
+                MedicoNegocio negocio = new MedicoNegocio();
+                negocio.bajaFisica(int.Parse(txtLegajo.text))
+
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error",ex)
+            }
+        }*/
     }
 }

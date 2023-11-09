@@ -11,14 +11,17 @@ namespace Negocio
 {
     public class MedicoNegocio
     {
-        public List<Medico> ListarMedicos()
+        public List<Medico> ListarMedicos(string legajo="")
         {
             List<Medico> Lista = new List<Medico>();
             AccesoDatos datos = new AccesoDatos();
+           
             try
             {
 
-                datos.SetearQuery("select p.legajo ,p.apellido, p.nombre, e.nombreEspecialidad , s.nombreSede\r\nfrom Profesionales p\r\ninner join Especialidades e on e.idEspecialidad = p.idEspecialidad\r\ninner join Sede s on s.idSede = p.idSede");
+                datos.SetearQuery("select p.legajo, p.apellido, p.nombre,e.idEspecialidad, e.nombreEspecialidad,s.idSede, s.nombreSede, p.Contraseña,p.estado from Profesionales p inner join Especialidades e on e.idEspecialidad = p.idEspecialidad inner join Sede s on s.idSede = p.idSede ");
+                if (legajo != "")
+                    datos.Comando.CommandText += "and p.legajo=" + legajo;
                 datos.EjecutarLectura();
                 while (datos.lector.Read())
                 {
@@ -29,8 +32,12 @@ namespace Negocio
                     aux.Apellido = (string)datos.lector["apellido"];
                     aux.Sede = new Sede();
                     aux.Sede.NombreSede = (string)datos.lector["nombreSede"];
+                    aux.Sede.IdSede = (long)datos.lector["idSede"];
                     aux.Especialidad = new Especialidad();
                     aux.Especialidad.Nombre = (string)datos.lector["nombreEspecialidad"];
+                    aux.Especialidad.Id = (long)datos.lector["idEspecialidad"];
+                    aux.Estado = (bool)datos.lector["estado"];
+                    aux.Contraseña = (string)datos.lector["Contraseña"];
                     Lista.Add(aux);
                 }
                 return Lista;
@@ -59,7 +66,7 @@ namespace Negocio
                     Datos.setearParametros("@Nombre", nuevo.Nombre);
                     Datos.setearParametros("@Apellido", nuevo.Apellido);
                     Datos.setearParametros("@IdEspecialidad", nuevo.Especialidad.Id);
-                    Datos.setearParametros("@IdSede", nuevo.Sede.ídSede);
+                    Datos.setearParametros("@IdSede", nuevo.Sede.IdSede);
                     Datos.setearParametros("@Contraseña", nuevo.Contraseña);
                     Datos.setearParametros("@Estado", nuevo.Estado);
 
@@ -83,7 +90,7 @@ namespace Negocio
                 Datos.setearParametros("@nombre", nuevo.Nombre);
                 Datos.setearParametros("@apellido", nuevo.Apellido);
                 Datos.setearParametros("@idEspecialidad", nuevo.Especialidad.Id);
-                Datos.setearParametros("@idSede", nuevo.Sede.ídSede);
+                Datos.setearParametros("@idSede", nuevo.Sede.IdSede);
                 Datos.setearParametros("@contraseña", nuevo.Contraseña);
                 Datos.setearParametros("@legajo", nuevo.Legajo);
                 Datos.ejecutarAccion();

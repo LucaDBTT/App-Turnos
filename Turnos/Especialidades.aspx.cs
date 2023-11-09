@@ -39,7 +39,7 @@ namespace Turnos
         {
             GridViewRow selectedRow = dataGridViewMedicos.SelectedRow;
             string Legajo = dataGridViewMedicos.DataKeys[selectedRow.RowIndex].Value.ToString();
-            Response.Redirect("Modificar.aspx?Legajo=" + Legajo);
+            Response.Redirect("AgregarMedico.aspx?Legajo=" + Legajo); ///Para reutilizar el formulario de agregar
         }
 
         }

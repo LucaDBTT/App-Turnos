@@ -23,8 +23,8 @@ namespace Negocio
                 {
                     Sede aux = new Sede();
 
-                    aux.ídSede = (long)datos.lector["IdSede"];
-                    aux.NombreSede = (string)datos.lector["NombreSede"];
+                    aux.IdSede = (long)datos.lector["idSede"];
+                    aux.NombreSede = (string)datos.lector["nombreSede"];
                      Lista.Add(aux);
                 }
 

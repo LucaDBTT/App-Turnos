@@ -14,9 +14,9 @@ namespace Negocio
 
     public class AccesoDatos : IDisposable
     {
-        private SqlConnection Conexion;
-        private SqlCommand Comando;
-        private SqlDataReader Lector;
+        public SqlConnection Conexion;
+        public SqlCommand Comando;
+        public SqlDataReader Lector;
 
         public SqlDataReader lector
         {

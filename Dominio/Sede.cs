@@ -8,7 +8,7 @@ namespace Dominio
 {
    public class Sede
     {
-        public long ídSede { get; set; }
+        public long IdSede { get; set; }
         public string NombreSede { get; set; }
 
     }

@@ -12,15 +12,52 @@ namespace Turnos
 {
     public partial class AgregarMedico : System.Web.UI.Page
     {
-        public bool ConfirmaEliminacion { get; set; }
+       
         protected void Page_Load(object sender, EventArgs e)
         {
-            ConfirmaEliminacion = false;
+            ///configuarion agregar
             if (!IsPostBack)
             {
-                CargarSedes();
-                CargarEspecialidades();
+                SedeNegocio sedeNegocio = new SedeNegocio();
+                ddlSedes.DataSource = sedeNegocio.ListarSedes();
+                ddlSedes.DataTextField = "nombreSede";  // Nombre de la propiedad a mostrar en el DropDownList
+                ddlSedes.DataValueField = "IdSede";      // Nombre de la propiedad para el valor de las opciones
+                ddlSedes.DataBind();
+
+                EspecialidadesNegocio especialidadNegocio = new EspecialidadesNegocio();
+                ddlEspecialidades.DataSource = especialidadNegocio.ListarEspecialidades();
+                ddlEspecialidades.DataTextField = "Nombre";  // Nombre de la propiedad a mostrar en el DropDownList
+                ddlEspecialidades.DataValueField = "Id";      // Nombre de la propiedad para el valor de las opciones
+                ddlEspecialidades.DataBind();
+
+
             }
+
+            ///configuracion Modificar
+            string legajo = Request.QueryString["Legajo"] != null ? Request.QueryString["Legajo"].ToString() : "";
+            if (legajo != null)
+            {
+                MedicoNegocio negocio = new MedicoNegocio();
+               // List<Medico> lista = negocio.ListarMedicos(legajo);
+               // Medico seleccionado = lista[0];
+
+                Medico seleccionado = (negocio.ListarMedicos(legajo))[0];
+
+                ///precargamos
+                txtNombre.Text = seleccionado.Nombre;
+                txtApellido.Text = seleccionado.Apellido;
+                txtContraseña.Text = seleccionado.Contraseña;// no se porque no trae este dato...lo trae null 
+                ddlEspecialidades.SelectedValue = seleccionado.Especialidad.Id.ToString();
+                ddlSedes.SelectedValue = seleccionado.Sede.IdSede.ToString();
+
+
+            }
+
+
+
+
+
+
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
@@ -39,7 +76,7 @@ namespace Turnos
 
                 // Instanciar un objeto Sede y asignar su Id
                 medico.Sede = new Sede();
-                medico.Sede.ídSede = long.Parse(ddlSedes.SelectedValue);
+                medico.Sede.IdSede = long.Parse(ddlSedes.SelectedValue);
 
                 medico.Contraseña = txtContraseña.Text; ;
                 medico.Estado = true;
@@ -56,26 +93,6 @@ namespace Turnos
         }
 
 
-        private void CargarSedes()
-        {
-            SedeNegocio sedeNegocio = new SedeNegocio();
-            ddlSedes.DataSource = sedeNegocio.ListarSedes();
-            ddlSedes.DataTextField = "nombreSede";  // Nombre de la propiedad a mostrar en el DropDownList
-            ddlSedes.DataValueField = "ídSede";      // Nombre de la propiedad para el valor de las opciones
-            ddlSedes.DataBind();
-        }
-        private void CargarEspecialidades()
-        {
-            EspecialidadesNegocio especialidadNegocio = new EspecialidadesNegocio();
-            ddlEspecialidades.DataSource = especialidadNegocio.ListarEspecialidades();
-            ddlEspecialidades.DataTextField = "Nombre";  // Nombre de la propiedad a mostrar en el DropDownList
-            ddlEspecialidades.DataValueField = "Id";      // Nombre de la propiedad para el valor de las opciones
-            ddlEspecialidades.DataBind();
-        }
-
-        protected void btnElminar_Click(object sender, EventArgs e)
-        {
-            ConfirmaEliminacion = true;
-        }
+   
     }
 }
