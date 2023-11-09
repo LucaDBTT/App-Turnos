@@ -39,7 +39,6 @@
     </button>
 </div>
 
-    <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary" OnClientClick="return onClickAceptar();" OnClick="btnAceptar_Click" />
 
 
 </asp:Content>

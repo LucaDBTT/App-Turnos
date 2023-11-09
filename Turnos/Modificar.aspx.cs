@@ -37,5 +37,10 @@ namespace Turnos
             ddlEspecialidades.DataValueField = "Id";      // Nombre de la propiedad para el valor de las opciones
             ddlEspecialidades.DataBind();
         }
+
+        protected void BTN_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx");
+        }
     }
 }

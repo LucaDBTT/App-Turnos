@@ -28,7 +28,7 @@
 }
 
 .login-container button:hover {
-    background-image: linear-gradient(45deg, #14421f, #215b30);
+    background-image: linear-gradient(45deg, #14421f, #215b30) ;
 }
 
 .login-container button {
@@ -151,3 +151,32 @@
 }
 
 
+.login-container a.btn.btn-primary {
+    margin-top:50px;
+    background-image: linear-gradient(45deg, #14421f, #215b30) !important;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .login-container a.btn.btn-primary:hover {
+        background-image: linear-gradient(45deg, #14421f, #215b30);
+        color: white;
+    }
+
+.login-container .btn.btn-primary {
+    margin-top: 50px;
+    background-image: linear-gradient(45deg, #14421f, #215b30) !important;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .login-container .btn.btn-primary:hover {
+        background-image: linear-gradient(45deg, #14421f, #215b30);
+        color: white;
+    }

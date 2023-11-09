@@ -20,5 +20,8 @@
         </Columns>
     </asp:GridView>
 
-    <a href="AgregarMedico.aspx" class="btn btn-primary">Agregar Medico</a>
+    <div class="login-container">
+    <a href="AgregarMedico.aspx" class="btn btn-primary">Agregar Médico</a>
+    </div>
+
 </asp:Content>

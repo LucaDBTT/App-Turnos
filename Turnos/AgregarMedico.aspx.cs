@@ -21,26 +21,30 @@ namespace Turnos
             }
         }
 
-        protected void btnAceptar_Click(object sender, EventArgs e)
+        protected void btnAgregar_Click(object sender, EventArgs e)
         {
             try
             {
                 Medico medico = new Medico();
                 MedicoNegocio nuevo = new MedicoNegocio();
 
-
                 medico.Nombre = txtNombre.Text;
                 medico.Apellido = txtApellido.Text;
 
-                medico.Especialidad.Id = int.Parse(ddlEspecialidades.SelectedValue);
-                medico.Sede.ídSede = int.Parse(ddlSedes.SelectedValue);
-                medico.Contraseña = "nico123";
+                // Instanciar un objeto Especialidad y asignar su Id
+                medico.Especialidad = new Especialidad();
+                medico.Especialidad.Id = long.Parse(ddlEspecialidades.SelectedValue);
+
+                // Instanciar un objeto Sede y asignar su Id
+                medico.Sede = new Sede();
+                medico.Sede.ídSede = long.Parse(ddlSedes.SelectedValue);
+
+                medico.Contraseña = txtContraseña.Text; ;
                 medico.Estado = true;
 
                 nuevo.AgregarMedico(medico);
 
                 Response.Redirect("Especialidades.aspx", false);
-
             }
             catch (Exception ex)
             {
@@ -48,6 +52,7 @@ namespace Turnos
                 throw;
             }
         }
+
 
         private void CargarSedes()
         {
@@ -66,17 +71,6 @@ namespace Turnos
             ddlEspecialidades.DataBind();
         }
 
-
-        /*
-         * 
-         * ESTE ES EL BOTON DE ANTES LO REEMPLACE POR UN <a>
-         * <div class="mb-3">
-
-                   /* <button type="submit" class="btn btn-primary">Aceptar</button>
-                    <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-primary" OnClientClick="return onClickAceptar();" OnClick="btnAceptar_Click" />
-                    <button type="button" class="btn btn-outline-danger">Cancelar</button>
-                </div>
-            */
        
     }
 }
