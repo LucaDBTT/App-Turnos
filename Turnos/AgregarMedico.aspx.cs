@@ -12,8 +12,10 @@ namespace Turnos
 {
     public partial class AgregarMedico : System.Web.UI.Page
     {
+        public bool ConfirmaEliminacion { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            ConfirmaEliminacion = false;
             if (!IsPostBack)
             {
                 CargarSedes();
@@ -71,6 +73,9 @@ namespace Turnos
             ddlEspecialidades.DataBind();
         }
 
-       
+        protected void btnElminar_Click(object sender, EventArgs e)
+        {
+            ConfirmaEliminacion = true;
+        }
     }
 }
