@@ -19,7 +19,7 @@ namespace Negocio
             try
             {
 
-                datos.SetearQuery("select p.legajo, p.apellido, p.nombre,e.idEspecialidad, e.nombreEspecialidad,s.idSede, s.nombreSede, p.Contraseña,p.estado from Profesionales p inner join Especialidades e on e.idEspecialidad = p.idEspecialidad inner join Sede s on s.idSede = p.idSede ");
+                datos.SetearQuery("select p.legajo, p.apellido, p.nombre,e.idEspecialidad, e.nombreEspecialidad,s.idSede, s.nombreSede, p.Contraseña,p.estado from Profesionales p  inner join Especialidades e on e.idEspecialidad = p.idEspecialidad inner join Sede s on s.idSede = p.idSede where p.estado=1 ");
                 if (legajo != "")
                     datos.Comando.CommandText += "and p.legajo=" + legajo;
                 datos.EjecutarLectura();
@@ -115,12 +115,42 @@ namespace Negocio
             {
                 //if (dialogo == DialogResult.Yes)
                 
-                    datos.SetearQuery("delete from PROFECIONALES where legajo = @legajo");
+                    datos.SetearQuery("delete from Profesionales where legajo = @legajo");
                     datos.setearParametros("@legajo", legajo);
                     datos.ejecutarAccion();
                    // MessageBox.Show("Articulo eliminado con exito");
 
                 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+
+
+
+        public void bajaLogica(int legajo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+           
+
+            try
+            {
+                
+
+                datos.SetearQuery("update Profesionales set estado=0 where legajo =@legajo");
+                datos.setearParametros("@legajo", legajo);
+                datos.ejecutarAccion();
+              
+
+
             }
             catch (Exception ex)
             {

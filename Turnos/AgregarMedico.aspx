@@ -50,7 +50,7 @@
                          { %>
                     <div class="mb-3">
                     <asp:CheckBox  runat="server" Text="Confirmar eliminacion"  ID="chkConfirmaEliminacion" />
-                    <asp:Button runat="server" Text="Eliminar" ID="btnConfirmaEliminar" CssClass="btn btn-outline-danger"   />
+                    <asp:Button runat="server" Text="Eliminar" ID="btnConfirmaEliminar" OnClick="btnConfirmaEliminar_Click" CssClass="btn btn-outline-danger"   />
                     </div>
                      <% } %>
 
