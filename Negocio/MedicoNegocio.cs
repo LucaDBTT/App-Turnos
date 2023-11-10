@@ -35,7 +35,7 @@ namespace Negocio
                     aux.Sede.IdSede = (long)datos.lector["idSede"];
                     aux.Especialidad = new Especialidad();
                     aux.Especialidad.Nombre = (string)datos.lector["nombreEspecialidad"];
-                    aux.Especialidad.Id = (long)datos.lector["idEspecialidad"];
+                    aux.Especialidad.id = (long)datos.lector["idEspecialidad"];
                     aux.Estado = (bool)datos.lector["estado"];
                     aux.Contraseña = (string)datos.lector["Contraseña"];
                     Lista.Add(aux);
@@ -65,7 +65,7 @@ namespace Negocio
                    
                     Datos.setearParametros("@Nombre", nuevo.Nombre);
                     Datos.setearParametros("@Apellido", nuevo.Apellido);
-                    Datos.setearParametros("@IdEspecialidad", nuevo.Especialidad.Id);
+                    Datos.setearParametros("@IdEspecialidad", nuevo.Especialidad.id);
                     Datos.setearParametros("@IdSede", nuevo.Sede.IdSede);
                     Datos.setearParametros("@Contraseña", nuevo.Contraseña);
                     Datos.setearParametros("@Estado", nuevo.Estado);
@@ -89,7 +89,7 @@ namespace Negocio
                 
                 Datos.setearParametros("@nombre", nuevo.Nombre);
                 Datos.setearParametros("@apellido", nuevo.Apellido);
-                Datos.setearParametros("@idEspecialidad", nuevo.Especialidad.Id);
+                Datos.setearParametros("@idEspecialidad", nuevo.Especialidad.id);
                 Datos.setearParametros("@idSede", nuevo.Sede.IdSede);
                 Datos.setearParametros("@contraseña", nuevo.Contraseña);
                 Datos.setearParametros("@legajo", nuevo.Legajo);

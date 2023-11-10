@@ -11,7 +11,7 @@ namespace Turnos
 {
 
 
-    public partial class Patologias
+    public partial class Sedes
     {
 
         /// <summary>

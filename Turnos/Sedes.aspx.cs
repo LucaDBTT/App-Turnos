@@ -1,15 +1,15 @@
-﻿using Dominio;
-using Negocio;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
+using Negocio;
 
 namespace Turnos
 {
-    public partial class Patologias : System.Web.UI.Page
+    public partial class Sedes : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,24 +26,24 @@ namespace Turnos
 
         private void BindGridViewData()
         {
-            EspecialidadesNegocio negocio = new EspecialidadesNegocio();
-            List<Especialidad> listaEspecialidad = negocio.ListarEspecialidades();
+            SedeNegocio negocio = new SedeNegocio();
+            List<Sede> listaSede = negocio.ListarSedes();
 
-            dataGridViewMedicos.DataSource = listaEspecialidad;
+            dataGridViewMedicos.DataSource = listaSede;
             dataGridViewMedicos.DataBind();
         }
 
         protected void dataGridViewMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow selectedRow = dataGridViewMedicos.SelectedRow;
-            string Id = dataGridViewMedicos.DataKeys[selectedRow.RowIndex].Value.ToString();
-            Response.Redirect("AgregarEspecialidad.aspx?id=" + Id);
+            string IdSede = dataGridViewMedicos.DataKeys[selectedRow.RowIndex].Value.ToString();
+            Response.Redirect("AgregarSede.aspx?IdSede=" + IdSede);
         }
 
         protected void dataGridViewMedicos_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string legajo = dataGridViewMedicos.DataKeys[e.RowIndex].Value.ToString();
-            EspecialidadesNegocio negocio = new EspecialidadesNegocio();
+            SedeNegocio negocio = new SedeNegocio();
             negocio.bajaFisica(int.Parse(legajo));
             BindGridViewData();
         }

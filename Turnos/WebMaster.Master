@@ -28,14 +28,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/Especialidades.aspx">Especialidades y Profesionales</a>
+                    <a class="nav-link active" aria-current="page" href="/Especialidades.aspx"> Profesionales</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/Patologias.aspx">Patologías y Tratamientos</a>
+                    <a class="nav-link active" aria-current="page" href="/Patologias.aspx"> Especialidades</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/Turnos.aspx">Turnos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/Sedes.aspx">Sedes</a>
+                </li>
+
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
