@@ -37,7 +37,7 @@ namespace Turnos
 
             ///configuracion Modificar
             string legajo = Request.QueryString["Legajo"] != null ? Request.QueryString["Legajo"].ToString() : "";
-            if (legajo != null)
+            if (legajo != "" && !IsPostBack)
             {
                 MedicoNegocio negocio = new MedicoNegocio();
                // List<Medico> lista = negocio.ListarMedicos(legajo);
@@ -80,10 +80,18 @@ namespace Turnos
                 medico.Sede = new Sede();
                 medico.Sede.IdSede = long.Parse(ddlSedes.SelectedValue);
 
-                medico.Contraseña = txtContraseña.Text; ;
+                medico.Contraseña = txtContraseña.Text;
                 medico.Estado = true;
 
-                nuevo.AgregarMedico(medico);
+                    if (Request.QueryString["Legajo"] != null)
+                {
+                   // string legajo = Request.QueryString["Legajo"];
+                    nuevo.Modificar(medico);
+                }
+
+                else
+
+                { nuevo.AgregarMedico(medico); }
 
                 Response.Redirect("Especialidades.aspx", false);
             }
@@ -119,7 +127,9 @@ namespace Turnos
             }
         }
 
-
-
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Especialidades.aspx");
+        }
     }
 }

@@ -85,7 +85,7 @@ namespace Negocio
             
             try
             {
-                Datos.SetearQuery("UPDATE PROFESIONALES SET nombre = @Nombre, apellido = @apellido, idEspecialidad = @idEspecialidad,idSede = @idSede,contraseña = @contraseña, estado = @estado WHERE legajo = @legajo");
+                Datos.SetearQuery("UPDATE PROFESIONALES SET nombre = @nombre, apellido = @apellido, idEspecialidad = @idEspecialidad,idSede = @idSede,contraseña = @contraseña, estado = @estado WHERE legajo = @legajo");
                 
                 Datos.setearParametros("@nombre", nuevo.Nombre);
                 Datos.setearParametros("@apellido", nuevo.Apellido);
@@ -93,6 +93,7 @@ namespace Negocio
                 Datos.setearParametros("@idSede", nuevo.Sede.IdSede);
                 Datos.setearParametros("@contraseña", nuevo.Contraseña);
                 Datos.setearParametros("@legajo", nuevo.Legajo);
+                Datos.setearParametros("estado", nuevo.Estado);
                 Datos.ejecutarAccion();
 
             }

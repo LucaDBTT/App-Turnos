@@ -17,6 +17,9 @@
             <asp:BoundField DataField="Especialidad.Nombre" HeaderText="Especialidad" />
             <asp:BoundField DataField="Sede.NombreSede" HeaderText="Sede" />
             <asp:CommandField HeaderText="Modificar" ShowSelectButton="true" SelectText="Modificar" />
+            <asp:CommandField HeaderText="Eliminar" ShowSelectButton="true" SelectText="Eliminar" />
+           
+            
         </Columns>
     </asp:GridView>
 
