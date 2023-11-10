@@ -18,7 +18,7 @@
                     <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
                     <asp:BoundField DataField="Especialidad.Nombre" HeaderText="Especialidad" />
                     <asp:BoundField DataField="Sede.NombreSede" HeaderText="Sede" />
-                    <asp:TemplateField HeaderText="Acciones">
+                    <asp:TemplateField HeaderText="Eliminar">
                         <ItemTemplate>
                             <asp:LinkButton ID="lnkDelete" runat="server" Text="Eliminar" CommandName="Delete" CommandArgument='<%# Eval("Legajo") %>' OnClientClick="return confirm('¿Seguro que desea eliminar este registro?');" CssClass="eliminar-button" />
                         </ItemTemplate>
