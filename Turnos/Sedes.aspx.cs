@@ -42,9 +42,9 @@ namespace Turnos
 
         protected void dataGridViewMedicos_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            string legajo = dataGridViewMedicos.DataKeys[e.RowIndex].Value.ToString();
+            string sede = dataGridViewMedicos.DataKeys[e.RowIndex].Value.ToString();
             SedeNegocio negocio = new SedeNegocio();
-            negocio.bajaFisica(int.Parse(legajo));
+            negocio.bajaLogica(int.Parse(sede));
             BindGridViewData();
         }
     }

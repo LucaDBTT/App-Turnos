@@ -12,8 +12,8 @@
             <RowStyle CssClass="gridview-row" />
             <HeaderStyle CssClass="gridview-header" />
             <Columns>
-                <asp:BoundField DataField="id" HeaderText="Especialidad" />
-                <asp:BoundField DataField="Nombre" HeaderText="Sede" />
+                <asp:BoundField DataField="id" HeaderText="ID" />
+                <asp:BoundField DataField="Nombre" HeaderText="Especialidad" />
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkDelete" runat="server" Text="Eliminar" CommandName="Delete" CommandArgument='<%# Eval("id") %>' OnClientClick="return confirm('¿Seguro que desea eliminar este registro?');" CssClass="eliminar-button" />

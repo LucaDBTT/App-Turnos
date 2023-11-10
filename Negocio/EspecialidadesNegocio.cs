@@ -10,38 +10,43 @@ namespace Negocio
     public class EspecialidadesNegocio
     {
 
-            public List<Especialidad> ListarEspecialidades(string id = "")
-            {
-                List<Especialidad> Lista = new List<Especialidad>();
-                AccesoDatos datos = new AccesoDatos();
+        public List<Especialidad> ListarEspecialidades(string id = "")
+        {
+            List<Especialidad> Lista = new List<Especialidad>();
+            AccesoDatos datos = new AccesoDatos();
 
-                try
+            try
+            {
+                datos.SetearQuery("SELECT e.idEspecialidad, e.nombreEspecialidad FROM Especialidades e WHERE e.estado = 1");
+
+                if (!string.IsNullOrEmpty(id))
                 {
-                datos.SetearQuery("select e.idEspecialidad , e.nombreEspecialidad   from Especialidades e ");
-                if (id != "")
-                    datos.Comando.CommandText += "where e.idEspecialidad =" + id;
+                    datos.Comando.CommandText += " AND e.idEspecialidad = @Id";
+                    datos.setearParametros("@Id", Convert.ToInt32(id));
+                }
+
                 datos.EjecutarLectura();
 
                 while (datos.lector.Read())
-                    {
-                        Especialidad aux = new Especialidad();
-
-                        aux.id = (long)datos.lector["idEspecialidad"];
-                        aux.Nombre = (string)datos.lector["nombreEspecialidad"];
-                        Lista.Add(aux);
-                    }
-
-                    return Lista;
-                }
-                catch (Exception ex)
                 {
-                    throw ex;
+                    Especialidad aux = new Especialidad();
+
+                    aux.id = (long)datos.lector["idEspecialidad"];
+                    aux.Nombre = (string)datos.lector["nombreEspecialidad"];
+                    Lista.Add(aux);
                 }
-                finally
-                {
-                    datos.CerrarConexion();
-                }
+
+                return Lista;
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
 
         public void AgregarEspecialidad(Especialidad nuevo)
         {
@@ -101,6 +106,33 @@ namespace Negocio
                 datos.SetearQuery("delete from Especialidades where idEspecialidad = @id");
                 datos.setearParametros("@id", id);
                 datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public void bajaLogica(int especialidad)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+
+            try
+            {
+
+
+                datos.SetearQuery("update Especialidades set estado=0 where idEspecialidad = @id");
+                datos.setearParametros("@id", especialidad);
+                datos.ejecutarAccion();
+
+
 
             }
             catch (Exception ex)

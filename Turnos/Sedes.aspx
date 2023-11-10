@@ -12,7 +12,7 @@
             <RowStyle CssClass="gridview-row" />
             <HeaderStyle CssClass="gridview-header" />
             <Columns>
-                <asp:BoundField DataField="IdSede" HeaderText="Especialidad" />
+                <asp:BoundField DataField="IdSede" HeaderText="ID" />
                 <asp:BoundField DataField="NombreSede" HeaderText="Sede" />
                 <asp:TemplateField HeaderText="Eliminar">
                     <ItemTemplate>

@@ -1,21 +1,20 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/WebMaster.Master" AutoEventWireup="true" CodeBehind="AgregarSede.aspx.cs" Inherits="Turnos.AgregarSede" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-       <script type="text/javascript">
-        function validarFormulario() {
-            var nombreSede = document.getElementById('<%=txtNombre.ClientID %>').value;
+       
+    <script type="text/javascript">
+           function validarFormulario() {
+               var nombreSede = document.getElementById('<%=txtNombre.ClientID %>').value;
 
-            if (nombreSede.trim() === "") {
-                alert("Por favor, ingrese el nombre de la sede.");
-                return false;
-            }
-            if (!/^[a-zA-Z]+$/.test(nombreSede)) {
-                alert("El nombre de la sede no debe contener números.");
-                return false;
-            }
+               if (nombreSede.trim() === "") {
+                   alert("Por favor, ingrese el nombre de la sede.");
+                   return false;
+               }
 
-            return true;
-        }
-       </script>
+               return true;
+           }
+       </script>t>
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -31,7 +30,8 @@
         </div>         
         <div class="mb-3">
             <asp:Button runat="server" ID="btnAgregar" Text="Aceptar"  CssClass="btn btn-primary" OnClientClick="return validarFormulario();" OnClick="btnAgregar_Click" />
-            <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" CssClass="btn btn-primary" Onclick="btnCancelar_Click" />
+           <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" CssClass="btn btn-primary" OnClick="btnCancelar_Click" />
+
         </div>
 
          <div class="row">

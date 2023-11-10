@@ -44,7 +44,7 @@ namespace Turnos
         {
             string legajo = dataGridViewMedicos.DataKeys[e.RowIndex].Value.ToString();
             EspecialidadesNegocio negocio = new EspecialidadesNegocio();
-            negocio.bajaFisica(int.Parse(legajo));
+            negocio.bajaLogica(int.Parse(legajo));
             BindGridViewData();
         }
     }

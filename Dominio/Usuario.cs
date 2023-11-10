@@ -9,10 +9,12 @@ namespace Dominio
 {
     public class Usuario : Persona
     {
+        public long IdUsuario { get; set; }
         public Coberturas Cobertura { get; set; }
-        public int NroAfiliado { get; set; }
+        public long NroAfiliado { get; set; }
         public string Contrasena { get; set; }
         public bool Estado { get; set; }
+
 
     }
 }
