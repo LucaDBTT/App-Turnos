@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -36,7 +37,7 @@ namespace Turnos
                 EspecialidadesNegocio nuevo = new EspecialidadesNegocio();
 
                 especialidad.Nombre = txtNombre.Text;
-
+                string nombre = especialidad.Nombre;
 
                 if (Request.QueryString["id"] != null)
                 {
@@ -44,7 +45,7 @@ namespace Turnos
                     especialidad.id= long.TryParse(legajo, out long legajoComoLong) ? legajoComoLong : 0;
                     nuevo.Modificar(especialidad);
                 }
-
+             
                 else
 
                 { nuevo.AgregarEspecialidad(especialidad); }

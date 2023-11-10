@@ -1,5 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/WebMaster.Master" AutoEventWireup="true" CodeBehind="AgregarSede.aspx.cs" Inherits="Turnos.AgregarSede" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+       <script type="text/javascript">
+        function validarFormulario() {
+            var nombreSede = document.getElementById('<%=txtNombre.ClientID %>').value;
+
+            if (nombreSede.trim() === "") {
+                alert("Por favor, ingrese el nombre de la sede.");
+                return false;
+            }
+
+            return true;
+        }
+       </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -14,7 +26,7 @@
             <div id="NombreHelp" class="form-text">Ingrese el nombre de la sede.</div>
         </div>         
         <div class="mb-3">
-            <asp:Button runat="server" ID="btnAgregar" Text="Aceptar"  CssClass="btn btn-primary" OnClick="btnAgregar_Click" />
+            <asp:Button runat="server" ID="btnAgregar" Text="Aceptar"  CssClass="btn btn-primary" OnClientClick="return validarFormulario();" OnClick="btnAgregar_Click" />
             <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" CssClass="btn btn-primary" Onclick="btnCancelar_Click" />
         </div>
 
