@@ -8,7 +8,10 @@
                 alert("Por favor, ingrese el nombre de la especialidad.");
                 return false;
             }
-
+            if (!/^[a-zA-Z]+$/.test(nombreEspecialidad)) {
+                alert("El nombre de la especialidad no debe contener números.");
+                return false;
+            }
             return true;
         }
      </script>

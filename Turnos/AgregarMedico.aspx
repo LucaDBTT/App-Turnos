@@ -1,6 +1,52 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/WebMaster.Master" AutoEventWireup="true" CodeBehind="AgregarMedico.aspx.cs" Inherits="Turnos.AgregarMedico" EnableViewState="true" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <script type="text/javascript">
+        function validarFormulario() {
+            var nombreMedico = document.getElementById('<%=txtNombre.ClientID %>').value;
+            var apellidoMedico = document.getElementById('<%=txtApellido.ClientID %>').value;
+            var contraseñaMedico = document.getElementById('<%=txtContraseña.ClientID %>').value;
+
+            // Función para verificar si el valor contiene solo letras y no números
+            function contieneSoloLetras(valor) {
+                return /^[a-zA-Z]+$/.test(valor);
+            }
+
+            // Verificar si el campo de nombre está vacío
+            if (nombreMedico.trim() === "") {
+                alert("Por favor, ingrese el nombre del médico.");
+                return false;
+            }
+
+            // Verificar si el campo de apellido está vacío
+            if (apellidoMedico.trim() === "") {
+                alert("Por favor, ingrese el apellido del médico.");
+                return false;
+            }
+
+            // Verificar si el campo de contraseña está vacío
+            if (contraseñaMedico.trim() === "") {
+                alert("Por favor, ingrese la contraseña del médico.");
+                return false;
+            }
+
+            // Verificar si el campo de nombre contiene solo letras
+            if (!contieneSoloLetras(nombreMedico)) {
+                alert("El nombre no debe contener números.");
+                return false;
+            }
+
+            // Verificar si el campo de apellido contiene solo letras
+            if (!contieneSoloLetras(apellidoMedico)) {
+                alert("El apellido no debe contener números.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
@@ -33,7 +79,7 @@
             </div>
 
             <div class="mb-3">
-                <asp:Button runat="server" ID="btnAgregar" Text="Aceptar"  CssClass="btn btn-primary" OnClick="btnAgregar_Click" />
+                <asp:Button runat="server" ID="btnAgregar" Text="Aceptar"  CssClass="btn btn-primary" OnClientClick="return validarFormulario();"  OnClick="btnAgregar_Click" />
                 <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" CssClass="btn btn-primary" OnClick="btnCancelar_Click" />
             </div>
 

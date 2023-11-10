@@ -8,6 +8,10 @@
                 alert("Por favor, ingrese el nombre de la sede.");
                 return false;
             }
+            if (!/^[a-zA-Z]+$/.test(nombreSede)) {
+                alert("El nombre de la sede no debe contener números.");
+                return false;
+            }
 
             return true;
         }

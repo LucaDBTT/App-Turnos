@@ -49,7 +49,6 @@ namespace Turnos
                 ddlEspecialidades.SelectedValue = seleccionado.Especialidad.id.ToString();
                 ddlSedes.SelectedValue = seleccionado.Sede.IdSede.ToString();
 
-
             }
 
         }
