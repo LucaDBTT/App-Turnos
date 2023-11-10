@@ -180,3 +180,42 @@
         background-image: linear-gradient(45deg, #14421f, #215b30);
         color: white;
     }
+
+
+.modificar-button {
+    background-color: firebrick; /* Fondo transparente */
+    color: white; /* Color del texto azul */
+    border: 1px solid firebrick; /* Borde azul */
+    padding: 2px 4px; /* Espaciado dentro del botón */
+    font-size: 14px;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor al pasar el ratón */
+    text-decoration: none; /* Quitar subrayado en el enlace */
+    display: inline-block;
+    transition: background-color 0.3s; /* Efecto de transición al pasar el ratón */
+}
+
+.modificar-button:hover {
+ background-color: black; /* Fondo azul al pasar el ratón */
+ color: #fff; /* Color del texto blanco */
+    }
+
+
+.eliminar-button {
+    background-color: firebrick; /* Fondo transparente */
+    color: white; /* Color del texto azul */
+    border: 1px solid firebrick; /* Borde azul */
+    padding: 2px 4px; /* Espaciado dentro del botón */
+    font-size: 14px;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor al pasar el ratón */
+    text-decoration: none; /* Quitar subrayado en el enlace */
+    display: inline-block;
+    transition: background-color 0.3s; /* Efecto de transición al pasar el ratón */
+}
+
+.eliminar-button:hover {
+  background-color: black; /* Fondo azul al pasar el ratón */
+  color: #fff; /* Color del texto blanco */
+
+}

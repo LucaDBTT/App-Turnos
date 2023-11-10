@@ -12,11 +12,8 @@ namespace Turnos
 {
     public partial class AgregarMedico : System.Web.UI.Page
     {
-        public bool ConfirmaEliminacion { get; set; }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            ConfirmaEliminacion = false;
             ///configuarion agregar
             if (!IsPostBack)
             {
@@ -48,17 +45,12 @@ namespace Turnos
                 ///precargamos
                 txtNombre.Text = seleccionado.Nombre;
                 txtApellido.Text = seleccionado.Apellido;
-                txtContraseña.Text = seleccionado.Contraseña;        
+                txtContraseña.Attributes["value"] = seleccionado.Contraseña;
                 ddlEspecialidades.SelectedValue = seleccionado.Especialidad.Id.ToString();
                 ddlSedes.SelectedValue = seleccionado.Sede.IdSede.ToString();
 
 
             }
-
-
-
-
-
 
         }
 
@@ -85,7 +77,8 @@ namespace Turnos
 
                     if (Request.QueryString["Legajo"] != null)
                 {
-                   // string legajo = Request.QueryString["Legajo"];
+                    string legajo = Request.QueryString["Legajo"];
+                    medico.Legajo = long.TryParse(legajo, out long legajoComoLong) ? legajoComoLong : 0; 
                     nuevo.Modificar(medico);
                 }
 
@@ -99,31 +92,6 @@ namespace Turnos
             {
                 Session.Add("error", ex);
                 throw;
-            }
-        }
-
-        protected void btnElminar_Click(object sender, EventArgs e)
-        {
-            ConfirmaEliminacion = true;
-        }
-        protected void btnConfirmaEliminar_Click(object sender, EventArgs e)
-        {
-            string legajo = Request.QueryString["Legajo"];
-
-            try
-            {
-                if (chkConfirmaEliminacion.Checked) { 
-                MedicoNegocio negocio = new MedicoNegocio();
-                negocio.bajaLogica(int.Parse(legajo));
-                Response.Redirect("Especialidades.aspx",false);
-                
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                Session.Add("error", ex);
             }
         }
 

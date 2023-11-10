@@ -7,7 +7,6 @@ using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
 
-
 namespace Turnos
 {
     public partial class Especialidades : System.Web.UI.Page
@@ -39,8 +38,15 @@ namespace Turnos
         {
             GridViewRow selectedRow = dataGridViewMedicos.SelectedRow;
             string Legajo = dataGridViewMedicos.DataKeys[selectedRow.RowIndex].Value.ToString();
-            Response.Redirect("AgregarMedico.aspx?Legajo=" + Legajo); ///Para reutilizar el formulario de agregar
+            Response.Redirect("AgregarMedico.aspx?Legajo=" + Legajo);
         }
 
+        protected void dataGridViewMedicos_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string legajo = dataGridViewMedicos.DataKeys[e.RowIndex].Value.ToString();
+            MedicoNegocio negocio = new MedicoNegocio();
+            negocio.bajaLogica(int.Parse(legajo));
+            BindGridViewData();
         }
+    }
 }
