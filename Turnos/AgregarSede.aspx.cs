@@ -47,7 +47,7 @@ namespace Turnos
 
                 else
 
-                { nuevo.AgregarMedico(sede); }
+                { nuevo.AgregarSede(sede); }
 
                 Response.Redirect("Sedes.aspx", false);
             }
@@ -63,5 +63,6 @@ namespace Turnos
         {
             Response.Redirect("Sedes.aspx", false);
         }
+
     }
 }

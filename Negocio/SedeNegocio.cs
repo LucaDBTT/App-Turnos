@@ -9,16 +9,21 @@ namespace Negocio
 {
     public class SedeNegocio
     {
-        public List<Sede> ListarSedes( string id = "")
+        public List<Sede> ListarSedes(string id = "")
         {
             List<Sede> Lista = new List<Sede>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.SetearQuery("select s.idSede, s.nombreSede from Sede s ");
-                if (id != "")
-                    datos.Comando.CommandText += "where s.idSede =" + id;
+                datos.SetearQuery("SELECT s.idSede, s.nombreSede FROM Sede s WHERE s.estado = 1");
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    datos.Comando.CommandText += " AND s.idSede = @Id";
+                    datos.setearParametros("@Id", Convert.ToInt32(id));
+                }
+
                 datos.EjecutarLectura();
 
                 while (datos.lector.Read())
@@ -27,7 +32,7 @@ namespace Negocio
 
                     aux.IdSede = (long)datos.lector["idSede"];
                     aux.NombreSede = (string)datos.lector["nombreSede"];
-                     Lista.Add(aux);
+                    Lista.Add(aux);
                 }
 
                 return Lista;
@@ -42,18 +47,16 @@ namespace Negocio
             }
         }
 
-        public void AgregarMedico(Sede nuevo)
+
+        public void AgregarSede(Sede nuevo)
         {
             try
             {
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
-
-                    Datos.SetearQuery("INSERT INTO Sede ( nombreSede ) VALUES ( @Nombre )");
-
+                    Datos.SetearQuery("INSERT INTO Sede (nombreSede, estado) VALUES (@Nombre, 1)");
 
                     Datos.setearParametros("@Nombre", nuevo.NombreSede);
-
 
                     Datos.ejecutarAccion();
                 }
@@ -101,6 +104,33 @@ namespace Negocio
                 datos.setearParametros("@legajo", idSede);
                 datos.ejecutarAccion();
                 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        public void bajaLogica(int sede)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+
+            try
+            {
+
+
+                datos.SetearQuery("update Sede set estado=0 where idSede = @idSede");
+                datos.setearParametros("@idSede", sede);
+                datos.ejecutarAccion();
+
+
+
             }
             catch (Exception ex)
             {

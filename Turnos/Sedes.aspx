@@ -12,9 +12,9 @@
             <RowStyle CssClass="gridview-row" />
             <HeaderStyle CssClass="gridview-header" />
             <Columns>
-                <asp:BoundField DataField="IdSede" HeaderText="Especialidad" />
+                <asp:BoundField DataField="IdSede" HeaderText="ID" />
                 <asp:BoundField DataField="NombreSede" HeaderText="Sede" />
-                <asp:TemplateField HeaderText="Acciones">
+                <asp:TemplateField HeaderText="Eliminar">
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkDelete" runat="server" Text="Eliminar" CommandName="Delete" CommandArgument='<%# Eval("IdSede") %>' OnClientClick="return confirm('¿Seguro que desea eliminar este registro?');" CssClass="eliminar-button" />
                     </ItemTemplate>
