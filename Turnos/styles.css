@@ -73,7 +73,11 @@
     margin-right: 15px; 
 }
 
-
+/* Estilo del filtro */
+.filter-container {
+    margin-bottom: 20px; /* Ajusta el margen inferior según sea necesario */
+    width: 100px;
+}
 
 .gridview-style {
     width: 80%;
@@ -219,3 +223,4 @@
   color: #fff; /* Color del texto blanco */
 
 }
+

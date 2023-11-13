@@ -163,6 +163,84 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public List<Medico> filtrar(string campo, string criterio, string filtroAvanzado, string estado)
+        {
+            List<Medico> Medicos = new List<Medico>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "SELECT p.legajo, p.apellido, p.nombre, e.idEspecialidad, e.nombreEspecialidad, s.idSede, s.nombreSede, p.Contraseña, p.estado FROM Profesionales p INNER JOIN Especialidades e ON e.idEspecialidad = p.idEspecialidad INNER JOIN Sede s ON s.idSede = p.idSede ";
+
+                if (campo == "Especialidad")
+                {
+                    switch (criterio)
+                    {
+                        case "Comienza con":
+                            consulta += "WHERE e.nombreEspecialidad LIKE '" + filtroAvanzado + "%'";
+                            break;
+
+                        case "Termina con":
+                            consulta += "WHERE e.nombreEspecialidad LIKE '%" + filtroAvanzado + "'";
+                            break;
+
+                        case "Contiene":
+                            consulta += "WHERE e.nombreEspecialidad LIKE '%" + filtroAvanzado + "%'";
+                            break;
+                    }
+                }
+                else if (campo == "Sede")
+                {
+                    switch (criterio)
+                    {
+                        case "Comienza con":
+                            consulta += "WHERE s.nombreSede LIKE '" + filtroAvanzado + "%'";
+                            break;
+
+                        case "Termina con":
+                            consulta += "WHERE s.nombreSede LIKE '%" + filtroAvanzado + "'";
+                            break;
+
+                        case "Contiene":
+                            consulta += "WHERE s.nombreSede LIKE '%" + filtroAvanzado + "%'";
+                            break;
+                    }
+                }
+
+                if (estado == "Activo")
+                    consulta += " AND p.estado = 1";
+                else if (estado == "Inactivo")
+                    consulta += " AND p.estado = 0";
+
+                datos.SetearQuery(consulta);
+                datos.EjecutarLectura();
+
+                while (datos.lector.Read())
+                {
+                    Medico aux = new Medico();
+
+                    aux.Nombre = (string)datos.lector["nombre"];
+                    aux.Apellido = (string)datos.lector["apellido"];
+                    aux.Sede = new Sede();
+                    aux.Sede.NombreSede = (string)datos.lector["nombreSede"];
+                    aux.Especialidad = new Especialidad();
+                    aux.Especialidad.Nombre = (string)datos.lector["nombreEspecialidad"];
+
+                    Medicos.Add(aux); // Agregar el medico a la lista
+                }
+            return Medicos; // Devolver la lista fuera del bucle
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+        }
+
     }
 }
 
