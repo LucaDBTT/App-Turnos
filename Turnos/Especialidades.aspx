@@ -4,20 +4,17 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <h1 class="Profesionales">Nuestros Profesionales y sus especialidades</h1>
-    
-       <div class="filter-container" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-    <label for="Filtro" class="control-label" style="margin-bottom: 10px;">Filtrar</label>
-    
-    <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" CssClass="form-control" style="width: 450px; margin-bottom: 10px;" />
-
-    <asp:CheckBox Text="Filtro Avanzado" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
-</div>
+    <h1 class="Profesionales">Nuestros Profesionales y sus especialidades</h1>    
+        <div class="filter-container" style="display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; margin: 0 auto; max-width: 600px; margin-top: 20px;" >
+            <label for="Filtro" class="control-label">Filtrar</label>
+            <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" CssClass="form-control" style="width: 500%;"/>
+            <asp:CheckBox Text="Filtro Avanzado" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" style="margin-top: 10px;"/>
+        </div>
     
     <% if (filtroAvanzado)
         { %>
     <div class="row justify-content-center">
-        <div class ="col-3">
+        <div class ="col-3 mx-2">
     <div class="mb-3"> 
         <asp:Label Text="campo" runat="server" />
         <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCampo" OnSelectedIndexChanged="ddlCampo_SelectedIndexChanged" AutoPostBack="true">

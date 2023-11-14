@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("SELECT u.idUsuario, u.dni, u.apellido, u.nombre, u.fechaNac, u.idCobertura, u.nroAfiliado, u.telefono, u.mail, u.contraseña, u.estado, c.nombreCobertura FROM Usuarios u INNER JOIN Coberturas c ON u.idCobertura = c.idCoberturas WHERE u.estado = 1");
+                datos.SetearQuery("SELECT u.idUsuario, u.dni, u.apellido, u.nombre, u.fechaNac, u.idCobertura, u.nroAfiliado, u.telefono, u.mail, u.contraseña, u.estado, c.nombreCobertura FROM Usuarios u INNER JOIN Coberturas c ON u.idCobertura = c.idCobertura WHERE u.estado = 1");
 
                 if (!string.IsNullOrEmpty(dni))
                     datos.Comando.CommandText += " AND u.dni = " + dni;

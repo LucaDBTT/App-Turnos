@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("SELECT c.idCoberturas, c.nombreCobertura FROM Coberturas c");
+                datos.SetearQuery("SELECT c.idCobertura, c.nombreCobertura FROM Coberturas c");
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -31,7 +31,7 @@ namespace Negocio
                 {
                     Coberturas aux = new Coberturas();
 
-                    aux.idCobertura = (long)datos.lector["idCoberturas"];
+                    aux.idCobertura = (long)datos.lector["idCobertura"];
                     aux.Nombre = (string)datos.lector["nombreCobertura"];
                     Lista.Add(aux);
                 }
