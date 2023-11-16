@@ -45,7 +45,9 @@
     <Compile Include="Coberturas.cs" />
     <Compile Include="Consultas.cs" />
     <Compile Include="Especialidad.cs" />
+    <Compile Include="HorarioLaboral.cs" />
     <Compile Include="Medico.cs" />
+    <Compile Include="MedicoPorEspecialidad.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Sede.cs" />
     <Compile Include="Turnos.cs" />

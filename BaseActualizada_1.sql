@@ -1,14 +1,14 @@
-drop database DB_ProyectoFinal
-Create Database DB_ProyectoFinal
-Go
-Use DB_ProyectoFinal
-go
+CREATE DATABASE DB_ProyectoFinal;
+GO
+
+USE DB_ProyectoFinal;
+GO
+
 CREATE TABLE Coberturas (
     idCobertura bigint not null identity(1,1) primary key,
     nombreCobertura varchar(50) not null
 );
 
--- Cambia la tabla Usuarios a:
 CREATE TABLE Usuarios (
     idUsuario bigint not null identity(1,1) primary key, 
     dni bigint not null unique,
@@ -21,47 +21,34 @@ CREATE TABLE Usuarios (
     mail varchar(50) not null unique,
     contraseña varchar(50) not null,
     estado bit not null,
-    foreign key (idCobertura) references Coberturas(idCobertura)  -- Corregido el nombre de la columna
+    foreign key (idCobertura) references Coberturas(idCobertura)
 );
 
-GO
-
 CREATE TABLE Sede ( 
-idSede bigint not null  identity(1,1) primary key,
-nombreSede varchar(50) not null,
-estado bit not null,
-)
-
-GO
+    idSede bigint not null  identity(1,1) primary key,
+    nombreSede varchar(50) not null,
+    estado bit not null
+);
 
 CREATE TABLE Especialidades(
-idEspecialidad bigint not null   identity(1,1) primary key,
-nombreEspecialidad varchar(50) not null,
-estado bit not null,
-)
+    idEspecialidad bigint not null identity(1,1) primary key,
+    nombreEspecialidad varchar(50) not null,
+    estado bit not null,
+);
 
-GO
+CREATE TABLE Profesionales ( 
+    legajo bigint not null primary key identity(1,1),
+    nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    Contraseña varchar(30) not null,
+    estado bit not null,
+);
 
-CREATE TABLE  Profesionales ( 
-legajo bigint not null primary key identity(1,1),
-nombre varchar(50) not null ,
-apellido varchar(50) not null,
-idEspecialidad bigint not null,
-idSede bigint not null, 
-Contraseña varchar(30) not null,
-estado bit not null,
-foreign key (idSede) references Sede(idSede),
-foreign key (idEspecialidad) references especialidades(idEspecialidad)
-)
-
-GO
 CREATE TABLE Consultas(
-idConsultas  bigint not null  identity(1,1) primary key,
-nombreConsultas varchar(50) not null
-)
-GO
+    idConsultas  bigint not null identity(1,1) primary key,
+    nombreConsultas varchar(50) not null
+);
 
--- Cambia la tabla Turnos a:
 CREATE TABLE Turnos (
     idTurno bigint not null identity(1,1) primary key,
     idUsuario bigint not null, 
@@ -70,7 +57,7 @@ CREATE TABLE Turnos (
     idSede bigint not null,
     idConsulta bigint not null,
     Estado bit not null,
-    foreign key (idUsuario) references Usuarios(idUsuario),  -- Corregido el nombre de la tabla
+    foreign key (idUsuario) references Usuarios(idUsuario),
     foreign key (idProfesional) references Profesionales(legajo),
     foreign key (idSede) references Sede(idSede),
     foreign key (idConsulta) references Consultas(idConsultas)
@@ -78,9 +65,36 @@ CREATE TABLE Turnos (
 
 CREATE TABLE HorarioLaboral (
     idHorario bigint not null identity(1,1) primary key,
-    idProfesional bigint not null,
-    diaSemana varchar(15) not null, -- Puedes usar valores como 'Lunes', 'Martes', etc.
+    diaSemana varchar(15) not null,
     horaInicio time not null,
     horaFin time not null,
-    foreign key(idProfesional) references Profesionales(legajo)
+    CONSTRAINT UQ_HorarioLaboral UNIQUE (diaSemana, horaInicio, horaFin)
 );
+
+CREATE TABLE MedicoPorEspecialidad(
+legajo bigint not null,
+idEspecialidad bigint not null,
+idSede bigint not null,
+idHorario bigint not null,
+foreign key (idSede) references Sede(idSede),
+foreign key (legajo) references Profesionales(legajo),
+foreign key (idEspecialidad) references Especialidades(idEspecialidad),
+foreign key (idHorario) references HorarioLaboral (idHorario),
+primary key (legajo, idEspecialidad)
+);
+
+
+select p.legajo, p.apellido, p.nombre, e.idEspecialidad, e.nombreEspecialidad, s.idSede, s.nombreSede, H.idHorario ,H.diaSemana, H.horaInicio, H.horaFin, p.Contraseña, p.estado 
+from Profesionales p  
+inner join Especialidades e on e.idEspecialidad = p.idEspecialidad 
+inner join Sede s on s.idSede = p.idSede 
+inner join HorarioLaboral H on p.idHorario = H.idHorario
+where p.estado=1 
+
+select M.legajo, p.apellido, p.nombre, p.Contraseña, M.idEspecialidad, E.nombreEspecialidad, M.idSede, S.nombreSede, M.idHorario, H.diaSemana, H.horaInicio, H.horaFin, P.estado
+from MedicoPorEspecialidad AS M
+inner join Profesionales AS P ON M.legajo = P.legajo
+inner join Especialidades as E ON M.idEspecialidad = E.idEspecialidad
+inner join Sede as S ON S.idSede = M.idSede
+inner join HorarioLaboral as H ON M.idHorario = H.idHorario
+WHERE P.estado = 1

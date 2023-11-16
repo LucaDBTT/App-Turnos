@@ -11,15 +11,15 @@ namespace Negocio
 {
     public class MedicoNegocio
     {
-        public List<Medico> ListarMedicos(string legajo="")
+        public List<Medico> ListarMedicos(string legajo = "")
         {
             List<Medico> Lista = new List<Medico>();
             AccesoDatos datos = new AccesoDatos();
-           
+
             try
             {
 
-                datos.SetearQuery("select p.legajo, p.apellido, p.nombre,e.idEspecialidad, e.nombreEspecialidad,s.idSede, s.nombreSede, p.Contraseña,p.estado from Profesionales p  inner join Especialidades e on e.idEspecialidad = p.idEspecialidad inner join Sede s on s.idSede = p.idSede where p.estado=1 ");
+                datos.SetearQuery("select p.legajo, p.apellido, p.nombre, e.idEspecialidad, e.nombreEspecialidad, s.idSede, s.nombreSede, H.idHorario ,H.diaSemana, H.horaInicio, H.horaFin, p.Contraseña, p.estado \r\nfrom Profesionales p  \r\ninner join Especialidades e on e.idEspecialidad = p.idEspecialidad \r\ninner join Sede s on s.idSede = p.idSede \r\ninner join HorarioLaboral H on p.idHorario = H.idHorario\r\nwhere p.estado=1 ");
                 if (legajo != "")
                     datos.Comando.CommandText += "and p.legajo=" + legajo;
                 datos.EjecutarLectura();
@@ -30,14 +30,10 @@ namespace Negocio
                     aux.Legajo = (long)datos.lector["legajo"];
                     aux.Nombre = (string)datos.lector["nombre"];
                     aux.Apellido = (string)datos.lector["apellido"];
-                    aux.Sede = new Sede();
-                    aux.Sede.NombreSede = (string)datos.lector["nombreSede"];
-                    aux.Sede.IdSede = (long)datos.lector["idSede"];
-                    aux.Especialidad = new Especialidad();
-                    aux.Especialidad.Nombre = (string)datos.lector["nombreEspecialidad"];
-                    aux.Especialidad.id = (long)datos.lector["idEspecialidad"];
+                  
                     aux.Estado = (bool)datos.lector["estado"];
                     aux.Contraseña = (string)datos.lector["Contraseña"];
+
                     Lista.Add(aux);
                 }
                 return Lista;
@@ -52,6 +48,61 @@ namespace Negocio
             }
         }
 
+        public List<MedicoPorEspecialidad> ListarMedicosPorEspecialidad(string legajo = "")
+        {
+            List<MedicoPorEspecialidad> Lista = new List<MedicoPorEspecialidad>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.SetearQuery("select M.legajo, p.apellido, p.nombre, p.Contraseña, M.idEspecialidad, E.nombreEspecialidad, M.idSede, S.nombreSede, M.idHorario, H.diaSemana, H.horaInicio, H.horaFin, P.estado\r\nfrom MedicoPorEspecialidad AS M inner join Profesionales AS P ON M.legajo = P.legajo inner join Especialidades as E ON M.idEspecialidad = E.idEspecialidad inner join Sede as S ON S.idSede = M.idSede inner join HorarioLaboral as H ON M.idHorario = H.idHorario WHERE P.estado = 1");
+                datos.EjecutarLectura();
+                while (datos.lector.Read())
+                {
+                    MedicoPorEspecialidad aux = new MedicoPorEspecialidad();
+                    aux.medico = new Medico();
+                    aux.medico.Legajo = (long)datos.lector["legajo"];
+                    aux.medico.Apellido = (string)datos.lector["apellido"];
+                    aux.medico.Contraseña = (string)datos.lector["Contraseña"];
+                    aux.medico.Estado = (bool)datos.lector["estado"];
+
+                    // Crear la instancia de Especialidad y asignar valores
+                    aux.Especialidades = new Especialidad
+                    {
+                        id = (long)datos.lector["idEspecialidad"],
+                        Nombre = (string)datos.lector["nombreEspecialidad"]
+                    };
+
+                    // Crear la instancia de Sede y asignar valores
+                    aux.Sede = new Sede
+                    {
+                        IdSede = (long)datos.lector["idSede"],
+                        NombreSede = (string)datos.lector["nombreSede"]
+                    };
+
+                    // Crear la instancia de HorarioLaboral y asignar valores
+                    aux.HorariosLaborales = new HorarioLaboral
+                    {
+                        IdHorario = (long)datos.lector["idHorario"],
+                        DiaSemana = (string)datos.lector["diaSemana"],
+                        HoraInicio = (TimeSpan)datos.lector["horaInicio"],
+                        HoraFin = (TimeSpan)datos.lector["horaFin"]
+                    };
+
+                    Lista.Add(aux);
+                }
+                return Lista;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
 
         public void AgregarMedico(Medico nuevo)
         {
@@ -62,11 +113,11 @@ namespace Negocio
 
                     Datos.SetearQuery("INSERT INTO Profesionales ( nombre, apellido, idEspecialidad, idSede, contraseña, estado) VALUES ( @Nombre, @Apellido, @IdEspecialidad, @IdSede, @Contraseña, @Estado)");
 
-                   
+
                     Datos.setearParametros("@Nombre", nuevo.Nombre);
                     Datos.setearParametros("@Apellido", nuevo.Apellido);
-                    Datos.setearParametros("@IdEspecialidad", nuevo.Especialidad.id);
-                    Datos.setearParametros("@IdSede", nuevo.Sede.IdSede);
+                    //Datos.setearParametros("@IdEspecialidad", nuevo.Especialidades.id);
+                    //Datos.setearParametros("@IdSede", nuevo.Sede.IdSede);
                     Datos.setearParametros("@Contraseña", nuevo.Contraseña);
                     Datos.setearParametros("@Estado", nuevo.Estado);
 
@@ -82,15 +133,15 @@ namespace Negocio
         public void Modificar(Medico nuevo)
         {
             AccesoDatos Datos = new AccesoDatos();
-            
+
             try
             {
                 Datos.SetearQuery("UPDATE PROFESIONALES SET nombre = @nombre, apellido = @apellido, idEspecialidad = @idEspecialidad,idSede = @idSede,contraseña = @contraseña, estado = @estado WHERE legajo = @legajo");
-                
+
                 Datos.setearParametros("@nombre", nuevo.Nombre);
                 Datos.setearParametros("@apellido", nuevo.Apellido);
-                Datos.setearParametros("@idEspecialidad", nuevo.Especialidad.id);
-                Datos.setearParametros("@idSede", nuevo.Sede.IdSede);
+                //Datos.setearParametros("@idEspecialidad", nuevo.Especialidades.id);
+                //Datos.setearParametros("@idSede", nuevo.Sede.IdSede);
                 Datos.setearParametros("@contraseña", nuevo.Contraseña);
                 Datos.setearParametros("@legajo", nuevo.Legajo);
                 Datos.setearParametros("estado", nuevo.Estado);
@@ -110,18 +161,18 @@ namespace Negocio
         public void bajaFisica(int legajo)
         {
             AccesoDatos datos = new AccesoDatos();
-           // DialogResult dialogo = MessageBox.Show("Esta seguro que desea eliminar el articulo?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            // DialogResult dialogo = MessageBox.Show("Esta seguro que desea eliminar el articulo?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             try
             {
                 //if (dialogo == DialogResult.Yes)
-                
-                    datos.SetearQuery("delete from Profesionales where legajo = @legajo");
-                    datos.setearParametros("@legajo", legajo);
-                    datos.ejecutarAccion();
-                   // MessageBox.Show("Articulo eliminado con exito");
 
-                
+                datos.SetearQuery("delete from Profesionales where legajo = @legajo");
+                datos.setearParametros("@legajo", legajo);
+                datos.ejecutarAccion();
+                // MessageBox.Show("Articulo eliminado con exito");
+
+
             }
             catch (Exception ex)
             {
@@ -140,16 +191,16 @@ namespace Negocio
         public void bajaLogica(int legajo)
         {
             AccesoDatos datos = new AccesoDatos();
-           
+
 
             try
             {
-                
+
 
                 datos.SetearQuery("update Profesionales set estado=0 where legajo =@legajo");
                 datos.setearParametros("@legajo", legajo);
                 datos.ejecutarAccion();
-              
+
 
 
             }
@@ -221,14 +272,14 @@ namespace Negocio
 
                     aux.Nombre = (string)datos.lector["nombre"];
                     aux.Apellido = (string)datos.lector["apellido"];
-                    aux.Sede = new Sede();
-                    aux.Sede.NombreSede = (string)datos.lector["nombreSede"];
-                    aux.Especialidad = new Especialidad();
-                    aux.Especialidad.Nombre = (string)datos.lector["nombreEspecialidad"];
+                    //aux.Sede = new Sede();
+                    //aux.Sede.NombreSede = (string)datos.lector["nombreSede"];
+                    //aux.Especialidades= new Especialidad();
+                    //aux.Especialidades.Nombre = (string)datos.lector["nombreEspecialidad"];
 
                     Medicos.Add(aux); // Agregar el medico a la lista
                 }
-            return Medicos; // Devolver la lista fuera del bucle
+                return Medicos; // Devolver la lista fuera del bucle
             }
             catch (Exception Ex)
             {
@@ -243,4 +294,5 @@ namespace Negocio
 
     }
 }
+
 

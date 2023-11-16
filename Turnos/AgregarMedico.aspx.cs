@@ -46,8 +46,8 @@ namespace Turnos
                 txtNombre.Text = seleccionado.Nombre;
                 txtApellido.Text = seleccionado.Apellido;
                 txtContraseña.Attributes["value"] = seleccionado.Contraseña;
-                ddlEspecialidades.SelectedValue = seleccionado.Especialidad.id.ToString();
-                ddlSedes.SelectedValue = seleccionado.Sede.IdSede.ToString();
+               // ddlEspecialidades.SelectedValue = seleccionado.Especialidad.id.ToString();
+                //ddlSedes.SelectedValue = seleccionado.Sede.IdSede.ToString();
 
             }
 
@@ -64,12 +64,12 @@ namespace Turnos
                 medico.Apellido = txtApellido.Text;
 
                 // Instanciar un objeto Especialidad y asignar su Id
-                medico.Especialidad = new Especialidad();
-                medico.Especialidad.id = long.Parse(ddlEspecialidades.SelectedValue);
+               // medico.Especialidad = new Especialidad();
+                //medico.Especialidad.id = long.Parse(ddlEspecialidades.SelectedValue);
 
                 // Instanciar un objeto Sede y asignar su Id
-                medico.Sede = new Sede();
-                medico.Sede.IdSede = long.Parse(ddlSedes.SelectedValue);
+               // medico.Sede = new Sede();
+               // medico.Sede.IdSede = long.Parse(ddlSedes.SelectedValue);
 
                 medico.Contraseña = txtContraseña.Text;
                 medico.Estado = true;
