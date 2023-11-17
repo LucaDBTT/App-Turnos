@@ -39,6 +39,12 @@
     </button>
 </div>
 
+    <div>   
+
+        <a href="MedicosEspecialidad.apsx"> Medicos por especialidad..</a>
+
+    </div>
+
 
 
 </asp:Content>

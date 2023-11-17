@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
+
 
 namespace Turnos
 {
@@ -13,29 +15,17 @@ namespace Turnos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!IsPostBack) 
             {
-                MedicoNegocio negocio = new MedicoNegocio();
-                Session.Add("listaMedicos", negocio.ListarMedicosPorEspecialidad());
-                dataGridViewMedicos.DataSource = Session["listaMedicos"];
-                dataGridViewMedicos.DataBind();
+                CargarMedicos();
             }
         }
 
-        protected void dataGridViewMedicos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        private void CargarMedicos()
         {
-            dataGridViewMedicos.PageIndex = e.NewPageIndex;
-            BindGridViewData();
+            MedicoPorEspecialidadNegocio negocio = new MedicoPorEspecialidadNegocio();
+            dgvMedicoPorEspecialidad.DataSource = negocio.ListarMedicosPorEspecialidad();
+            dgvMedicoPorEspecialidad.DataBind(); 
         }
-
-        private void BindGridViewData()
-        {
-            MedicoNegocio negocio = new MedicoNegocio();
-            List<MedicoPorEspecialidad> listaMedicos = negocio.ListarMedicosPorEspecialidad();
-
-            dataGridViewMedicos.DataSource = listaMedicos;
-            dataGridViewMedicos.DataBind();
-        }
-
     }
 }
