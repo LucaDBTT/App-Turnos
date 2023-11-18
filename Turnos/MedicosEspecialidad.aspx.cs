@@ -23,9 +23,26 @@ namespace Turnos
 
         private void CargarMedicos()
         {
-            MedicoPorEspecialidadNegocio negocio = new MedicoPorEspecialidadNegocio();
+            /*MedicoPorEspecialidadNegocio negocio = new MedicoPorEspecialidadNegocio();
             dgvMedicoPorEspecialidad.DataSource = negocio.ListarMedicosPorEspecialidad();
-            dgvMedicoPorEspecialidad.DataBind(); 
+            dgvMedicoPorEspecialidad.DataBind(); */
+            MedicoPorEspecialidadNegocio negocio = new MedicoPorEspecialidadNegocio();
+            List<MedicoPorEspecialidad> listaMedicos = negocio.ListarMedicosPorEspecialidad();
+            dgvMedicoPorEspecialidad.DataSource = listaMedicos;
+            dgvMedicoPorEspecialidad.DataBind();
+        }
+
+        protected void dgvMedicoPorEspecialidad_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvMedicoPorEspecialidad.PageIndex = e.NewPageIndex;
+            CargarMedicos();
+        }
+
+        protected void dgvMedicoPorEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridViewRow selectedRow = dgvMedicoPorEspecialidad.SelectedRow;
+            string Legajo = dgvMedicoPorEspecialidad.DataKeys[selectedRow.RowIndex].Value.ToString();
+            Response.Redirect("ModificarEspecialidadMedico.aspx?Legajo=" + Legajo);
         }
     }
 }

@@ -8,9 +8,24 @@ namespace Dominio
 {
     public class MedicoPorEspecialidad
     {
-        public Medico medico { get; set; }
-        public Especialidad Especialidades { get; set; }
-        public HorarioLaboral HorariosLaborales { get; set; }
-        public Sede Sede { get; set; }
+        public long Legajo { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public bool Estado { get; set; }
+        public string Contraseña { get; set; }
+
+        // Propiedades de la especialidad
+        public long IdEspecialidad { get; set; }
+        public string NombreEspecialidad { get; set; }
+
+        // Propiedades de la sede
+        public long IdSede { get; set; }
+        public string NombreSede { get; set; }
+
+        // Propiedades del horario laboral
+        public long IdHorario { get; set; }
+        public string DiaSemana { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraFin { get; set; }
     }
 }
