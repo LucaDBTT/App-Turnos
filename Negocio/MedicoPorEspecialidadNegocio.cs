@@ -17,14 +17,14 @@ namespace Negocio
             try
             {
 
-                datos.SetearQuery("select M.legajo, p.apellido, p.nombre, p.Contraseña, M.idEspecialidad, E.nombreEspecialidad, M.idSede, S.nombreSede, M.idHorario, H.diaSemana, H.horaInicio, H.horaFin, P.estado\r\nfrom MedicoPorEspecialidad AS M inner join Profesionales AS P ON M.legajo = P.legajo inner join Especialidades as E ON M.idEspecialidad = E.idEspecialidad inner join Sede as S ON S.idSede = M.idSede inner join HorarioLaboral as H ON M.idHorario = H.idHorario WHERE P.estado = 1");
+                datos.SetearQuery("select M.id_MedicoPorEspecialidad, M.legajo, p.apellido, p.nombre, p.Contraseña, M.idEspecialidad, E.nombreEspecialidad, M.idSede, S.nombreSede, M.idHorario, H.diaSemana, H.horaInicio, H.horaFin, P.estado from MedicoPorEspecialidad AS M inner join Profesionales AS P ON M.legajo = P.legajo inner join Especialidades as E ON M.idEspecialidad = E.idEspecialidad inner join Sede as S ON S.idSede = M.idSede inner join HorarioLaboral as H ON M.idHorario = H.idHorario WHERE M.estado = 1 AND P.estado = 1");
                 if (legajo != "")
                     datos.Comando.CommandText += "and M.legajo=" + legajo;
                 datos.EjecutarLectura();
                 while (datos.lector.Read())
                 {
                     MedicoPorEspecialidad aux = new MedicoPorEspecialidad();
-
+                    aux.idMedicoPorEspecialidad = (long)datos.lector["id_MedicoPorEspecialidad"];
                     aux.Legajo = (long)datos.lector["legajo"];
                     aux.Nombre = (string)datos.lector["nombre"];
                     aux.Apellido = (string)datos.lector["apellido"];
@@ -59,23 +59,37 @@ namespace Negocio
             }
         }
 
-        public void Modificar(MedicoPorEspecialidad nuevo)
+        public void AgregarMedico(MedicoPorEspecialidad nuevo)
         {
-          /*  AccesoDatos Datos = new AccesoDatos();
-
             try
             {
-                 Datos.SetearQuery("update MedicoPorEspecialidad set idEspecialidad = @idEspecialidad where legajo = @legajo");
+                using (AccesoDatos Datos = new AccesoDatos())
+                {
 
-                 Datos.setearParametros("@nombre", nuevo.Nombre);
-                 Datos.setearParametros("@apellido", nuevo.Apellido);
-                 Datos.setearParametros("@idEspecialidad", nuevo.IdEspecialidad);
-                Datos.setearParametros("@idSede", nuevo.IdSede);
-                
-                 Datos.setearParametros("@legajo", nuevo.Legajo);
-                
-                 Datos.ejecutarAccion();
-                
+                    Datos.SetearQuery("INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, estado) VALUES (@Legajo, @IdEspecialidad, @IdSede, @IdHorario, @Estado)");
+
+                    Datos.setearParametros("@Legajo", nuevo.Legajo);
+                    Datos.setearParametros("@IdEspecialidad", nuevo.IdEspecialidad);
+                    Datos.setearParametros("@IdSede", nuevo.IdSede);
+                    Datos.setearParametros("@IdHorario", nuevo.IdHorario);
+                    Datos.setearParametros("@Estado", 1);
+                    Datos.ejecutarAccion();
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public void bajaLogica(long id_MedicoPorEspecialidad)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.SetearQuery("update MedicoPorEspecialidad set estado= 0 where id_MedicoPorEspecialidad = @id_MedicoPorEspecialidad");
+                datos.setearParametros("@id_MedicoPorEspecialidad", id_MedicoPorEspecialidad);
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
@@ -83,9 +97,12 @@ namespace Negocio
             }
             finally
             {
-                Datos.CerrarConexion();
-            }  */
+                datos.CerrarConexion();
+            }
         }
+
+
+
     }
 }
 

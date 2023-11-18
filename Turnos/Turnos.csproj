@@ -104,7 +104,7 @@
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="MedicosEspecialidad.aspx" />
-    <Content Include="ModificarEspecialidadMedico.aspx" />
+    <Content Include="AgregarEspecialidadMedico.aspx" />
     <Content Include="Patologias.aspx" />
     <Content Include="Sedes.aspx" />
     <Content Include="styles.css" />
@@ -172,12 +172,12 @@
     <Compile Include="MedicosEspecialidad.aspx.designer.cs">
       <DependentUpon>MedicosEspecialidad.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ModificarEspecialidadMedico.aspx.cs">
-      <DependentUpon>ModificarEspecialidadMedico.aspx</DependentUpon>
+    <Compile Include="AgregarEspecialidadMedico.aspx.cs">
+      <DependentUpon>AgregarEspecialidadMedico.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ModificarEspecialidadMedico.aspx.designer.cs">
-      <DependentUpon>ModificarEspecialidadMedico.aspx</DependentUpon>
+    <Compile Include="AgregarEspecialidadMedico.aspx.designer.cs">
+      <DependentUpon>AgregarEspecialidadMedico.aspx</DependentUpon>
     </Compile>
     <Compile Include="Patologias.aspx.cs">
       <DependentUpon>Patologias.aspx</DependentUpon>

@@ -7,7 +7,7 @@
     <h1 class="Profesionales">Nuestros Profesionales y sus especialidades</h1>    
         <div class="filter-container" style="display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; margin: 0 auto; max-width: 600px; margin-top: 20px;" >
             <label for="Filtro" class="control-label">Filtrar</label>
-            <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" CssClass="form-control" style="width: 500%;"/>
+            <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" CssClass="form-control" style="width: 200%;"/>
             <asp:CheckBox Text="Filtro Avanzado" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" style="margin-top: 10px;"/>
         </div>
     
@@ -69,11 +69,9 @@
                 <RowStyle CssClass="gridview-row" />
                 <HeaderStyle CssClass="gridview-header" />
                 <Columns>
-                    <asp:BoundField DataField="Legajo" HeaderText="Legajo" Visible="false" />
+                    <asp:BoundField DataField="Legajo" HeaderText="Legajo" />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
-                    <asp:BoundField DataField="Especialidad.Nombre" HeaderText="Especialidad" />
-                    <asp:BoundField DataField="Sede.NombreSede" HeaderText="Sede" />
                     <asp:TemplateField HeaderText="Eliminar">
                         <ItemTemplate>
                             <asp:LinkButton ID="lnkDelete" runat="server" Text="Eliminar" CommandName="Delete" CommandArgument='<%# Eval("Legajo") %>' OnClientClick="return confirm('¿Seguro que desea eliminar este registro?');" CssClass="eliminar-button" />
@@ -87,6 +85,7 @@
     </asp:UpdatePanel>
     <div class="login-container">
         <a href="AgregarMedico.aspx" class="btn btn-primary">Agregar Médico</a>
+         <a href="MedicosEspecialidad.aspx" class="btn btn-primary">Ver mas detalles</a>
     </div>
 
 </asp:Content>

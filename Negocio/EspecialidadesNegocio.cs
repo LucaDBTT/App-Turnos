@@ -55,10 +55,11 @@ namespace Negocio
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
 
-                    Datos.SetearQuery("INSERT INTO Especialidades  ( nombreEspecialidad ) VALUES ( @Nombre )");
+                    Datos.SetearQuery("INSERT INTO Especialidades  ( nombreEspecialidad, estado ) VALUES ( @Nombre, @Estado )");
 
 
                     Datos.setearParametros("@Nombre", nuevo.Nombre);
+                    Datos.setearParametros("@Estado", 1);
 
 
                     Datos.ejecutarAccion();

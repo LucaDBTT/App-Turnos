@@ -8,6 +8,7 @@ namespace Dominio
 {
     public class MedicoPorEspecialidad
     {
+        public long idMedicoPorEspecialidad {  get; set; }
         public long Legajo { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }

@@ -19,7 +19,7 @@ namespace Negocio
             try
             {
 
-                datos.SetearQuery("select p.legajo, p.apellido, p.nombre, e.idEspecialidad, e.nombreEspecialidad, s.idSede, s.nombreSede, H.idHorario ,H.diaSemana, H.horaInicio, H.horaFin, p.Contraseña, p.estado \r\nfrom Profesionales p  \r\ninner join Especialidades e on e.idEspecialidad = p.idEspecialidad \r\ninner join Sede s on s.idSede = p.idSede \r\ninner join HorarioLaboral H on p.idHorario = H.idHorario\r\nwhere p.estado=1 ");
+                datos.SetearQuery("SELECT P.nombre, P.apellido, P.legajo, P.Contraseña, P.estado FROM Profesionales AS P WHERE estado = 1");
                 if (legajo != "")
                     datos.Comando.CommandText += "and p.legajo=" + legajo;
                 datos.EjecutarLectura();
@@ -56,15 +56,13 @@ namespace Negocio
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
 
-                    Datos.SetearQuery("INSERT INTO Profesionales ( nombre, apellido, idEspecialidad, idSede, contraseña, estado) VALUES ( @Nombre, @Apellido, @IdEspecialidad, @IdSede, @Contraseña, @Estado)");
+                    Datos.SetearQuery("INSERT INTO Profesionales ( nombre, apellido, contraseña, estado) VALUES ( @Nombre, @Apellido, @Contraseña, @Estado)");
 
 
                     Datos.setearParametros("@Nombre", nuevo.Nombre);
                     Datos.setearParametros("@Apellido", nuevo.Apellido);
-                    //Datos.setearParametros("@IdEspecialidad", nuevo.Especialidades.id);
-                    //Datos.setearParametros("@IdSede", nuevo.Sede.IdSede);
                     Datos.setearParametros("@Contraseña", nuevo.Contraseña);
-                    Datos.setearParametros("@Estado", nuevo.Estado);
+                    Datos.setearParametros("@Estado", 1);
 
                     Datos.ejecutarAccion();
                 }
@@ -81,12 +79,10 @@ namespace Negocio
 
             try
             {
-                Datos.SetearQuery("UPDATE PROFESIONALES SET nombre = @nombre, apellido = @apellido, idEspecialidad = @idEspecialidad,idSede = @idSede,contraseña = @contraseña, estado = @estado WHERE legajo = @legajo");
+                Datos.SetearQuery("UPDATE PROFESIONALES SET nombre = @nombre, apellido = @apellido,contraseña = @contraseña, estado = @estado WHERE legajo = @legajo");
 
                 Datos.setearParametros("@nombre", nuevo.Nombre);
                 Datos.setearParametros("@apellido", nuevo.Apellido);
-                //Datos.setearParametros("@idEspecialidad", nuevo.Especialidades.id);
-                //Datos.setearParametros("@idSede", nuevo.Sede.IdSede);
                 Datos.setearParametros("@contraseña", nuevo.Contraseña);
                 Datos.setearParametros("@legajo", nuevo.Legajo);
                 Datos.setearParametros("estado", nuevo.Estado);

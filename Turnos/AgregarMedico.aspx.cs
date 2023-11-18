@@ -14,44 +14,26 @@ namespace Turnos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ///configuarion agregar
-            if (!IsPostBack)
-            {
-                SedeNegocio sedeNegocio = new SedeNegocio();
-                ddlSedes.DataSource = sedeNegocio.ListarSedes();
-                ddlSedes.DataTextField = "nombreSede";  // Nombre de la propiedad a mostrar en el DropDownList
-                ddlSedes.DataValueField = "IdSede";      // Nombre de la propiedad para el valor de las opciones
-                ddlSedes.DataBind();
-
-                EspecialidadesNegocio especialidadNegocio = new EspecialidadesNegocio();
-                ddlEspecialidades.DataSource = especialidadNegocio.ListarEspecialidades();
-                ddlEspecialidades.DataTextField = "Nombre";  // Nombre de la propiedad a mostrar en el DropDownList
-                ddlEspecialidades.DataValueField = "Id";      // Nombre de la propiedad para el valor de las opciones
-                ddlEspecialidades.DataBind();
-
-
-            }
-
-            ///configuracion Modificar
+            // Configuración Modificar
             string legajo = Request.QueryString["Legajo"] != null ? Request.QueryString["Legajo"].ToString() : "";
             if (legajo != "" && !IsPostBack)
             {
                 MedicoNegocio negocio = new MedicoNegocio();
-               // List<Medico> lista = negocio.ListarMedicos(legajo);
-               // Medico seleccionado = lista[0];
+                List<Medico> lista = negocio.ListarMedicos(legajo);
 
-                Medico seleccionado = (negocio.ListarMedicos(legajo))[0];
+                // Verificar si la lista tiene elementos antes de acceder al primero
+                if (lista.Count > 0)
+                {
+                    Medico seleccionado = lista[0];
 
-                ///precargamos
-                txtNombre.Text = seleccionado.Nombre;
-                txtApellido.Text = seleccionado.Apellido;
-                txtContraseña.Attributes["value"] = seleccionado.Contraseña;
-               // ddlEspecialidades.SelectedValue = seleccionado.Especialidad.id.ToString();
-                //ddlSedes.SelectedValue = seleccionado.Sede.IdSede.ToString();
-
+                    // Precargamos los datos
+                    txtNombre.Text = seleccionado.Nombre;
+                    txtApellido.Text = seleccionado.Apellido;
+                    txtContraseña.Attributes["value"] = seleccionado.Contraseña;
+                }
             }
-
         }
+
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {

@@ -46,6 +46,7 @@
     <Compile Include="CoberturasNegocio.cs" />
     <Compile Include="ConsultasNegocio.cs" />
     <Compile Include="EspecialidadesNegocio.cs" />
+    <Compile Include="HorarioLaboralNegocio.cs" />
     <Compile Include="MedicoNegocio.cs" />
     <Compile Include="MedicoPorEspecialidadNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
