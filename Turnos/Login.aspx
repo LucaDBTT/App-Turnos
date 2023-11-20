@@ -11,16 +11,24 @@
                     <h2>Iniciar Sesión</h2>
                     <form method="post" action="Login.aspx">
                         <div class="form-group">
-                            <label for="txtUsername">Nombre de Usuario:</label>
-                            <input type="text" class="form-control" id="txtUsername" name="txtUsername" required />
+                            <label for="txtUsername">Nombre de Usuario:<br />
+                            <asp:TextBox ID="txtUser" runat="server"></asp:TextBox>
+                            </label>
+                            &nbsp;
                         </div>
                         <div class="form-group">
                             <label for="txtPassword">Contraseña:</label>
-                            <input type="password" class="form-control" id="txtPassword" name="txtPassword" required />
+                            <br />
+       &nbsp;<asp:TextBox ID="txtPass" runat="server"></asp:TextBox>
                         </div>
-                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        
+                          
+
+
+
                     </form>
                 </div>
+                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
             </div>
         </div>
     </div>
