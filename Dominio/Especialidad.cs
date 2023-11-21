@@ -10,6 +10,7 @@ namespace Dominio
     {
         public long id { get; set; }
         public string Nombre { get; set; }
+        public string URLimagen {  get; set; }
 
     }
 }

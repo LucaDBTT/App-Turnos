@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("SELECT u.idUsuario, u.dni, u.apellido, u.nombre, u.fechaNac, u.idCobertura, u.nroAfiliado, u.telefono, u.mail, u.contraseña, u.estado, c.nombreCobertura FROM Usuarios u INNER JOIN Coberturas c ON u.idCobertura = c.idCobertura WHERE u.estado = 1");
+                datos.SetearQuery("SELECT u.idPaciente, u.dni, u.apellido, u.nombre, u.fechaNac, u.idCobertura, u.nroAfiliado, u.telefono, u.estado, c.nombreCobertura FROM Pacientes u INNER JOIN Coberturas c ON u.idCobertura = c.idCobertura WHERE u.estado = 1");
 
                 if (!string.IsNullOrEmpty(dni))
                     datos.Comando.CommandText += " AND u.dni = " + dni;
@@ -27,7 +27,7 @@ namespace Negocio
                 {
                     Usuario aux = new Usuario();
 
-                    aux.IdUsuario = (long)datos.lector["idUsuario"];
+                    aux.IdUsuario = (long)datos.lector["idPaciente"];
                     aux.dni = (long)datos.lector["dni"];
                     aux.Apellido = (string)datos.lector["apellido"];
                     aux.Nombre = (string)datos.lector["nombre"];
@@ -39,8 +39,7 @@ namespace Negocio
                     };
                     aux.NroAfiliado = (long)datos.lector["nroAfiliado"];
                     aux.Telefono = (long)datos.lector["telefono"];
-                    aux.Mail = (string)datos.lector["mail"];
-                    aux.Contrasena = (string)datos.lector["contraseña"];
+                    
                     aux.Estado = (bool)datos.lector["estado"];
 
                     Lista.Add(aux);
@@ -64,7 +63,7 @@ namespace Negocio
             {
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
-                    Datos.SetearQuery("INSERT INTO Usuarios (dni, apellido, nombre, fechaNac, idCobertura, nroAfiliado, telefono, mail, contraseña, estado) VALUES (@Dni, @Apellido, @Nombre, @FechaNac, @IdCobertura, @NroAfiliado, @Telefono, @Mail, @Contraseña, @Estado)");
+                    Datos.SetearQuery("INSERT INTO Pacientes (dni, apellido, nombre, fechaNac, idCobertura, nroAfiliado, telefono, estado) VALUES (@Dni, @Apellido, @Nombre, @FechaNac, @IdCobertura, @NroAfiliado, @Telefono, @Estado)");
 
                     Datos.setearParametros("@Dni", nuevo.dni);
                     Datos.setearParametros("@Apellido", nuevo.Apellido);
@@ -73,8 +72,7 @@ namespace Negocio
                     Datos.setearParametros("@IdCobertura", nuevo.Cobertura.idCobertura);
                     Datos.setearParametros("@NroAfiliado", nuevo.NroAfiliado);
                     Datos.setearParametros("@Telefono", nuevo.Telefono);
-                    Datos.setearParametros("@Mail", nuevo.Mail);
-                    Datos.setearParametros("@Contraseña", nuevo.Contrasena);
+              
                     Datos.setearParametros("@Estado", nuevo.Estado);
 
                     Datos.ejecutarAccion();
@@ -92,7 +90,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("UPDATE Usuarios SET apellido = @apellido, nombre = @nombre, fechaNac = @fechaNac, idCobertura = @idCobertura, nroAfiliado = @nroAfiliado, telefono = @telefono, mail = @mail, contraseña = @contraseña, estado = @estado WHERE dni = @dni");
+                datos.SetearQuery("UPDATE Pacientes SET apellido = @apellido, nombre = @nombre, fechaNac = @fechaNac, idCobertura = @idCobertura, nroAfiliado = @nroAfiliado, telefono = @telefono, estado = @estado WHERE dni = @dni");
 
                 datos.setearParametros("@apellido", nuevo.Apellido);
                 datos.setearParametros("@nombre", nuevo.Nombre);
@@ -100,8 +98,7 @@ namespace Negocio
                 datos.setearParametros("@idCobertura", nuevo.Cobertura.idCobertura);
                 datos.setearParametros("@nroAfiliado", nuevo.NroAfiliado);
                 datos.setearParametros("@telefono", nuevo.Telefono);
-                datos.setearParametros("@mail", nuevo.Mail);
-                datos.setearParametros("@contraseña", nuevo.Contrasena);
+               
                 datos.setearParametros("@estado", nuevo.Estado);
                 datos.setearParametros("@dni", nuevo.dni);
 
@@ -123,7 +120,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("UPDATE Usuarios SET estado = 0 WHERE dni = @dni");
+                datos.SetearQuery("UPDATE Pacientes SET estado = 0 WHERE dni = @dni");
                 datos.setearParametros("@dni", dni);
                 datos.ejecutarAccion();
             }

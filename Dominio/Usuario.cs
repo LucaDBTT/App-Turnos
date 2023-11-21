@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
+    
     public class Usuario : Persona
     {
         public long IdUsuario { get; set; }
@@ -14,7 +15,5 @@ namespace Dominio
         public long NroAfiliado { get; set; }
         public string Contrasena { get; set; }
         public bool Estado { get; set; }
-
-
-    }
+       }
 }

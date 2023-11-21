@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("SELECT e.idEspecialidad, e.nombreEspecialidad FROM Especialidades e WHERE e.estado = 1");
+                datos.SetearQuery("SELECT e.idEspecialidad, e.nombreEspecialidad, e.URLimagen FROM Especialidades e WHERE e.estado = 1");
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -33,6 +33,7 @@ namespace Negocio
 
                     aux.id = (long)datos.lector["idEspecialidad"];
                     aux.Nombre = (string)datos.lector["nombreEspecialidad"];
+                    aux.URLimagen = (string)datos.lector["URLimagen"];
                     Lista.Add(aux);
                 }
 
