@@ -103,6 +103,7 @@
     <Content Include="Error.aspx" />
     <Content Include="Especialidades.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Logeado.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MedicosEspecialidad.aspx" />
     <Content Include="AgregarEspecialidadMedico.aspx" />
@@ -110,6 +111,7 @@
     <Content Include="Sedes.aspx" />
     <Content Include="styles.css" />
     <Content Include="Turnos.aspx" />
+    <Content Include="UserDefault.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -166,6 +168,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logeado.aspx.cs">
+      <DependentUpon>Logeado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logeado.aspx.designer.cs">
+      <DependentUpon>Logeado.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -208,6 +217,13 @@
     </Compile>
     <Compile Include="Turnos.aspx.designer.cs">
       <DependentUpon>Turnos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserDefault.aspx.cs">
+      <DependentUpon>UserDefault.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserDefault.aspx.designer.cs">
+      <DependentUpon>UserDefault.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.aspx.cs">
       <DependentUpon>Usuarios.aspx</DependentUpon>

@@ -9,8 +9,8 @@ CREATE TABLE Coberturas (
     nombreCobertura varchar(50) not null
 );
 
-CREATE TABLE Usuarios (
-    idUsuario bigint not null identity(1,1) primary key, 
+create TABLE Pacientes (
+    idPaciente bigint not null identity(1,1) primary key, 
     dni bigint not null unique,
     apellido varchar(50) not null,
     nombre varchar(50) not null,
@@ -18,11 +18,16 @@ CREATE TABLE Usuarios (
     idCobertura bigint not null,
     nroAfiliado bigint not null,
     telefono bigint not null,
-    mail varchar(50) not null unique,
-    contraseña varchar(50) not null,
     estado bit not null,
     foreign key (idCobertura) references Coberturas(idCobertura)
 );
+--tipoUsuario 1=admin 2=medico 3=paciente o capaz solo uno y 2
+create table Usuarios(
+ idUsuario bigint not null  primary key identity(1,1),
+ Usuario varchar(50) not null ,
+ pass varchar (20) not null, 
+ tipoUsuario int not null,
+)
 
 CREATE TABLE Sede ( 
     idSede bigint not null  identity(1,1) primary key,
@@ -87,59 +92,43 @@ CREATE TABLE MedicoPorEspecialidad(
 
 
 
-/* INSERTS */
 
-INSERT INTO Coberturas (nombreCobertura) VALUES 
-('Cobertura A'),
-('Cobertura B'),
-('Cobertura C');
+-- INSERTS
+-- Inserting data into Coberturas table
+INSERT INTO Coberturas (nombreCobertura) VALUES ('Cobertura1');
+INSERT INTO Coberturas (nombreCobertura) VALUES ('Cobertura2');
 
-INSERT INTO Usuarios (dni, apellido, nombre, fechaNac, idCobertura, nroAfiliado, telefono, mail, contraseña, estado) VALUES
-(12345678, 'Apellido1', 'Nombre1', '1990-01-01', 1, 1001, 111111111, 'usuario1@mail.com', 'contraseña1', 1),
-(23456789, 'Apellido2', 'Nombre2', '1985-02-15', 2, 1002, 222222222, 'usuario2@mail.com', 'contraseña2', 1),
-(34567890, 'Apellido3', 'Nombre3', '1988-05-20', 3, 1003, 333333333, 'usuario3@mail.com', 'contraseña3', 1);
+-- Inserting data into Pacientes table
+INSERT INTO Pacientes (dni, apellido, nombre, fechaNac, idCobertura, nroAfiliado, telefono, estado)
+VALUES (123456789, 'Perez', 'Juan', '1990-01-01', 1, 987654, 123456789, 1);
 
-INSERT INTO Sede (nombreSede, estado) VALUES 
-('Sede A', 1),
-('Sede B', 1),
-('Sede C', 1);
+-- Inserting data into Usuarios table
+INSERT INTO Usuarios (Usuario, pass, tipoUsuario) VALUES ('admin', 'adminpass', 1);
+INSERT INTO Usuarios (Usuario, pass, tipoUsuario) VALUES ('medico1', 'medicopass', 2);
 
-INSERT INTO Especialidades (nombreEspecialidad, estado) VALUES 
-('Especialidad A', 1),
-('Especialidad B', 1),
-('Especialidad C', 1);
+-- Inserting data into Sede table
+INSERT INTO Sede (nombreSede, estado) VALUES ('Sede1', 1);
+INSERT INTO Sede (nombreSede, estado) VALUES ('Sede2', 1);
 
-INSERT INTO Profesionales (nombre, apellido, Contraseña, estado) VALUES 
-('Profesional1', 'ApellidoProf1', 'contraseñaProf1', 1),
-('Profesional2', 'ApellidoProf2', 'contraseñaProf2', 1),
-('Profesional3', 'ApellidoProf3', 'contraseñaProf3', 1);
+-- Inserting data into Especialidades table
+INSERT INTO Especialidades (nombreEspecialidad, estado) VALUES ('Cardiología', 1);
+INSERT INTO Especialidades (nombreEspecialidad, estado) VALUES ('Dermatología', 1);
 
-INSERT INTO Consultas (nombreConsultas) VALUES 
-('Consulta A'),
-('Consulta B'),
-('Consulta C');
+-- Inserting data into Profesionales table
+INSERT INTO Profesionales (nombre, apellido, Contraseña, estado) VALUES ('Dr. Carlos', 'Gonzalez', 'pass123', 1);
 
-INSERT INTO Turnos (idUsuario, idProfesional, fechaTurno, idSede, idConsulta, Estado) VALUES
-(1, 1, '2023-01-15', 1, 1, 1),
-(2, 2, '2023-02-20', 2, 2, 1),
-(3, 3, '2023-03-25', 3, 3, 1);
+-- Inserting data into Consultas table
+INSERT INTO Consultas (nombreConsultas) VALUES ('Consulta General');
+INSERT INTO Consultas (nombreConsultas) VALUES ('Consulta Especializada');
 
-INSERT INTO HorarioLaboral (diaSemana, horaInicio, horaFin) VALUES 
-('Lunes', '08:00:00', '16:00:00'),
-('Martes', '09:00:00', '17:00:00'),
-('Miércoles', '10:00:00', '18:00:00');
+-- Inserting data into Turnos table
+INSERT INTO Turnos (idUsuario, idProfesional, fechaTurno, idSede, idConsulta, Estado)
+VALUES (1, 1, '2023-01-15', 1, 1, 1);
 
-INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, estado) VALUES
-(1, 1, 1, 1, 1),
-(1, 2, 2, 2, 1),
-(2, 2, 1, 3, 1),
-(2, 3, 2, 1, 1),
-(3, 1, 3, 2, 1),
-(3, 3, 1, 3, 1);
+-- Inserting data into HorarioLaboral table
+INSERT INTO HorarioLaboral (diaSemana, horaInicio, horaFin) VALUES ('Lunes', '08:00', '16:00');
+INSERT INTO HorarioLaboral (diaSemana, horaInicio, horaFin) VALUES ('Martes', '09:00', '17:00');
 
-
-SELECT * FROM MedicoPorEspecialidad
-
-
-SELECT P.nombre, P.apellido, P.legajo, P.Contraseña, P.estado
-FROM Profesionales AS P
+-- Inserting data into MedicoPorEspecialidad table
+INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, estado)
+VALUES (1, 1, 1, 1, 1);

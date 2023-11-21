@@ -4,31 +4,23 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <section class="card-login">
-    <div class="container">
+    <div class="login-container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <div class="login-container">
-                    <h2>Iniciar Sesión</h2>
-                    <form method="post" action="Login.aspx">
+                <div>
+                    <h2 class="Profesionales">Iniciar Sesión</h2>
                         <div class="form-group">
                             <label for="txtUsername">Nombre de Usuario:<br />
-                            <asp:TextBox ID="txtUser" runat="server"></asp:TextBox>
-                            </label>
-                            &nbsp;
+                            <asp:TextBox ID="txtUser" runat="server" ></asp:TextBox>
+                            </label>  
                         </div>
                         <div class="form-group">
                             <label for="txtPassword">Contraseña:</label>
                             <br />
-       &nbsp;<asp:TextBox ID="txtPass" runat="server"></asp:TextBox>
-                        </div>
-                        
-                          
-
-
-
-                    </form>
+                            <asp:TextBox ID="txtPass" runat="server"></asp:TextBox>
+                        </div>   
+                    <asp:Button runat="server" ID="Button1" Text="Ingresar" CssClass="btn btn-primary" OnClick="Button1_Click" />
                 </div>
-                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
             </div>
         </div>
     </div>

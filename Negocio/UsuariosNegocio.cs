@@ -16,15 +16,15 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("select idUsuario,tipoUsuario from Usuarios where Usuario = @user and pass=@pass");
-                datos.setearParametros("@user", usuario.User);
-                datos.setearParametros("@pass", usuario.Pass);
+                datos.SetearQuery("select idUsuario,tipoUsuario from Usuarios where Usuario = @User and pass= @Pass");
+                datos.setearParametros("@User", usuario.User);
+                datos.setearParametros("@Pass", usuario.Pass);
 
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
                 {
-                    usuario.Id = (int)datos.lector["idUsuario"];
-                    usuario.TipoUsuario = (int)(datos.lector["tipoUsuario"])== 2 ? TipoUsuarios.ADMIN :TipoUsuarios.NORMAL  ;
+                    usuario.Id = (int)(long)datos.Lector["idUsuario"];
+                    usuario.TipoUsuario = (int)(datos.Lector["tipoUsuario"])== 2 ? TipoUsuarios.ADMIN :TipoUsuarios.NORMAL;
                     return true;
 
                 }
@@ -32,8 +32,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                throw new Exception("Error al intentar loguear", ex);
             }
             finally
             {

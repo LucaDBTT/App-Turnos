@@ -12,11 +12,8 @@ namespace Dominio
     {
         NORMAL=1,
         ADMIN=2
-
-
     }
  
-
     public  class usuarios
     {
         public int Id { get; set; }

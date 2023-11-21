@@ -13,7 +13,11 @@ namespace Turnos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!(Session["Usuario"] != null && ((Dominio.usuarios)Session["Usuario"]).TipoUsuario == Dominio.TipoUsuarios.NORMAL))
+            {
+                Session.Add("Error", "no eres administrador");
+                Response.Redirect("Login.aspx", false);
+            }
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
