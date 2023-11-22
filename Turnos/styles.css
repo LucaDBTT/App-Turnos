@@ -161,23 +161,26 @@
 }
 
 .card-container {
-    position: relative;
-    width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .card {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px #215b30;
-    margin-top: 80px;
-    position: absolute;
-    top: 20px;
-    margin-left: 40px;
-    width: 700px;
+    width: 300px; /* Ajusta el ancho según sea necesario */
     background-color: #f8f9fa;
     padding: 20px;
     text-align: center;
-    margin-right: 25%;
+    margin: 10px; /* Ajusta según sea necesario */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 8px 16px #215b30;
+    }
 
 
 .card-container a {

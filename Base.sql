@@ -91,7 +91,7 @@ CREATE TABLE MedicoPorEspecialidad(
 	primary key (id_MedicoPorEspecialidad, legajo, idEspecialidad )
 );
 
-
+SELECT * FROM Especialidades
 
 
 -- INSERTS
@@ -119,6 +119,7 @@ INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES ('Clín
 
 -- Inserting data into Profesionales table
 INSERT INTO Profesionales (nombre, apellido, Contraseña, estado) VALUES ('Dr. Carlos', 'Gonzalez', 'pass123', 1);
+INSERT INTO Profesionales (nombre, apellido, Contraseña, estado) VALUES ('Dra. Viviana', 'toledo', 'pass123', 1);
 
 -- Inserting data into Consultas table
 INSERT INTO Consultas (nombreConsultas) VALUES ('Consulta General');
@@ -135,3 +136,5 @@ INSERT INTO HorarioLaboral (diaSemana, horaInicio, horaFin) VALUES ('Martes', '0
 -- Inserting data into MedicoPorEspecialidad table
 INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, estado)
 VALUES (1, 1, 1, 1, 1);
+INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, estado)
+VALUES (2, 2, 1, 2, 1);

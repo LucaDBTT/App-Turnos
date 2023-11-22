@@ -103,6 +103,58 @@ namespace Negocio
 
 
 
+        public List<MedicoPorEspecialidad> Turnos(long id)
+        {
+            List<MedicoPorEspecialidad> Lista = new List<MedicoPorEspecialidad>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.SetearQuery("SELECT M.id_MedicoPorEspecialidad, M.legajo, p.apellido, p.nombre, p.Contraseña, M.idEspecialidad, E.nombreEspecialidad, M.idSede, S.nombreSede, M.idHorario, H.diaSemana, H.horaInicio, H.horaFin, P.estado FROM MedicoPorEspecialidad AS M INNER JOIN Profesionales AS P ON M.legajo = P.legajo INNER JOIN Especialidades AS E ON M.idEspecialidad = E.idEspecialidad INNER JOIN Sede AS S ON S.idSede = M.idSede INNER JOIN HorarioLaboral AS H ON M.idHorario = H.idHorario WHERE M.estado = 1 AND P.estado = 1 AND M.idEspecialidad = @idEspecialidad");
+                datos.Comando.Parameters.AddWithValue("@idEspecialidad", id);
+
+                datos.EjecutarLectura();
+                while (datos.lector.Read())
+                {
+                    MedicoPorEspecialidad aux = new MedicoPorEspecialidad();
+                    aux.idMedicoPorEspecialidad = (long)datos.lector["id_MedicoPorEspecialidad"];
+                    aux.Legajo = (long)datos.lector["legajo"];
+                    aux.Nombre = (string)datos.lector["nombre"];
+                    aux.Apellido = (string)datos.lector["apellido"];
+                    aux.Contraseña = (string)datos.lector["Contraseña"];
+                    aux.Estado = (bool)datos.lector["estado"];
+
+                    // Crear la instancia de Especialidad y asignar valores
+                    aux.IdEspecialidad = (long)datos.lector["idEspecialidad"];
+                    aux.NombreEspecialidad = (string)datos.lector["nombreEspecialidad"];
+
+                    // Crear la instancia de Sede y asignar valores
+                    aux.IdSede = (long)datos.lector["idSede"];
+                    aux.NombreSede = (string)datos.lector["nombreSede"];
+
+                    // Crear la instancia de HorarioLaboral y asignar valores
+                    aux.IdHorario = (long)datos.lector["idHorario"];
+                    aux.DiaSemana = (string)datos.lector["diaSemana"];
+                    aux.HoraInicio = (TimeSpan)datos.lector["horaInicio"];
+                    aux.HoraFin = (TimeSpan)datos.lector["horaFin"];
+
+                    Lista.Add(aux);
+                }
+                return Lista;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+
+
     }
 }
 

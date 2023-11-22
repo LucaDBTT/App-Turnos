@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Profesionales y Especialidades</h5>
                     <p class="card-text">Conoce todo nuestro personal y las especialidades que ofrecemos.</p>
-                    <a href="/Especialidades.aspx" class="btn btn-primary">Conocenos</a>
+                    <a href="Especialidades.aspx" class="btn btn-primary">Conocenos</a>
                 </div>
 
                
