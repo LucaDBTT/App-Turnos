@@ -17,7 +17,10 @@ namespace Turnos
         {
             if (!IsPostBack)
             {
-                cargarDatos();
+                EspecialidadesNegocio negocio = new EspecialidadesNegocio();
+                listaEspecialidades = negocio.ListarEspecialidades();
+                repRepeater.DataSource = listaEspecialidades;
+                repRepeater.DataBind();
             }
 
             if (Request.QueryString["idEspecialidad"] != null && listaEspecialidades.Count > 0)
@@ -25,12 +28,6 @@ namespace Turnos
                 string idEspecialidades = Request.QueryString["idEspecialidad"];
             }
         }
-        protected void cargarDatos()
-        {
-            EspecialidadesNegocio negocio = new EspecialidadesNegocio();
-            listaEspecialidades = negocio.ListarEspecialidades();
-            repRepeater.DataSource = listaEspecialidades;
-            repRepeater.DataBind();
-        }
+
     }
 }

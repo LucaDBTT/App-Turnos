@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
+    
     public class Especialidad
     {
         public long id { get; set; }

@@ -39,6 +39,7 @@ CREATE TABLE Especialidades(
     idEspecialidad bigint not null identity(1,1) primary key,
     nombreEspecialidad varchar(50) not null,
     estado bit not null,
+	URLimagen varchar (80)
 );
 
 CREATE TABLE Profesionales ( 
@@ -111,8 +112,10 @@ INSERT INTO Sede (nombreSede, estado) VALUES ('Sede1', 1);
 INSERT INTO Sede (nombreSede, estado) VALUES ('Sede2', 1);
 
 -- Inserting data into Especialidades table
-INSERT INTO Especialidades (nombreEspecialidad, estado) VALUES ('Cardiología', 1);
-INSERT INTO Especialidades (nombreEspecialidad, estado) VALUES ('Dermatología', 1);
+INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES ('Cardiología', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/Cardiologia.jpg');
+INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES ('Dermatología', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/dermatologia.jpg');
+INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES ('Traumatología', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/traumatologia.jpg');
+INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES ('Clínica Medica', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/clinica_medica.jpg');
 
 -- Inserting data into Profesionales table
 INSERT INTO Profesionales (nombre, apellido, Contraseña, estado) VALUES ('Dr. Carlos', 'Gonzalez', 'pass123', 1);
