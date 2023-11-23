@@ -1,3 +1,5 @@
+drop database DB_ProyectoFinal
+
 CREATE DATABASE DB_ProyectoFinal;
 GO
 
@@ -8,7 +10,13 @@ CREATE TABLE Coberturas (
     idCobertura bigint not null identity(1,1) primary key,
     nombreCobertura varchar(50) not null
 );
-
+CREATE TABLE Profesionales ( 
+    legajo bigint not null primary key identity(1,1),
+    nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    Contraseña varchar(30) not null,
+    estado bit not null,
+);
 create TABLE Pacientes (
     idPaciente bigint not null identity(1,1) primary key, 
     dni bigint not null unique,
@@ -21,12 +29,27 @@ create TABLE Pacientes (
     estado bit not null,
     foreign key (idCobertura) references Coberturas(idCobertura)
 );
+CREATE TABLE Administrador (
+    idAdministrador bigint not null primary key identity(1,1),
+    nombre varchar(50) not null,
+    apellido varchar(50) not null,
+    dni bigint not null unique,
+    telefono bigint not null,
+    estado bit not null
+    -- Puedes agregar más columnas según tus necesidades
+);
 --tipoUsuario 1=admin 2=medico 3=paciente o capaz solo uno y 2
 create table Usuarios(
  idUsuario bigint not null  primary key identity(1,1),
- Usuario varchar(50) not null ,
+ idPaciente bigint,
+ idProfesional bigint ,
+ idAdministrador bigint,
+ mail varchar(50) not null ,
  pass varchar (20) not null, 
  tipoUsuario int not null,
+ foreign key (idPaciente) references Pacientes(idPaciente),
+ foreign key (idProfesional) references Profesionales(legajo),
+ foreign key (idAdministrador) references Administrador(idAdministrador)
 )
 
 CREATE TABLE Sede ( 
@@ -42,13 +65,7 @@ CREATE TABLE Especialidades(
 	URLimagen varchar (80)
 );
 
-CREATE TABLE Profesionales ( 
-    legajo bigint not null primary key identity(1,1),
-    nombre varchar(50) not null,
-    apellido varchar(50) not null,
-    Contraseña varchar(30) not null,
-    estado bit not null,
-);
+
 
 CREATE TABLE Consultas(
     idConsultas  bigint not null identity(1,1) primary key,

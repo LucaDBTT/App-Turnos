@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("select idUsuario,tipoUsuario from Usuarios where Usuario = @User and pass= @Pass");
+                datos.SetearQuery("select idUsuario,tipoUsuario, mail from Usuarios where mail = @User and pass= @Pass");
                 datos.setearParametros("@User", usuario.User);
                 datos.setearParametros("@Pass", usuario.Pass);
 
@@ -24,8 +24,13 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     usuario.Id = (int)(long)datos.Lector["idUsuario"];
-                    usuario.TipoUsuario = (int)(datos.Lector["tipoUsuario"])== 2 ? TipoUsuarios.ADMIN :TipoUsuarios.NORMAL;
-                    return true;
+                    usuario.User = (string)datos.Lector["mail"];
+                    usuario.TipoUsuario = (int)(datos.Lector["tipoUsuario"]) == 1
+                     ? TipoUsuarios.paciente
+    :                (int)(datos.Lector["tipoUsuario"]) == 2
+                     ? TipoUsuarios.admin
+                     : TipoUsuarios.medico;
+                     return true;
 
                 }
                 return false; 
@@ -38,6 +43,28 @@ namespace Negocio
             {
                 datos.CerrarConexion();
             }
+        }
+
+        public void RegistrarUsuarios (usuarios nuevo)
+        {
+            try
+            {
+                using (AccesoDatos Datos = new AccesoDatos())
+                {
+                    Datos.SetearQuery("insert Usuarios (mail, pass, tipoUsuario) values (@mail, @pass, 1) ");
+
+                    Datos.setearParametros("@mail", nuevo.Mail);
+                    Datos.setearParametros("@pass", nuevo.Pass);
+
+                    Datos.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
         }
 
 

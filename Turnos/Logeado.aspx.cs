@@ -28,24 +28,38 @@ namespace Turnos
             {
                 Admin.Visible = false;
                 User.Visible = true;
+                Medico.Visible = false;
             }
             else if (EsUsuario())
             {
-                User.Visible = false;
-                Admin.Visible = true;
+                User.Visible = true;
+                Admin.Visible = false;
+                Medico.Visible = false;
             }
+            else if (EsMedico()) {
+                User.Visible = false;
+                Admin.Visible = false;
+                Medico.Visible = true;
+            }
+            
         }
 
         private bool EsAdministrador()
         {
             // Verifica si la sesión contiene un usuario y si ese usuario es un administrador
-            return Session["Usuario"] != null && ((Dominio.usuarios)Session["Usuario"]).TipoUsuario == Dominio.TipoUsuarios.ADMIN;
+            return Session["Usuario"] != null && ((Dominio.usuarios)Session["Usuario"]).TipoUsuario == Dominio.TipoUsuarios.admin;
         }
 
         private bool EsUsuario()
         {
             // Verifica si la sesión contiene un usuario y si ese usuario es un usuario regular
-            return Session["Usuario"] != null && ((Dominio.usuarios)Session["Usuario"]).TipoUsuario == Dominio.TipoUsuarios.NORMAL;
+            return Session["Usuario"] != null && ((Dominio.usuarios)Session["Usuario"]).TipoUsuario == Dominio.TipoUsuarios.paciente;
+        }
+
+        private bool EsMedico()
+        {
+            // Verifica si la sesión contiene un usuario y si ese usuario es un usuario regular
+            return Session["Usuario"] != null && ((Dominio.usuarios)Session["Usuario"]).TipoUsuario == Dominio.TipoUsuarios.medico;
         }
         protected void User_Click(object sender, EventArgs e)
         {
@@ -57,6 +71,9 @@ namespace Turnos
             Response.Redirect("Default.aspx", false);
         }
 
-
+        protected void Medico_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx", false);
+        }
     }
 }

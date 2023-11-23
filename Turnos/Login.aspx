@@ -20,6 +20,7 @@
                             <asp:TextBox ID="txtPass" runat="server"></asp:TextBox>
                         </div>   
                     <asp:Button runat="server" ID="Button1" Text="Ingresar" CssClass="btn btn-primary" OnClick="Button1_Click" />
+                    <asp:Button runat="server" ID="btnRegistrarse" Text="Registrarse" CssClass="btn btn-primary" OnClick="btnRegistrarse_Click" />
                 </div>
             </div>
         </div>

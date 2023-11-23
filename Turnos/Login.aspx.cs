@@ -24,7 +24,7 @@ namespace Turnos
            
             try
             {
-                usuario = new usuarios(txtUser.Text, txtPass.Text, false);//guardo los datos en la instancia de usuario
+                usuario = new usuarios(txtUser.Text, txtPass.Text,false,false, false );//guardo los datos en la instancia de usuario
                 if (negocio.loguear(usuario))// con el metodo vemos si es correcto lo ingresado y si es correcto en este caso lo mando a default
                 {
                     Session.Add("usuario", usuario);
@@ -41,6 +41,11 @@ namespace Turnos
                 Session.Add("error ", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        protected void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Registrarse.aspx", false);
         }
     }
 }

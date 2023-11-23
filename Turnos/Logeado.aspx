@@ -8,5 +8,7 @@
     <div class="login-container">
     <asp:Button runat="server" ID="User" Text="Navegar User" CssClass="btn btn-primary" OnClick="User_Click" />
     <asp:Button runat="server" ID="Admin" Text="Navegar Admin" CssClass="btn btn-primary" OnClick="Admin_Click" />
+        <asp:Button runat="server" ID="Medico" Text="Navegar Medico" CssClass="btn btn-primary" OnClick="Medico_Click"/>
+
     </div>
 </asp:Content>

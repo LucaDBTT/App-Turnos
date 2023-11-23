@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("SELECT s.idSede, s.nombreSede FROM Sede s WHERE s.estado = 1");
+                datos.SetearQuery("SELECT s.idSede, s.nombreSede FROM Sedes s WHERE s.estado = 1");
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -54,7 +54,7 @@ namespace Negocio
             {
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
-                    Datos.SetearQuery("INSERT INTO Sede (nombreSede, estado) VALUES (@Nombre, 1)");
+                    Datos.SetearQuery("INSERT INTO Sedes (nombreSede, estado) VALUES (@Nombre, 1)");
 
                     Datos.setearParametros("@Nombre", nuevo.NombreSede);
 
@@ -73,7 +73,7 @@ namespace Negocio
 
             try
             {
-                Datos.SetearQuery("UPDATE Sede SET nombreSede = @nombre WHERE idSede = @sede");
+                Datos.SetearQuery("UPDATE Sedes SET nombreSede = @nombre WHERE idSede = @sede");
 
                 Datos.setearParametros("@nombre", nuevo.NombreSede);
                
@@ -125,7 +125,7 @@ namespace Negocio
             {
 
 
-                datos.SetearQuery("update Sede set estado=0 where idSede = @idSede");
+                datos.SetearQuery("update Sedes set estado=0 where idSede = @idSede");
                 datos.setearParametros("@idSede", sede);
                 datos.ejecutarAccion();
 

@@ -110,6 +110,7 @@
     <Content Include="AgregarEspecialidadMedico.aspx" />
     <Content Include="MedicosTurno.aspx" />
     <Content Include="Patologias.aspx" />
+    <Content Include="Registrarse.aspx" />
     <Content Include="Sedes.aspx" />
     <Content Include="styles.css" />
     <Content Include="TurnoObtenido.aspx" />
@@ -221,6 +222,13 @@
       <DependentUpon>Patologias.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registrarse.aspx.cs">
+      <DependentUpon>Registrarse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registrarse.aspx.designer.cs">
+      <DependentUpon>Registrarse.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sedes.aspx.cs">
       <DependentUpon>Sedes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

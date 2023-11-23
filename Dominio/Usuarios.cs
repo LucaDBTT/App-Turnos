@@ -5,32 +5,36 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Dominio
-{
+
     //es una especie de clases con esos valores para usar
-    public enum TipoUsuarios
+    namespace Dominio
     {
-        NORMAL=1,
-        ADMIN=2
-    }
- 
-    public  class usuarios
+        // Enum TipoUsuarios
+        public enum TipoUsuarios
+        {
+            paciente = 1,
+            admin = 2,
+            medico = 3
+        }
+
+    // Clase usuarios
+    public class usuarios : Persona
     {
         public int Id { get; set; }
+        
         public string User { get; set; }
-        public string Pass{ get; set; }
+        public string Pass { get; set; }
         public TipoUsuarios TipoUsuario { get; set; }
 
-
-        public usuarios(string user, string pass, bool admin)
+        // Constructor
+        public usuarios(string user, string pass,bool isAdmin, bool isMedico, bool isPaciente)
         {
             User = user;
             Pass = pass;
-            TipoUsuario = admin ? TipoUsuarios.ADMIN : TipoUsuarios.NORMAL;
+            
+            TipoUsuario = isAdmin ? TipoUsuarios.admin : (isMedico ? TipoUsuarios.medico : TipoUsuarios.paciente);
         }
-
-
     }
-  
-
 }
+    
+    
