@@ -50,7 +50,7 @@
     <Compile Include="MedicoPorEspecialidad.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Sede.cs" />
-    <Compile Include="Turnos.cs" />
+    <Compile Include="SlotsTurnos.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Usuarios.cs" />

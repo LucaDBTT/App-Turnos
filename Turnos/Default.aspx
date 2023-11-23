@@ -13,8 +13,8 @@
         <div class="carousel-item active">
         <div class="position-relative">
             <img src="https://www.galeno.com.ar/_next/image/?url=https%3A%2F%2Fcms.galeno.com.ar%2FdA%2F60b951df-5ebc-4ae2-91ed-4c286932b9ff&w=1920&q=75" class="d-block w-100" alt="Slide 1" style="height: 400px; object-fit: cover;">
-            <div class="card card-container">
-                <div class="card-body">
+            <div class="carousel-card carosuel-container">
+                <div class="login-container">
                     <h5 class="card-title">Profesionales y Especialidades</h5>
                     <p class="card-text">Conoce todo nuestro personal y las especialidades que ofrecemos.</p>
                     <a href="Especialidades.aspx" class="btn btn-primary">Conocenos</a>

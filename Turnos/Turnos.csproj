@@ -98,6 +98,7 @@
     <Content Include="AgregarEspecialidad.aspx" />
     <Content Include="AgregarMedico.aspx" />
     <Content Include="AgregarSede.aspx" />
+    <Content Include="AgregarTurno.aspx" />
     <Content Include="AgregarUsuario.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
@@ -111,6 +112,7 @@
     <Content Include="Patologias.aspx" />
     <Content Include="Sedes.aspx" />
     <Content Include="styles.css" />
+    <Content Include="TurnoObtenido.aspx" />
     <Content Include="Turnos.aspx" />
     <Content Include="UserDefault.aspx" />
     <Content Include="Usuarios.aspx" />
@@ -137,6 +139,13 @@
     </Compile>
     <Compile Include="AgregarSede.aspx.designer.cs">
       <DependentUpon>AgregarSede.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AgregarTurno.aspx.cs">
+      <DependentUpon>AgregarTurno.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgregarTurno.aspx.designer.cs">
+      <DependentUpon>AgregarTurno.aspx</DependentUpon>
     </Compile>
     <Compile Include="AgregarUsuario.aspx.cs">
       <DependentUpon>AgregarUsuario.aspx</DependentUpon>
@@ -218,6 +227,13 @@
     </Compile>
     <Compile Include="Sedes.aspx.designer.cs">
       <DependentUpon>Sedes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TurnoObtenido.aspx.cs">
+      <DependentUpon>TurnoObtenido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TurnoObtenido.aspx.designer.cs">
+      <DependentUpon>TurnoObtenido.aspx</DependentUpon>
     </Compile>
     <Compile Include="Turnos.aspx.cs">
       <DependentUpon>Turnos.aspx</DependentUpon>

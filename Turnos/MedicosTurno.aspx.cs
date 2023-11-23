@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -25,6 +26,7 @@ namespace Turnos
                         CargarMedicosPorEspecialidad(idEspecialidad);
                     }
                 }
+                dgvMedicoPorEspecialidad.RowDataBound += dgvMedicoPorEspecialidad_RowDataBound;
             }
         }
 
@@ -60,7 +62,45 @@ namespace Turnos
             dgvMedicoPorEspecialidad.DataBind();
         }
 
+        protected void dgvMedicoPorEspecialidad_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DropDownList ddlSlotsTurno = (DropDownList)e.Row.FindControl("ddlSlotsTurno");
+                TurnosNegocio turnos = new TurnosNegocio();
 
+                if (ddlSlotsTurno != null)
+                {
+                    int idMedico = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "idMedicoPorEspecialidad"));
+                    DataTable slotsTurnoDataTable = turnos.ObtenerSlotsTurnoPorMedico(idMedico);
+
+                    ddlSlotsTurno.DataSource = slotsTurnoDataTable;
+                    ddlSlotsTurno.DataTextField = "fechaHoraInicio";
+                    ddlSlotsTurno.DataValueField = "idSlot";
+                    ddlSlotsTurno.DataBind();
+
+
+                    ddlSlotsTurno.Visible = true;
+                }
+            }
+        }
+
+        protected void lnkTurno_Click(object sender, EventArgs e)
+        {
+            LinkButton lnkTurno = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)lnkTurno.NamingContainer;
+
+            // Obtén el DropDownList dentro de la fila
+            DropDownList ddlSlotsTurno = (DropDownList)row.FindControl("ddlSlotsTurno");
+
+            // Obtén el ID del slot seleccionado
+            long idSlotSeleccionado = Convert.ToInt64(ddlSlotsTurno.SelectedValue);
+
+            // Utiliza el método OcuparTurno para actualizar el estado del slot en la base de datos
+            TurnosNegocio turnosNegocio = new TurnosNegocio();
+            turnosNegocio.OcuparTurno(idSlotSeleccionado);
+            Response.Redirect($"TurnoObtenido.aspx?idSlot={idSlotSeleccionado}");
+        }
     }
 
 }

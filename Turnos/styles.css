@@ -103,6 +103,29 @@
     box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
 }
 
+.carousel-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 4px 8px #215b30;
+    margin-top: 80px;
+    position: absolute;
+    top: 20px;
+    margin-left: 200px !important;
+    width: 700px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    margin-right: 25%;
+}
+
+.carosuel-container {
+    padding: 20px;
+    margin-left: 40px;
+    max-width: 18rem;
+    margin: 10px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
     .card img {
         width: 260px;
         height: 200px;
@@ -264,5 +287,12 @@
   background-color: black; /* Fondo azul al pasar el ratón */
   color: #fff; /* Color del texto blanco */
 
+}
+
+.custom-dropdown {
+    background-color: #EFEFEF;
+    border: 1px solid #CCCCCC;
+    color:firebrick !important;
+    /* Otros estilos que desees agregar */
 }
 
