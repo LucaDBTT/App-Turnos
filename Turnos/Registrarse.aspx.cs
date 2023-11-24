@@ -31,7 +31,7 @@ namespace Turnos
             {
                 Usuario usuario = new Usuario();
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-
+                ServicioEmail emailService = new ServicioEmail();
                 usuarios nuevo = new usuarios(txtCorreo.Text,txtContraseña.Text,false,false,false);
                 UsuariosNegocio negocio = new UsuariosNegocio();
 
@@ -66,6 +66,9 @@ namespace Turnos
                 nuevo.Pass = txtContraseña.Text;
                 nuevo.TipoUsuario = TipoUsuarios.paciente;
                 negocio.RegistrarUsuarios(nuevo);
+                emailService.armarCorreo(nuevo.Mail, "Bienvenid@ a JPSalud", "Hola" + usuario.Nombre + "nos complacete tenerte como usuario");
+                emailService.enviarMail();
+               
 
                 Response.Redirect("Default.aspx", false);
 
