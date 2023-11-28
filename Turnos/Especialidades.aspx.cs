@@ -14,7 +14,12 @@ namespace Turnos
         public bool filtroAvanzado {  get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-                filtroAvanzado = chkAvanzado.Checked;
+            if (!(Session["Usuario"] is Dominio.usuarios usuario && usuario.TipoUsuario == Dominio.TipoUsuarios.admin))
+            {
+                Session.Add("Error", "no eres administrador");
+                Response.Redirect("Login.aspx", false);
+            }
+            filtroAvanzado = chkAvanzado.Checked;
             if (!IsPostBack)
             {
                 MedicoNegocio negocio = new MedicoNegocio();

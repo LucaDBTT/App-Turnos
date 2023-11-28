@@ -13,11 +13,16 @@ namespace Turnos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!(Session["Usuario"] != null && ((Dominio.usuarios)Session["Usuario"]).TipoUsuario == Dominio.TipoUsuarios.admin))
+            if (!(Session["Usuario"] is Dominio.usuarios usuario && usuario.TipoUsuario == Dominio.TipoUsuarios.paciente))
             {
-                Session.Add("Error", "no eres usuario");
+                Session.Add("Error", "No eres un paciente");
                 Response.Redirect("Login.aspx", false);
             }
+        }
+
+        protected void ButtonUse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Turnos.aspx", false);
         }
     }
 }

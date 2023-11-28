@@ -13,6 +13,11 @@ namespace Turnos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(Session["Usuario"] is Dominio.usuarios usuario && usuario.TipoUsuario == Dominio.TipoUsuarios.admin))
+            {
+                Session.Add("Error", "no eres administrador");
+                Response.Redirect("Login.aspx", false);
+            }
             if (!IsPostBack)
             {
                 BindGridViewData();

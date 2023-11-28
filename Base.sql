@@ -1,5 +1,3 @@
-drop database DB_ProyectoFinal
-
 CREATE DATABASE DB_ProyectoFinal;
 GO
 
@@ -106,63 +104,68 @@ CREATE TABLE SlotsTurnos (
 );
 
 
-SELECT * FROM Especialidades
+-- Inserciones para la tabla Coberturas
+INSERT INTO Coberturas (nombreCobertura) VALUES
+('Obra Social 1'),
+('Obra Social 2'),
+('Obra Social 3');
 
+-- Inserciones para la tabla Profesionales
+INSERT INTO Profesionales (nombre, apellido, Contraseña, estado) VALUES
+('Juan', 'Gómez', 'contraseña1', 1),
+('María', 'López', 'contraseña2', 1),
+('Pedro', 'Rodríguez', 'contraseña3', 1);
 
-INSERT INTO Coberturas (nombreCobertura) VALUES ('Cobertura A');
-INSERT INTO Coberturas (nombreCobertura) VALUES ('Cobertura B');
--- Puedes continuar agregando más según sea necesario
+-- Inserciones para la tabla Pacientes
+INSERT INTO Pacientes (dni, apellido, nombre, fechaNac, idCobertura, nroAfiliado, telefono, estado) VALUES
+(123456789, 'Paciente1', 'Nombre1', '1990-01-01', 1, 12345, 111222333, 1),
+(987654321, 'Paciente2', 'Nombre2', '1985-05-05', 2, 54321, 444555666, 1),
+(111222333, 'Paciente3', 'Nombre3', '1998-12-15', 3, 67890, 777888999, 1);
 
--- Inserciones en Pacientes
-INSERT INTO Pacientes (dni, apellido, nombre, fechaNac, idCobertura, nroAfiliado, telefono, estado)
-VALUES (123456789, 'Gómez', 'Juan', '1990-01-15', 1, 987654, 555123456, 1);
+-- Inserciones para la tabla Administrador
+INSERT INTO Administrador (nombre, apellido, dni, telefono, estado) VALUES
+('Admin', 'Apellido', 999888777, 123456789, 1);
 
-INSERT INTO Pacientes (dni, apellido, nombre, fechaNac, idCobertura, nroAfiliado, telefono, estado)
-VALUES (987654321, 'López', 'Ana', '1985-05-20', 2, 123456, 555789012, 1);
+-- Inserciones para la tabla Usuarios
+INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador, mail, pass, tipoUsuario) VALUES
+(1, NULL, NULL, 'paciente1@mail.com', 'password1', 3),
+(NULL, 1, NULL, 'medico1@mail.com', 'password2', 2),
+(NULL, NULL, 1, 'admin@mail.com', 'password3', 1);
 
--- Inserciones en Usuarios
-INSERT INTO Usuarios (Usuario, pass, tipoUsuario) VALUES ('admin', 'adminpass', 1);
-INSERT INTO Usuarios (Usuario, pass, tipoUsuario) VALUES ('medico1', 'medicopass1', 2);
-INSERT INTO Usuarios (Usuario, pass, tipoUsuario) VALUES ('paciente1', 'pacientepass1', 3);
+-- Inserciones para la tabla Sede
+INSERT INTO Sede (nombreSede, estado) VALUES
+('Sede 1', 1),
+('Sede 2', 1),
+('Sede 3', 1);
 
--- Inserciones en Sede
-INSERT INTO Sede (nombreSede, estado) VALUES ('Sede Principal', 1);
-INSERT INTO Sede (nombreSede, estado) VALUES ('Sede Secundaria', 1);
+-- Inserciones para la tabla Especialidades
+INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES
+('Especialidad 1', 1, 'imagen1.jpg'),
+('Especialidad 2', 1, 'imagen2.jpg'),
+('Especialidad 3', 1, 'imagen3.jpg');
 
--- Inserciones en Especialidades
-INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES ('Cardiología', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/Cardiologia.jpg');
-INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES ('Dermatología', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/dermatologia.jpg');
-INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES ('Traumatología', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/traumatologia.jpg');
-INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES ('Clínica Medica', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/clinica_medica.jpg');
+-- Inserciones para la tabla Consultas
+INSERT INTO Consultas (nombreConsultas) VALUES
+('Consulta 1'),
+('Consulta 2'),
+('Consulta 3');
 
--- Inserciones en Profesionales
-INSERT INTO Profesionales (nombre, apellido, Contraseña, estado) VALUES ('Médico', 'Uno', 'passmedico1', 1);
-INSERT INTO Profesionales (nombre, apellido, Contraseña, estado) VALUES ('Médico', 'Dos', 'passmedico2', 1);
+-- Inserciones para la tabla HorarioLaboral
+INSERT INTO HorarioLaboral (diaSemana, horaInicio, horaFin) VALUES
+('Lunes', '08:00:00', '17:00:00'),
+('Martes', '09:00:00', '18:00:00'),
+('Miércoles', '10:00:00', '19:00:00');
 
--- Inserciones en Consultas
-INSERT INTO Consultas (nombreConsultas) VALUES ('Consulta General');
-INSERT INTO Consultas (nombreConsultas) VALUES ('Consulta Especializada');
+-- Inserciones para la tabla MedicoPorEspecialidad
+INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, estado) VALUES
+(1, 1, 1, 1, 1),
+(2, 2, 2, 2, 1),
+(3, 3, 3, 3, 1);
 
--- Inserciones en HorarioLaboral
-INSERT INTO HorarioLaboral (diaSemana, horaInicio, horaFin) VALUES ('Lunes', '08:00:00', '12:00:00');
-INSERT INTO HorarioLaboral (diaSemana, horaInicio, horaFin) VALUES ('Martes', '10:00:00', '15:00:00');
+-- Inserciones para la tabla SlotsTurnos
+INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) VALUES
+(1, null, '2023-01-01', '10:00:00', '11:00:00', 0),
+(2, null, '2023-02-02', '11:30:00', '12:30:00', 0),
+(3, null, '2023-03-03', '12:00:00', '13:00:00', 0);
 
--- Inserciones en MedicoPorEspecialidad
-INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, estado) VALUES (1, 1, 1, 1, 1);
-INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, estado) VALUES (2, 2, 2, 2, 1);
-
-INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) 
-VALUES (1, NULL, '2023-11-27', '10:00:00', '11:00:00', 0);
-
-INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) 
-VALUES (1, NULL, '2023-12-04', '11:00:00', '12:00:00', 0);
-INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) 
-VALUES (1, NULL, '2023-12-04', '12:00:00', '13:00:00', 0);
-INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) 
-VALUES (1, NULL, '2023-12-04', '13:00:00', '14:00:00', 0);
-INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) 
-VALUES (1, NULL, '2023-12-04', '14:00:00', '15:00:00', 0);
-INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) 
-VALUES (1, NULL, '2023-12-04', '15:00:00', '16:00:00', 0);
-INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) 
-VALUES (1, NULL, '2023-12-04', '16:00:00', '17:00:00', 0);
+select * from Usuarios

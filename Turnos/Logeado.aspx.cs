@@ -26,8 +26,8 @@ namespace Turnos
             // Verificar el rol del usuario y mostrar u ocultar los botones según sea necesario
             if (EsAdministrador())
             {
-                Admin.Visible = false;
-                User.Visible = true;
+                Admin.Visible = true;
+                User.Visible = false;
                 Medico.Visible = false;
             }
             else if (EsUsuario())

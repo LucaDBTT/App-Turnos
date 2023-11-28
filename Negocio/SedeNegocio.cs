@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("SELECT s.idSede, s.nombreSede FROM Sedes s WHERE s.estado = 1");
+                datos.SetearQuery("SELECT s.idSede, s.nombreSede FROM Sede s WHERE s.estado = 1");
 
                 if (!string.IsNullOrEmpty(id))
                 {
