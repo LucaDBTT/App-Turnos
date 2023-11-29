@@ -104,11 +104,11 @@
     <Content Include="Error.aspx" />
     <Content Include="Especialidades.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Logeado.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MedicosEspecialidad.aspx" />
     <Content Include="AgregarEspecialidadMedico.aspx" />
     <Content Include="MedicosTurno.aspx" />
+    <Content Include="MisTurnos.aspx" />
     <Content Include="Patologias.aspx" />
     <Content Include="Registrarse.aspx" />
     <Content Include="Sedes.aspx" />
@@ -179,13 +179,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Logeado.aspx.cs">
-      <DependentUpon>Logeado.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Logeado.aspx.designer.cs">
-      <DependentUpon>Logeado.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -213,6 +206,13 @@
     </Compile>
     <Compile Include="MedicosTurno.aspx.designer.cs">
       <DependentUpon>MedicosTurno.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MisTurnos.aspx.cs">
+      <DependentUpon>MisTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MisTurnos.aspx.designer.cs">
+      <DependentUpon>MisTurnos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Patologias.aspx.cs">
       <DependentUpon>Patologias.aspx</DependentUpon>
