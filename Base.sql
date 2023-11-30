@@ -1,3 +1,4 @@
+drop database DB_ProyectoFinal
 CREATE DATABASE DB_ProyectoFinal;
 GO
 
@@ -42,6 +43,7 @@ create table Usuarios(
  idPaciente bigint,
  idProfesional bigint ,
  idAdministrador bigint,
+ dni bigint not null,
  mail varchar(50) not null ,
  pass varchar (20) not null, 
  tipoUsuario int not null,
@@ -127,10 +129,10 @@ INSERT INTO Administrador (nombre, apellido, dni, telefono, estado) VALUES
 ('Admin', 'Apellido', 999888777, 123456789, 1);
 
 -- Inserciones para la tabla Usuarios
-INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador, mail, pass, tipoUsuario) VALUES
-(1, NULL, NULL, 'paciente1@mail.com', 'password1', 3),
-(NULL, 1, NULL, 'medico1@mail.com', 'password2', 2),
-(NULL, NULL, 1, 'admin@mail.com', 'password3', 1);
+INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador,dni, mail, pass, tipoUsuario) VALUES
+(1, NULL, NULL,123456789, 'paciente1@mail.com', 'password1', 1),
+(NULL, 1, NULL,987654321, 'medico1@mail.com', 'password2', 2),
+(NULL, NULL, 1,6756757657,'admin@mail.com', 'password3', 3);
 
 -- Inserciones para la tabla Sede
 INSERT INTO Sede (nombreSede, estado) VALUES
@@ -164,8 +166,15 @@ INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, es
 
 -- Inserciones para la tabla SlotsTurnos
 INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) VALUES
-(1, null, '2023-01-01', '10:00:00', '11:00:00', 0),
-(2, null, '2023-02-02', '11:30:00', '12:30:00', 0),
+(1, 123456789, '2023-01-01', '15:00:00', '14:00:00', 0),
+(2, 987654321, '2023-03-02', '12:30:00', '13:30:00', 0),
 (3, null, '2023-03-03', '12:00:00', '13:00:00', 0);
 
-select * from Usuarios
+
+select * from Pacientes
+select * from SlotsTurnos 
+
+
+select u.apellido, u.nombre, st.fecha, st.horaInicio, st.horaFin
+from Pacientes u
+inner join SlotsTurnos st on u.dni = st.DniPaciente

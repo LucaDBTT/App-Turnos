@@ -32,7 +32,7 @@ namespace Turnos
                 Usuario usuario = new Usuario();
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
                 ServicioEmail emailService = new ServicioEmail();
-                usuarios nuevo = new usuarios(txtCorreo.Text,txtContraseña.Text,false,false,false);
+                usuarios nuevo = new usuarios(txtCorreo.Text,txtContraseña.Text,usuario.dni,false,false,false);
                 UsuariosNegocio negocio = new UsuariosNegocio();
 
 

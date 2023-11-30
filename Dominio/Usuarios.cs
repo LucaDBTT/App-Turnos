@@ -24,13 +24,15 @@ using System.Threading.Tasks;
         
         public string User { get; set; }
         public string Pass { get; set; }
+       
         public TipoUsuarios TipoUsuario { get; set; }
 
         // Constructor
-        public usuarios(string user, string pass,bool isAdmin, bool isMedico, bool isPaciente)
+        public usuarios(string user, string pass,long dni,bool isAdmin, bool isMedico, bool isPaciente)
         {
             User = user;
             Pass = pass;
+            this.dni= dni;
             
             TipoUsuario = isAdmin ? TipoUsuarios.admin : (isMedico ? TipoUsuarios.medico : TipoUsuarios.paciente);
         }

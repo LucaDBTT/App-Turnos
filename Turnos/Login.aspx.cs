@@ -21,13 +21,14 @@ namespace Turnos
         {
             usuarios usuario;// creo una instancia de usuario
             UsuariosNegocio negocio = new UsuariosNegocio(); // y de negiocio
-           
+            long dni = 0;
             try
             {
-                usuario = new usuarios(txtUser.Text, txtPass.Text,false,false, false );//guardo los datos en la instancia de usuario
+                usuario = new usuarios(txtUser.Text, txtPass.Text,dni,false,false, false );//guardo los datos en la instancia de usuario
+            
                 if (negocio.loguear(usuario))// con el metodo vemos si es correcto lo ingresado y si es correcto en este caso lo mando a default
                 {
-                    Session.Add("usuario", usuario);
+                    Session.Add("Usuario", usuario);
                     //Response.Redirect("Logeado.aspx", false);
                     if (EsAdministrador())
                     {

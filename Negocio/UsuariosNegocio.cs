@@ -16,15 +16,20 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("select idUsuario,tipoUsuario, mail from Usuarios where mail = @User and pass= @Pass");
+                datos.SetearQuery("select idUsuario,tipoUsuario, mail, dni from Usuarios where mail = @User and pass= @Pass");
                 datos.setearParametros("@User", usuario.User);
                 datos.setearParametros("@Pass", usuario.Pass);
+                
+
+
 
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
                 {
                     usuario.Id = (int)(long)datos.Lector["idUsuario"];
                     usuario.User = (string)datos.Lector["mail"];
+                    usuario.dni = (long)datos.Lector["dni"]; 
+                    
                     usuario.TipoUsuario = (int)(datos.Lector["tipoUsuario"]) == 1
                      ? TipoUsuarios.paciente
     :                (int)(datos.Lector["tipoUsuario"]) == 2
@@ -51,10 +56,11 @@ namespace Negocio
             {
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
-                    Datos.SetearQuery("insert Usuarios (mail, pass, tipoUsuario) values (@mail, @pass, 1) ");
+                    Datos.SetearQuery("insert Usuarios (mail, pass,dni, tipoUsuario) values (@dni,@mail, @pass, 1) ");
 
                     Datos.setearParametros("@mail", nuevo.Mail);
                     Datos.setearParametros("@pass", nuevo.Pass);
+                    Datos.setearParametros("@dni", nuevo.dni);
 
                     Datos.ejecutarAccion();
                 }
