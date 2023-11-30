@@ -1,6 +1,4 @@
 
-
-
 CREATE PROCEDURE sp_ObtenerDatosPacienteYTurnos
     @DniPaciente BIGINT
 AS
@@ -21,3 +19,5 @@ BEGIN
 END
 
 EXEC sp_ObtenerDatosPacienteYTurnos @DniPaciente = '123456789';
+
+

@@ -24,6 +24,7 @@ using System.Threading.Tasks;
         
         public string User { get; set; }
         public string Pass { get; set; }
+        public long IdEntidad {  get; set; }
        
         public TipoUsuarios TipoUsuario { get; set; }
 

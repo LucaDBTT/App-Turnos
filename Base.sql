@@ -1,4 +1,3 @@
-drop database DB_ProyectoFinal
 CREATE DATABASE DB_ProyectoFinal;
 GO
 
@@ -11,6 +10,7 @@ CREATE TABLE Coberturas (
 );
 CREATE TABLE Profesionales ( 
     legajo bigint not null primary key identity(1,1),
+	dni bigint not null unique,
     nombre varchar(50) not null,
     apellido varchar(50) not null,
     Contraseña varchar(30) not null,
@@ -113,10 +113,10 @@ INSERT INTO Coberturas (nombreCobertura) VALUES
 ('Obra Social 3');
 
 -- Inserciones para la tabla Profesionales
-INSERT INTO Profesionales (nombre, apellido, Contraseña, estado) VALUES
-('Juan', 'Gómez', 'contraseña1', 1),
-('María', 'López', 'contraseña2', 1),
-('Pedro', 'Rodríguez', 'contraseña3', 1);
+INSERT INTO Profesionales (dni, nombre, apellido, Contraseña, estado) VALUES
+(987654321, 'Juan', 'Gómez', 'contraseña1', 1),
+(9543534345, 'María', 'López', 'contraseña2', 1),
+(9866677, 'Pedro', 'Rodríguez', 'contraseña3', 1);
 
 -- Inserciones para la tabla Pacientes
 INSERT INTO Pacientes (dni, apellido, nombre, fechaNac, idCobertura, nroAfiliado, telefono, estado) VALUES
@@ -130,9 +130,8 @@ INSERT INTO Administrador (nombre, apellido, dni, telefono, estado) VALUES
 
 -- Inserciones para la tabla Usuarios
 INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador,dni, mail, pass, tipoUsuario) VALUES
-(1, NULL, NULL,123456789, 'paciente1@mail.com', 'password1', 1),
-(NULL, 1, NULL,987654321, 'medico1@mail.com', 'password2', 2),
-(NULL, NULL, 1,6756757657,'admin@mail.com', 'password3', 3);
+(NULL, 1, NULL, 987654321, 'medico1@mail.com', 'password2', 2),
+(NULL, NULL, 1 ,6756757657,'admin@mail.com', 'password3', 3);
 
 -- Inserciones para la tabla Sede
 INSERT INTO Sede (nombreSede, estado) VALUES
@@ -142,9 +141,9 @@ INSERT INTO Sede (nombreSede, estado) VALUES
 
 -- Inserciones para la tabla Especialidades
 INSERT INTO Especialidades (nombreEspecialidad, estado, URLimagen) VALUES
-('Especialidad 1', 1, 'imagen1.jpg'),
-('Especialidad 2', 1, 'imagen2.jpg'),
-('Especialidad 3', 1, 'imagen3.jpg');
+('Dermatologia', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/dermatologia.jpg'),
+('Traumatologia', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/traumatologia.jpg'),
+('Clinica Medica', 1, 'https://prestacionesmedicaspilar.com/img/especialidades/clinica_medica.jpg');
 
 -- Inserciones para la tabla Consultas
 INSERT INTO Consultas (nombreConsultas) VALUES
@@ -166,15 +165,7 @@ INSERT INTO MedicoPorEspecialidad (legajo, idEspecialidad, idSede, idHorario, es
 
 -- Inserciones para la tabla SlotsTurnos
 INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio, horaFin, Estado) VALUES
-(1, 123456789, '2023-01-01', '15:00:00', '14:00:00', 0),
-(2, 987654321, '2023-03-02', '12:30:00', '13:30:00', 0),
+(1, null, '2023-01-01', '15:00:00', '14:00:00', 0),
+(2, null, '2023-03-02', '12:30:00', '13:30:00', 0),
 (3, null, '2023-03-03', '12:00:00', '13:00:00', 0);
 
-
-select * from Pacientes
-select * from SlotsTurnos 
-
-
-select u.apellido, u.nombre, st.fecha, st.horaInicio, st.horaFin
-from Pacientes u
-inner join SlotsTurnos st on u.dni = st.DniPaciente

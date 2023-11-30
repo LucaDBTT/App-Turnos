@@ -40,7 +40,7 @@ namespace Negocio
             return dataTable;
         }
 
-        public void OcuparTurno(long idSlot)
+        public void OcuparTurno(long idSlot, long dni)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -48,8 +48,9 @@ namespace Negocio
             {
 
 
-                datos.SetearQuery("update SlotsTurnos set estado=1 where idSlot = @idSlot");
+                datos.SetearQuery("update SlotsTurnos set estado=1, dniPaciente = @dni where idSlot = @idSlot");
                 datos.setearParametros("@idSlot", idSlot);
+                datos.setearParametros("@dni", dni);
                 datos.ejecutarAccion();
 
             }
@@ -105,7 +106,25 @@ namespace Negocio
             }
         }
 
+        public void CancelarTurno(long idSlot)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                datos.SetearQuery("update SlotsTurnos set estado = 0, dniPaciente = null where idSlot = @idSlot");
+                datos.setearParametros("@idSlot", idSlot);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
 
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace Negocio
                     };
                     aux.NroAfiliado = (long)datos.lector["nroAfiliado"];
                     aux.Telefono = (long)datos.lector["telefono"];
-                    
+
                     aux.Estado = (bool)datos.lector["estado"];
 
                     Lista.Add(aux);
@@ -72,7 +73,7 @@ namespace Negocio
                     Datos.setearParametros("@IdCobertura", nuevo.Cobertura.idCobertura);
                     Datos.setearParametros("@NroAfiliado", nuevo.NroAfiliado);
                     Datos.setearParametros("@Telefono", nuevo.Telefono);
-              
+
                     Datos.setearParametros("@Estado", nuevo.Estado);
 
                     Datos.ejecutarAccion();
@@ -98,7 +99,7 @@ namespace Negocio
                 datos.setearParametros("@idCobertura", nuevo.Cobertura.idCobertura);
                 datos.setearParametros("@nroAfiliado", nuevo.NroAfiliado);
                 datos.setearParametros("@telefono", nuevo.Telefono);
-               
+
                 datos.setearParametros("@estado", nuevo.Estado);
                 datos.setearParametros("@dni", nuevo.dni);
 
@@ -133,8 +134,33 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public long ObtenerUltimoIdPaciente()
+        {
+            try
+            {
+                using (AccesoDatos Datos = new AccesoDatos())
+                {
+                    Datos.SetearQuery("SELECT MAX(idPaciente) FROM Pacientes");
+
+                    Datos.EjecutarLectura();
+
+                    if (Datos.lector.Read())
+                    {
+                        long ultimoId = Convert.ToInt64(Datos.lector[0]);
+                        return ultimoId;
+                    }
+
+                    return -1; // Retorna -1 si no hay registros en la tabla Pacientes
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 
-}
+    }
 
     

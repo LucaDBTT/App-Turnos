@@ -64,7 +64,8 @@ namespace Turnos
 
                 nuevo.Mail= txtCorreo.Text;
                 nuevo.Pass = txtContraseña.Text;
-                nuevo.TipoUsuario = TipoUsuarios.paciente;
+                nuevo.dni = usuario.dni;
+                nuevo.IdEntidad = usuarioNegocio.ObtenerUltimoIdPaciente();
                 negocio.RegistrarUsuarios(nuevo);
                 emailService.armarCorreo(nuevo.Mail, "Bienvenid@ a JPSalud", "Hola" + usuario.Nombre + "nos complacete tenerte como usuario");
                 emailService.enviarMail();

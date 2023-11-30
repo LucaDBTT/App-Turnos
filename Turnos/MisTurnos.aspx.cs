@@ -16,24 +16,41 @@ namespace Turnos
         {
             if (!IsPostBack)
             {
-                // Verificar si el usuario ha iniciado sesión y determinar su tipo
                 if (Session["Usuario"] != null)
                 {
-                        // Obtener el ID del paciente desde la sesión
                         long dni = ((Dominio.usuarios)Session["Usuario"]).dni;
 
-                        // Crear instancia de DatosNegocio
                         DatosNegocio datosNegocio = new DatosNegocio();
 
-                        // Obtener datos del paciente y sus turnos
                         DataTable datosPaciente = datosNegocio.ObtenerDatosPacienteYTurnos(dni);
 
-                        // Vincular datos al GridView
                         dgvMisTurnos.DataSource = datosPaciente;
                         dgvMisTurnos.DataBind();
                     
                 }
             }
         }
+
+        protected void dgvMisTurnos_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "CancelarTurno")
+            {
+                try
+                {
+                    long idSlot = Convert.ToInt64(e.CommandArgument);
+                    TurnosNegocio eliminar = new TurnosNegocio();
+                    eliminar.CancelarTurno(idSlot);
+
+                    dgvMisTurnos.DataBind();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine("Error al cancelar el turno: " + ex.Message);
+                }
+            }
+        }
+
+
     }
 }

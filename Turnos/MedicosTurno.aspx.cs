@@ -90,16 +90,22 @@ namespace Turnos
             LinkButton lnkTurno = (LinkButton)sender;
             GridViewRow row = (GridViewRow)lnkTurno.NamingContainer;
 
-            // Obtén el DropDownList dentro de la fila
             DropDownList ddlSlotsTurno = (DropDownList)row.FindControl("ddlSlotsTurno");
 
-            // Obtén el ID del slot seleccionado
             long idSlotSeleccionado = Convert.ToInt64(ddlSlotsTurno.SelectedValue);
 
-            // Utiliza el método OcuparTurno para actualizar el estado del slot en la base de datos
-            TurnosNegocio turnosNegocio = new TurnosNegocio();
-            turnosNegocio.OcuparTurno(idSlotSeleccionado);
-            Response.Redirect($"TurnoObtenido.aspx?idSlot={idSlotSeleccionado}");
+            if (Session["Usuario"] is Dominio.usuarios usuario)
+            {
+                long dni = usuario.dni;
+
+                TurnosNegocio turnosNegocio = new TurnosNegocio();
+                turnosNegocio.OcuparTurno(idSlotSeleccionado, dni);
+                Response.Redirect($"MisTurnos.aspx?idSlot={idSlotSeleccionado}");
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
     }
 
