@@ -30,7 +30,7 @@ namespace Negocio
                     aux.Legajo = (long)datos.lector["legajo"];
                     aux.Nombre = (string)datos.lector["nombre"];
                     aux.Apellido = (string)datos.lector["apellido"];
-                  
+
                     aux.Estado = (bool)datos.lector["estado"];
                     aux.Contraseña = (string)datos.lector["Contraseña"];
 
@@ -48,23 +48,28 @@ namespace Negocio
             }
         }
 
-       
-        public void AgregarMedico(Medico nuevo)
+
+        public long AgregarMedico(Medico nuevo)
         {
             try
             {
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
-
-                    Datos.SetearQuery("INSERT INTO Profesionales ( nombre, apellido, contraseña, estado) VALUES ( @Nombre, @Apellido, @Contraseña, @Estado)");
-
+                    Datos.SetearQuery("INSERT INTO Profesionales (dni, nombre, apellido, contraseña, estado) VALUES (@dni, @Nombre, @Apellido, @Contraseña, @Estado); SELECT SCOPE_IDENTITY();");
 
                     Datos.setearParametros("@Nombre", nuevo.Nombre);
                     Datos.setearParametros("@Apellido", nuevo.Apellido);
                     Datos.setearParametros("@Contraseña", nuevo.Contraseña);
+                    Datos.setearParametros("@dni", nuevo.dni);
                     Datos.setearParametros("@Estado", 1);
 
-                    Datos.ejecutarAccion();
+                    // Ejecutar la consulta y obtener el ID generado
+                    long legajo = Convert.ToInt64(Datos.ejecutarScalar());
+
+                    // Asignar el ID generado al objeto Medico
+                    nuevo.Legajo = legajo;
+
+                    return legajo;
                 }
             }
             catch (Exception Ex)
@@ -72,6 +77,7 @@ namespace Negocio
                 throw Ex;
             }
         }
+
 
         public void Modificar(Medico nuevo)
         {
@@ -232,8 +238,9 @@ namespace Negocio
             }
 
         }
-
     }
 }
+  
+
 
 

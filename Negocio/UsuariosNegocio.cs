@@ -56,11 +56,12 @@ namespace Negocio
             {
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
-                    Datos.SetearQuery("insert into Usuarios (dni, mail, pass, tipoUsuario, idPaciente) values (@dni, @mail, @pass, 1, @IdEntidad) ");
+                    Datos.SetearQuery("insert into Usuarios (idProfesional,dni, mail, pass, tipoUsuario) values (@IdEntidad, @dni, @mail,@pass, @tipoUsuario) ");
 
                     Datos.setearParametros("@dni", nuevo.dni);
-                    Datos.setearParametros("@mail", nuevo.Mail);
+                    Datos.setearParametros("@mail", nuevo.User);
                     Datos.setearParametros("@pass", nuevo.Pass);
+                    Datos.setearParametros("@tipoUsuario", nuevo.TipoUsuario);
                     Datos.setearParametros("@IdEntidad", nuevo.IdEntidad);
 
                     Datos.ejecutarAccion();

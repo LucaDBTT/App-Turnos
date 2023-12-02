@@ -48,17 +48,24 @@ namespace Negocio
         }
 
 
-        public void AgregarSede(Sede nuevo)
+        public long AgregarSede(Sede nuevo)
         {
             try
             {
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
-                    Datos.SetearQuery("INSERT INTO Sedes (nombreSede, estado) VALUES (@Nombre, 1)");
+                    Datos.SetearQuery("INSERT INTO Sede (nombreSede, estado) VALUES (@Nombre, 1); SELECT SCOPE_IDENTITY();");
 
                     Datos.setearParametros("@Nombre", nuevo.NombreSede);
 
-                    Datos.ejecutarAccion();
+                   
+                    
+                    long legajo = Convert.ToInt64(Datos.ejecutarScalar());
+
+                    // Asignar el ID generado al objeto Medico
+                    nuevo.IdSede = legajo;
+
+                    return legajo;
                 }
             }
             catch (Exception Ex)

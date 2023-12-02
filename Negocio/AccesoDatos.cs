@@ -26,7 +26,7 @@ namespace Negocio
         public AccesoDatos()
         {
 
-            Conexion = new SqlConnection("server=DESKTOP-LRPR1H0; database=DB_ProyectoFinal; integrated security=true");
+            Conexion = new SqlConnection("server=DESKTOP-PNIP72A\\SQLEXPRESS; database=DB_ProyectoFinal; integrated security=true");
             Comando = new SqlCommand();
         }
 
@@ -66,6 +66,24 @@ namespace Negocio
             {
                 Conexion.Open();
                 Comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CerrarConexion();
+            }
+        }
+        
+        public object ejecutarScalar()
+        {
+            Comando.Connection = Conexion;
+            try
+            {
+                Conexion.Open();
+                return Comando.ExecuteScalar();
             }
             catch (Exception ex)
             {

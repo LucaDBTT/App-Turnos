@@ -1,3 +1,4 @@
+drop DATABASE DB_ProyectoFinal;
 CREATE DATABASE DB_ProyectoFinal;
 GO
 
@@ -15,7 +16,11 @@ CREATE TABLE Profesionales (
     apellido varchar(50) not null,
     Contraseña varchar(30) not null,
     estado bit not null,
+	tipoUsuario int not null default 3,
+
 );
+
+select * from Profesionales
 create TABLE Pacientes (
     idPaciente bigint not null identity(1,1) primary key, 
     dni bigint not null unique,
@@ -26,6 +31,7 @@ create TABLE Pacientes (
     nroAfiliado bigint not null,
     telefono bigint not null,
     estado bit not null,
+	tipoUsuario int not null default 1,
     foreign key (idCobertura) references Coberturas(idCobertura)
 );
 CREATE TABLE Administrador (
@@ -34,10 +40,17 @@ CREATE TABLE Administrador (
     apellido varchar(50) not null,
     dni bigint not null unique,
     telefono bigint not null,
-    estado bit not null
-    -- Puedes agregar más columnas según tus necesidades
+    estado bit not null,
+	tipoUsuario int not null default 2,
 );
---tipoUsuario 1=admin 2=medico 3=paciente o capaz solo uno y 2
+
+INSERT INTO Administrador (nombre, apellido, dni, telefono, estado)
+VALUES 
+    ('Juan', 'Perez', 123456789, 987654321, 1)
+
+	select * from Administrador
+
+--tipoUsuario 2=admin 3=medico 1=paciente o capaz solo uno y 2
 create table Usuarios(
  idUsuario bigint not null  primary key identity(1,1),
  idPaciente bigint,
@@ -51,6 +64,11 @@ create table Usuarios(
  foreign key (idProfesional) references Profesionales(legajo),
  foreign key (idAdministrador) references Administrador(idAdministrador)
 )
+select * from Usuarios
+INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador, dni, mail, pass, tipoUsuario)
+VALUES 
+    (NULL, NULL, 1, 123456789, 'paciente1@example.com', 'contrasena1', 2)
+
 
 CREATE TABLE Sede ( 
     idSede bigint not null  identity(1,1) primary key,
@@ -80,6 +98,9 @@ CREATE TABLE HorarioLaboral (
     CONSTRAINT UQ_HorarioLaboral UNIQUE (diaSemana, horaInicio, horaFin)
 );
  
+ insert into HorarioLaboral (diaSemana, horaInicio, horaFin) Values (@diaSemana, @horaInicio, @horaFin) 
+
+
 CREATE TABLE MedicoPorEspecialidad(
     id_MedicoPorEspecialidad bigint not null identity(1,1) primary key,
     legajo bigint not null,
@@ -92,6 +113,7 @@ CREATE TABLE MedicoPorEspecialidad(
     foreign key (idEspecialidad) references Especialidades(idEspecialidad),
     foreign key (idHorario) references HorarioLaboral (idHorario)
 );
+select * from MedicoPorEspecialidad
 
 CREATE TABLE SlotsTurnos (
     idSlot bigint not null identity(1,1) primary key,

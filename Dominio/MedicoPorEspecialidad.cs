@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class MedicoPorEspecialidad
+    public class MedicoPorEspecialidad: Persona
     {
         public long idMedicoPorEspecialidad {  get; set; }
         public long Legajo { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public bool Estado { get; set; }
         public string Contraseña { get; set; }
+        public bool Estado { get; set; }
 
         // Propiedades de la especialidad
         public long IdEspecialidad { get; set; }

@@ -49,21 +49,27 @@ namespace Negocio
             }
         }
 
-        public void AgregarEspecialidad(Especialidad nuevo)
+        public long AgregarEspecialidad(Especialidad nuevo)
         {
             try
             {
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
 
-                    Datos.SetearQuery("INSERT INTO Especialidades  ( nombreEspecialidad, estado ) VALUES ( @Nombre, @Estado )");
+                    Datos.SetearQuery("INSERT INTO Especialidades  ( nombreEspecialidad, estado ) VALUES ( @Nombre, @Estado ); SELECT SCOPE_IDENTITY();");
 
 
                     Datos.setearParametros("@Nombre", nuevo.Nombre);
                     Datos.setearParametros("@Estado", 1);
 
 
-                    Datos.ejecutarAccion();
+  
+                    long legajo = Convert.ToInt64(Datos.ejecutarScalar());
+
+                    // Asignar el ID generado al objeto Medico
+                    nuevo.id= legajo;
+
+                    return legajo;
                 }
             }
             catch (Exception Ex)

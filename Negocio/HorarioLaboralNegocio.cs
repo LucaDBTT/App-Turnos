@@ -44,5 +44,32 @@ namespace Negocio
             }
         }
 
+        public long AgregarHorarioLaboral(HorarioLaboral nuevo)
+        {
+            try
+            {
+                using (AccesoDatos Datos = new AccesoDatos())
+                {
+                    Datos.SetearQuery("INSERT INTO HorarioLaboral (diaSemana, horaInicio, horaFin) VALUES (@diaSemana, @horaInicio, @horaFin); SELECT SCOPE_IDENTITY();");
+
+                    Datos.setearParametros("@diaSemana", nuevo.DiaSemana);
+                    Datos.setearParametros("@horaInicio", nuevo.HoraInicio);
+                    Datos.setearParametros("@horaFin", nuevo.HoraFin);
+
+                    // Ejecutar la acción y obtener el nuevo ID
+                    long id = Convert.ToInt64(Datos.ejecutarScalar());
+
+                    // Asignar el ID generado al objeto HorarioLaboral
+                    nuevo.IdHorario = id;
+
+                    return id;
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+
     }
 }
