@@ -24,13 +24,22 @@ namespace Turnos
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// Control txtSede.
+        /// Control ddlSedes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSede;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSedes;
+
+        /// <summary>
+        /// Control btnAgregarNueva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarNueva;
 
         /// <summary>
         /// Control txtDni.
@@ -60,13 +69,22 @@ namespace Turnos
         protected global::System.Web.UI.WebControls.TextBox txtApellido;
 
         /// <summary>
-        /// Control txtEspecialidad.
+        /// Control ddlEspecialidad2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEspecialidad;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEspecialidad2;
+
+        /// <summary>
+        /// Control btnAgregarEspecialidad2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarEspecialidad2;
 
         /// <summary>
         /// Control ddlDiasLaborales.

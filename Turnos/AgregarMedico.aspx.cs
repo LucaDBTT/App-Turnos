@@ -16,6 +16,8 @@ namespace Turnos
         protected void Page_Load(object sender, EventArgs e)
         {
             CargarDiasSemana();
+            CargarSedes();
+            CargarEspecialidades();
             CargarHorarios(ddlHorarioInicio);
             CargarHorarios(ddlHorarioFin);
             // Configuración Modificar
@@ -75,13 +77,13 @@ namespace Turnos
                 Sede sede = new Sede();
                 SedeNegocio sedeNegocio = new SedeNegocio();
 
-                sede.NombreSede = txtSede.Text;
+                sede.NombreSede = ddlSedes.SelectedValue;
                 sedeNegocio.AgregarSede(sede);
                 
                 Especialidad especialidad = new Especialidad();
                 EspecialidadesNegocio especialidadesNegocio = new EspecialidadesNegocio();
 
-                especialidad.Nombre = txtEspecialidad.Text;
+                especialidad.Nombre = ddlEspecialidad2.SelectedValue;
                 especialidadesNegocio.AgregarEspecialidad(especialidad);
 
 
@@ -110,7 +112,7 @@ namespace Turnos
 
                 medicoPorEspecialidad.Apellido=txtApellido.Text;
                 medicoPorEspecialidad.Mail=txtMail.Text;
-                medicoPorEspecialidad.NombreEspecialidad = txtEspecialidad.Text;
+                medicoPorEspecialidad.NombreEspecialidad = ddlEspecialidad2.SelectedValue;
                 medicoPorEspecialidad.DiaSemana = ddlDiasLaborales.SelectedValue;
                 medicoPorEspecialidad.IdEspecialidad = long.Parse(especialidad.id.ToString());
                 medicoPorEspecialidad.IdHorario = long.Parse(horarioLaboral.IdHorario.ToString());
@@ -180,6 +182,22 @@ namespace Turnos
             ddlDiasLaborales.DataBind();
         }
 
+        private void CargarSedes()
+        {
+            SedeNegocio sedes = new SedeNegocio();
+            ddlSedes.DataSource = sedes.ListarSedes();
+            ddlSedes.DataTextField = "NombreSede";
+            ddlSedes.DataBind();
+        }
+
+        private void CargarEspecialidades()
+        {
+            EspecialidadesNegocio especialidadesNegocio = new EspecialidadesNegocio();
+            ddlEspecialidad2.DataSource = especialidadesNegocio.ListarEspecialidades();
+            ddlEspecialidad2.DataTextField = "Nombre";
+            ddlEspecialidad2.DataBind();
+        }
+
         private void CargarHorarios(DropDownList ddl)
         {
             // Llenar el DropDownList con horarios de 8:00 a 21:00 en intervalos de 30 minutos
@@ -194,6 +212,17 @@ namespace Turnos
                     ddl.Items.Add(new ListItem(horaFormato24, minutosDesdeMedianoche.ToString()));
                 }
             }
+        }
+
+        protected void btnAgregarNueva_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarSede.aspx", false);
+        }
+
+
+        protected void btnAgregarEspecialidad2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarEspecialidad.aspx", false);
         }
     }
 }

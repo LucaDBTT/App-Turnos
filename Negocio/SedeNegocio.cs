@@ -132,7 +132,7 @@ namespace Negocio
             {
 
 
-                datos.SetearQuery("update Sedes set estado=0 where idSede = @idSede");
+                datos.SetearQuery("update Sede set estado=0 where idSede = @idSede");
                 datos.setearParametros("@idSede", sede);
                 datos.ejecutarAccion();
 

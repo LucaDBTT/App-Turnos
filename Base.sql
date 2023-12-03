@@ -20,7 +20,10 @@ CREATE TABLE Profesionales (
 
 );
 
-select * from Profesionales
+
+--select * from Profesionales
+--delete from Profesionales
+
 create TABLE Pacientes (
     idPaciente bigint not null identity(1,1) primary key, 
     dni bigint not null unique,
@@ -44,11 +47,11 @@ CREATE TABLE Administrador (
 	tipoUsuario int not null default 2,
 );
 
-INSERT INTO Administrador (nombre, apellido, dni, telefono, estado)
-VALUES 
-    ('Juan', 'Perez', 123456789, 987654321, 1)
+--INSERT INTO Administrador (nombre, apellido, dni, telefono, estado)
+--VALUES 
+    --('Juan', 'Perez', 123456789, 987654321, 1)
 
-	select * from Administrador
+	--select * from Administrador
 
 --tipoUsuario 2=admin 3=medico 1=paciente o capaz solo uno y 2
 create table Usuarios(
@@ -64,7 +67,7 @@ create table Usuarios(
  foreign key (idProfesional) references Profesionales(legajo),
  foreign key (idAdministrador) references Administrador(idAdministrador)
 )
-select * from Usuarios
+
 INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador, dni, mail, pass, tipoUsuario)
 VALUES 
     (NULL, NULL, 1, 123456789, 'paciente1@example.com', 'contrasena1', 2)
@@ -75,7 +78,8 @@ CREATE TABLE Sede (
     nombreSede varchar(50) not null,
     estado bit not null
 );
-
+--select * from Sede
+--delete from Sede
 CREATE TABLE Especialidades(
     idEspecialidad bigint not null identity(1,1) primary key,
     nombreEspecialidad varchar(50) not null,
@@ -83,7 +87,8 @@ CREATE TABLE Especialidades(
 	URLimagen varchar (80)
 );
 
-
+--select * from Especialidades
+--delete from Especialidades
 
 CREATE TABLE Consultas(
     idConsultas  bigint not null identity(1,1) primary key,
@@ -97,8 +102,11 @@ CREATE TABLE HorarioLaboral (
     horaFin time not null,
     CONSTRAINT UQ_HorarioLaboral UNIQUE (diaSemana, horaInicio, horaFin)
 );
+
+--select * from HorarioLaboral
+--delete from HorarioLaboral
  
- insert into HorarioLaboral (diaSemana, horaInicio, horaFin) Values (@diaSemana, @horaInicio, @horaFin) 
+-- insert into HorarioLaboral (diaSemana, horaInicio, horaFin) Values (@diaSemana, @horaInicio, @horaFin) 
 
 
 CREATE TABLE MedicoPorEspecialidad(
@@ -113,7 +121,7 @@ CREATE TABLE MedicoPorEspecialidad(
     foreign key (idEspecialidad) references Especialidades(idEspecialidad),
     foreign key (idHorario) references HorarioLaboral (idHorario)
 );
-select * from MedicoPorEspecialidad
+--select * from MedicoPorEspecialidad
 
 CREATE TABLE SlotsTurnos (
     idSlot bigint not null identity(1,1) primary key,
@@ -155,6 +163,7 @@ INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador,dni, mail, pass
 (NULL, 1, NULL, 987654321, 'medico1@mail.com', 'password2', 2),
 (NULL, NULL, 1 ,6756757657,'admin@mail.com', 'password3', 3);
 
+insert into Usuarios (idProfesional,dni, mail, pass, tipoUsuario) values (@IdEntidad, @dni, @mail,@pass, @tipoUsuario) 
 -- Inserciones para la tabla Sede
 INSERT INTO Sede (nombreSede, estado) VALUES
 ('Sede 1', 1),

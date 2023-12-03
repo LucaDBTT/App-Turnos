@@ -54,11 +54,18 @@
 
         <div class="login-container">
                        
-            <div class="mb-3">
-    <label for="txtSede" class="form-label">Sede del Médico</label>
-    <asp:TextBox runat="server" ID="txtSede" CssClass="form-control" name="txtSede" />
-    <div id="sedeHelp" class="form-text">Ingrese dni del médico.</div>
+
+<div class="mb-3">
+    <label for="ddlSedes" class="form-label">sedes</label>
+    <asp:DropDownList runat="server" ID="ddlSedes" CssClass="form-control" AppendDataBoundItems="true">
+        <asp:ListItem Text="--Seleccione--" Value="" />
+    </asp:DropDownList>
+    <div id="SedesHelp" class="form-text">Seleccione la sede del médico.</div>
 </div>
+
+<asp:Button runat="server" ID="btnAgregarNueva" Text="Agregar Nueva Sede" OnClick="btnAgregarNueva_Click" CssClass="btn btn-primary" />
+
+
 
 
             <div class="mb-3">
@@ -77,11 +84,17 @@
                 <asp:TextBox runat="server" ID="txtApellido" CssClass="form-control" name="txtApellido" />
                 <div id="ApellidoHelp" class="form-text">Ingrese el Apellido del médico.</div>
             </div>
-             <div class="mb-3">
-     <label for="txtEspecialidad" class="form-label">Especialidad del Médico</label>
-     <asp:TextBox runat="server" ID="txtEspecialidad" CssClass="form-control" name="txtEspecialidad" />
-     <div id="EspecialidadHelp" class="form-text">Ingrese la Especialidad del médico.</div>
- </div>
+             
+            <div class="mb-3">   
+                <label for ="ddlEspecialidad2" class="form-label">Especialidad</label>
+                <asp:DropDownList runat="server" ID="ddlEspecialidad2" CssClass="form-control" AppendDataBoundItems="true">
+                    <asp:ListItem Text="--Seleccione--" Value="" />
+                    </asp:DropDownList>
+              <div id="Especialidad2Help" class="form-text">Seleccione la especialidad del médico.</div>
+            </div>
+            <asp:Button Text="Agregar Nueva Especialidad" runat="server" ID="btnAgregarEspecialidad2" Onclick="btnAgregarEspecialidad2_Click" CssClass="btn btn-primary" />
+
+
        <div class="mb-3">
     <label for="ddlDiasLaborales" class="form-label">Días Laborales del Médico</label>
     <asp:DropDownList runat="server" ID="ddlDiasLaborales" CssClass="form-control" AppendDataBoundItems="true">

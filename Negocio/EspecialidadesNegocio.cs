@@ -33,7 +33,16 @@ namespace Negocio
 
                     aux.id = (long)datos.lector["idEspecialidad"];
                     aux.Nombre = (string)datos.lector["nombreEspecialidad"];
-                    aux.URLimagen = (string)datos.lector["URLimagen"];
+                    if (datos.lector["URLimagen"] != DBNull.Value)
+                    {
+                        aux.URLimagen = (string)datos.lector["nombreSede"];
+                    }
+                    else
+                    {
+                        // Manejar el caso de valor nulo, por ejemplo, asignar un valor predeterminado
+                        aux.URLimagen = "No disponible";
+                    }
+                   
                     Lista.Add(aux);
                 }
 
