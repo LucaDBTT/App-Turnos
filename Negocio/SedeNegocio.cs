@@ -73,6 +73,8 @@ namespace Negocio
                 throw Ex;
             }
         }
+       
+
 
         public void Modificar(Sede nuevo)
         {

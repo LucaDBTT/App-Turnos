@@ -17,10 +17,10 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("SELECT u.idPaciente, u.dni, u.apellido, u.nombre, u.fechaNac, u.idCobertura, u.nroAfiliado, u.telefono, u.estado, c.nombreCobertura FROM Pacientes u INNER JOIN Coberturas c ON u.idCobertura = c.idCobertura WHERE u.estado = 1");
+                datos.SetearQuery("SELECT u.idUsuario, u.dni, u.mail,u.tipoUsuario, p.nombre AS NombrePaciente, p.apellido AS ApellidoPaciente, m.nombre AS NombreProfesional, m.apellido AS ApellidoProfesional, a.nombre AS NombreAdministrador ,tp.nombreTipoUsuario FROM Usuarios u LEFT JOIN Pacientes p ON u.idPaciente = p.idPaciente LEFT JOIN Profesionales m ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a.idAdministrador inner join TiposUsuario tp on tp.idTipoUsuario = u.tipoUsuario");
 
                 if (!string.IsNullOrEmpty(dni))
-                    datos.Comando.CommandText += " AND u.dni = " + dni;
+                    datos.Comando.CommandText += " where u.dni = " + dni;
 
                 datos.EjecutarLectura();
 
@@ -28,20 +28,34 @@ namespace Negocio
                 {
                     Usuario aux = new Usuario();
 
-                    aux.IdUsuario = (long)datos.lector["idPaciente"];
+                    aux.IdUsuario = (long)datos.lector["idUsuario"];
                     aux.dni = (long)datos.lector["dni"];
-                    aux.Apellido = (string)datos.lector["apellido"];
-                    aux.Nombre = (string)datos.lector["nombre"];
-                    aux.FechaNacimiento = (DateTime)datos.lector["fechaNac"];
-                    aux.Cobertura = new Coberturas
-                    {
-                        idCobertura = (long)datos.lector["idCobertura"],
-                        Nombre = (string)datos.lector["nombreCobertura"]
-                    };
-                    aux.NroAfiliado = (long)datos.lector["nroAfiliado"];
-                    aux.Telefono = (long)datos.lector["telefono"];
+                    aux.Mail = (string)datos.lector["mail"];
+                    aux.TipoUsuario = (int)datos.lector["tipoUsuario"];
+                    aux.TipoUsuarioNombre = (string)datos.lector["nombreTipoUsuario"];
 
-                    aux.Estado = (bool)datos.lector["estado"];
+                    // Dependiendo del tipo de usuario, asignar los datos correspondientes
+                    switch (aux.TipoUsuario)
+                    {
+                        case 1: // Paciente
+                            aux.Nombre = (string)datos.lector["NombrePaciente"];
+                            aux.Apellido = (string)datos.lector["ApellidoPaciente"];
+                            break;
+
+                        case 2: // Administrador
+                            aux.Nombre = (string)datos.lector["NombreAdministrador"];
+                            break;
+
+                        case 3: // Profesional
+                            aux.Nombre = (string)datos.lector["NombreProfesional"];
+                            aux.Apellido = (string)datos.lector["ApellidoProfesional"];
+                            break;
+
+                        // Puedes agregar más casos según sea necesario
+
+                        default:
+                            break;
+                    }
 
                     Lista.Add(aux);
                 }

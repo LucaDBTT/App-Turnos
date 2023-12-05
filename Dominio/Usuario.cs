@@ -14,6 +14,8 @@ namespace Dominio
         public Coberturas Cobertura { get; set; }
         public long NroAfiliado { get; set; }
         public string Contrasena { get; set; }
+        public long TipoUsuario { get; set; }
+        public string TipoUsuarioNombre { get; set; }
         public bool Estado { get; set; }
        }
 }

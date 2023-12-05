@@ -76,10 +76,11 @@ namespace Turnos
 
                 Sede sede = new Sede();
                 SedeNegocio sedeNegocio = new SedeNegocio();
+                List<Sede> sedes= sedeNegocio.ListarSedes();
 
                 sede.NombreSede = ddlSedes.SelectedValue;
-                sedeNegocio.AgregarSede(sede);
-                
+                sedeNegocio.AgregarSede(sede);    
+               
                 Especialidad especialidad = new Especialidad();
                 EspecialidadesNegocio especialidadesNegocio = new EspecialidadesNegocio();
 
