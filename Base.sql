@@ -4,6 +4,26 @@ GO
 
 USE DB_ProyectoFinal;
 GO
+CREATE TABLE TiposUsuario (
+    idTipoUsuario int not null primary key,
+    nombreTipoUsuario varchar(50) not null
+);
+
+INSERT INTO TiposUsuario (idTipoUsuario, nombreTipoUsuario) VALUES
+(1, 'Paciente'),
+(2, 'Administrador'),
+(3, 'Profesional');
+
+SELECT u.idUsuario, u.dni, u.mail,
+                                  p.nombre AS NombrePaciente, p.apellido AS ApellidoPaciente, 
+                                  m.nombre AS NombreProfesional, m.apellido AS ApellidoProfesional, 
+                                  a.nombre AS NombreAdministrador ,
+                                  tp.nombreTipoUsuario
+                                  FROM Usuarios u 
+                                  LEFT JOIN Pacientes p ON u.idPaciente = p.idPaciente 
+                                  LEFT JOIN Profesionales m ON u.idProfesional = m.legajo 
+                                  LEFT JOIN Administrador a ON u.idAdministrador = a.idAdministrador
+								  inner join TiposUsuario tp on tp.idTipoUsuario = u.tipoUsuario
 
 CREATE TABLE Coberturas (
     idCobertura bigint not null identity(1,1) primary key,
