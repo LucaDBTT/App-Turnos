@@ -113,7 +113,7 @@ namespace Turnos
                 horarioLaboral.IdProfesional = long.Parse(medico.Legajo.ToString());
                 horarioLaboral.HoraInicio = horarioInicio;
                 horarioLaboral.HoraFin = horarioFin;
-                horarioLaboral.DiaSemana = ddlDiasLaborales.SelectedValue;
+                horarioLaboral.DiaSemana = ddlDias.SelectedValue;
                 horarioLaboralNegocio.AgregarHorarioLaboral(horarioLaboral);
 
                 Usuarios.Apellido = txtApellido.Text;
@@ -127,7 +127,7 @@ namespace Turnos
                 medicoPorEspecialidad.Apellido=txtApellido.Text;
                 medicoPorEspecialidad.Mail=txtMail.Text;
                 medicoPorEspecialidad.NombreEspecialidad = ddlEspecialidad2.SelectedValue;
-                medicoPorEspecialidad.DiaSemana = ddlDiasLaborales.SelectedValue;
+                medicoPorEspecialidad.DiaSemana = ddlDias.SelectedValue;
                 medicoPorEspecialidad.IdHorario = long.Parse(horarioLaboral.IdHorario.ToString());
                 medicoPorEspecialidad.Legajo = long.Parse(medico.Legajo.ToString());
                 medicoPorEspecialidad.HoraInicio = horarioInicio;
@@ -190,8 +190,8 @@ namespace Turnos
             string[] diasSemana = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo" };
 
             // Asignar la lista al DropDownList
-            ddlDiasLaborales.DataSource = diasSemana;
-            ddlDiasLaborales.DataBind();
+            ddlDias.DataSource = diasSemana;
+            ddlDias.DataBind();
         }
 
         private void CargarSedes()

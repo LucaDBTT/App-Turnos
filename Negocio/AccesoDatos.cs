@@ -26,7 +26,7 @@ namespace Negocio
         public AccesoDatos()
         {
 
-            Conexion = new SqlConnection("server=LAPTOP-OTJVIM30\\SQLEXPRESS; database=DB_ProyectoFinal; integrated security=true");
+            Conexion = new SqlConnection("server=DESKTOP-LRPR1H0; database=DB_ProyectoFinal; integrated security=true");
             Comando = new SqlCommand();
         }
 
@@ -133,6 +133,19 @@ namespace Negocio
         {
             // Implementa la interfaz IDisposable para cerrar la conexión y liberar recursos
             CerrarConexion();
+        }
+
+        public void LimpiarTurnos()
+        {
+            try
+            {
+                SetearProcedimiento("SP_LimpiarTurnos");
+                ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         public void EjecutarLectura()
         {

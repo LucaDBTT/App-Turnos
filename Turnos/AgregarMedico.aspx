@@ -97,7 +97,7 @@
 
        <div class="mb-3">
     <label for="ddlDiasLaborales" class="form-label">Días Laborales del Médico</label>
-    <asp:DropDownList runat="server" ID="ddlDiasLaborales" CssClass="form-control" AppendDataBoundItems="true">
+    <asp:DropDownList runat="server" ID="ddlDias" CssClass="form-control" AppendDataBoundItems="true">
         <asp:ListItem Text="--Seleccione--" Value="" />
     </asp:DropDownList>
     <div id="DiasLaboralesHelp" class="form-text">Seleccione los Días Laborales del médico.</div>

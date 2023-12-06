@@ -46,20 +46,6 @@ CREATE TABLE Administrador (
 	tipoUsuario int not null default 2,
 );
 
-select * from Usuarios
-insert into Usuarios (idPaciente,idProfesional,idAdministrador,dni,mail,pass,tipoUsuario,estado) values (null,null,1,1111,'admin@','1111',2,1)
-
-
-select M.id_MedicoPorEspecialidad, M.legajo, p.apellido, p.nombre, p.Contraseña, M.idEspecialidad, E.nombreEspecialidad, M.idSede, S.nombreSede, M.idHorario, H.diaSemana, H.horaInicio, H.horaFin, P.estado 
-from MedicoPorEspecialidad AS M 
-inner join Profesionales AS P ON M.legajo = P.legajo
-inner join Especialidades as E ON M.idEspecialidad = E.idEspecialidad
-inner join Sede as S ON S.idSede = M.idSede 
-inner join HorarioLaboral as H ON M.idHorario = H.idHorario 
-WHERE M.estado = 1 AND P.estado = 1
-group by E.nombreEspecialidad
-
-
 create table Usuarios(
  idUsuario bigint not null  primary key identity(1,1),
  idPaciente bigint,
@@ -74,8 +60,6 @@ create table Usuarios(
  foreign key (idProfesional) references Profesionales(legajo),
  foreign key (idAdministrador) references Administrador(idAdministrador)
 )
-
-SELECT COUNT(*) FROM Usuarios WHERE mail = @Correo AND estado = 1
 
 CREATE TABLE Sede ( 
     idSede bigint not null  identity(1,1) primary key,
@@ -96,17 +80,12 @@ CREATE TABLE Consultas(
 
 create TABLE HorarioLaboral (
     idHorario bigint not null identity(1,1) primary key,
-    Fecha date null ,
+    Fecha date null,
 	diaSemana varchar(15) not null,
     horaInicio time not null,
     horaFin time not null,
     CONSTRAINT UQ_HorarioLaboral UNIQUE (Fecha, horaInicio, horaFin)
 );
-
-
-
-
-
 
 create TABLE MedicoPorEspecialidad(
     id_MedicoPorEspecialidad bigint not null identity(1,1) primary key,
@@ -158,7 +137,7 @@ INSERT INTO Administrador (nombre, apellido, dni, telefono, estado) VALUES
 
 -- Inserciones para la tabla Usuarios
 INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador,dni, mail, pass, tipoUsuario, estado) VALUES
-(NULL, null, 1, 987654321, 'admin@mail.com', 'password1', 2, 1),
+(NULL, null, 1, 123456789, 'paciente@mail.com', 'password2', 1, 1),
 (NULL, 1, NULL, 987654321, 'medico1@mail.com', 'password2', 2, 1),
 (NULL, NULL, 1 ,6756757657,'admin@mail.com', 'password3', 3, 1);
 
@@ -213,19 +192,31 @@ ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a
 
 
 
-
-create procedure SP_LimpiarTurnos
+-- el que va
+alter procedure SP_LimpiarTurnos
 as 
 begin
 update SlotsTurnos
-set Estado=1
-where GETDATE() > fecha and estado =0 ; 
+set Estado = 0, DniPaciente = null
+where GETDATE() > fecha and estado = 1 ; 
 
 update SlotsTurnos
 set fecha = DATEADD(DAY,7,fecha)
-where GETDATE() > fecha and estado =1 ; 
+where GETDATE() > fecha and estado = 0 ; 
 end
 
+
+-- mostrar al profe
+alter procedure SP_LimpiarTurnos
+as 
+begin
+update SlotsTurnos
+set Estado = 0, DniPaciente = null
+where estado = 1 ; 
+
+
+
+-- SLOTS
 CREATE OR ALTER TRIGGER DividirHorarioEnTurnos
 ON MedicoPorEspecialidad
 AFTER INSERT
@@ -238,42 +229,64 @@ BEGIN
     DECLARE @IDHorario bigint;
     DECLARE @dia varchar(15);
 
-    SELECT @IDHorario = i.idHorario, @dia = diaSemana, @idMedicoPorEspecialidad = i.id_MedicoPorEspecialidad
+    SELECT @IDHorario = i.idHorario, @idMedicoPorEspecialidad = i.id_MedicoPorEspecialidad
     FROM inserted AS i;
+
+    SELECT @horaInicio = horaInicio, @horaFin = horaFin, @dia = diaSemana
+    FROM HorarioLaboral
+    WHERE idHorario = @IDHorario;
 
     DECLARE @hoy DATE = GETDATE();
 
     -- Calcular la fecha del próximo día especificado a partir de la fecha actual
     DECLARE @dias int;
     SET @dias = CASE @dia
-        WHEN 'Lunes' THEN (8 - DATEPART(WEEKDAY, @hoy)) % 7
-        WHEN 'Martes' THEN (9 - DATEPART(WEEKDAY, @hoy)) % 7
-        WHEN 'Miércoles' THEN (10 - DATEPART(WEEKDAY, @hoy)) % 7
-        WHEN 'Jueves' THEN (11 - DATEPART(WEEKDAY, @hoy)) % 7
-        WHEN 'Viernes' THEN (12 - DATEPART(WEEKDAY, @hoy)) % 7
-        WHEN 'Sábado' THEN (13 - DATEPART(WEEKDAY, @hoy)) % 7
-        WHEN 'Domingo' THEN (14 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Lunes' THEN (7 + 2 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Martes' THEN (7 + 3 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Miércoles' THEN (7 + 4 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Jueves' THEN (7 + 5 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Viernes' THEN (7 + 6 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Sábado' THEN (7 + 7 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Domingo' THEN (7 + 1 - DATEPART(WEEKDAY, @hoy)) % 7
         ELSE 0
     END;
 
     SET @fecha = DATEADD(DAY, @dias, @hoy);
 
-    SELECT @horaInicio = horaInicio, @horaFin = horaFin
-    FROM HorarioLaboral
-    WHERE idHorario = @IDHorario;
-
     DECLARE @intervaloMinutos int = 60;
     DECLARE @horaActual time = @horaInicio;
-    DECLARE @fechaProximaSemana date;
-
-    SET @fechaProximaSemana = DATEADD(DAY, 7, @fecha);
 
     WHILE @horaActual <= @horaFin
     BEGIN
         INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, fecha, horaInicio, horaFin, Estado)
-        VALUES (@idMedicoPorEspecialidad, @fechaProximaSemana, @horaActual, DATEADD(MINUTE, @intervaloMinutos, @horaActual), 0);
+        VALUES (@idMedicoPorEspecialidad, @fecha, @horaActual, DATEADD(MINUTE, @intervaloMinutos, @horaActual), 0);
         
         SET @horaActual = DATEADD(MINUTE, @intervaloMinutos, @horaActual);
     END;
 END;
 
+
+
+SELECT
+    P.nombre AS NombrePaciente,
+    P.apellido AS ApellidoPaciente,
+    E.nombreEspecialidad AS Especialidad,
+    S.idSlot,
+    S.fecha,
+    S.horaInicio,
+    S.horaFin
+FROM
+    Pacientes P
+INNER JOIN
+    SlotsTurnos S ON P.dni = S.DniPaciente
+INNER JOIN MedicoPorEspecialidad AS ME ON S.idMedicoPorEspecialidad = ME.id_MedicoPorEspecialidad
+INNER JOIN
+    Especialidades E ON E.idEspecialidad = ME.idEspecialidad
+WHERE
+    P.dni = 123456789;
+
+
+UPDATE SlotsTurnos SET DniPaciente = NULL
+	select * from MedicoPorEspecialidad
+
+	select * from SlotsTurnos

@@ -18,15 +18,8 @@ namespace Turnos
             {
                 if (Session["Usuario"] != null)
                 {
-                        long dni = ((Dominio.usuarios)Session["Usuario"]).dni;
-
-                        DatosNegocio datosNegocio = new DatosNegocio();
-
-                        DataTable datosPaciente = datosNegocio.ObtenerDatosPacienteYTurnos(dni);
-
-                        dgvMisTurnos.DataSource = datosPaciente;
-                        dgvMisTurnos.DataBind();
-                    
+                    long dni = ((Dominio.usuarios)Session["Usuario"]).dni;
+                    CargarDatos(dni);
                 }
             }
         }
@@ -41,15 +34,29 @@ namespace Turnos
                     TurnosNegocio eliminar = new TurnosNegocio();
                     eliminar.CancelarTurno(idSlot);
 
-                    dgvMisTurnos.DataBind();
+                    // Vuelve a cargar los datos después de cancelar el turno
+                    if (Session["Usuario"] is Dominio.usuarios usuario)
+                    {
+                        long dni = usuario.dni;
+                        CargarDatos(dni);
+                    }
                 }
                 catch (Exception ex)
                 {
-
                     Console.WriteLine("Error al cancelar el turno: " + ex.Message);
                 }
             }
         }
+
+        private void CargarDatos(long dni)
+        {
+            DatosNegocio datosNegocio = new DatosNegocio();
+            DataTable datosPaciente = datosNegocio.ObtenerDatosPacienteYTurnos(dni);
+
+            dgvMisTurnos.DataSource = datosPaciente;
+            dgvMisTurnos.DataBind();
+        }
+
 
 
     }

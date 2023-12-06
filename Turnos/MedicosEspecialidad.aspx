@@ -8,9 +8,9 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <asp:GridView ID="dgvMedicoPorEspecialidad" runat="server" AutoGenerateColumns="False" DataKeyNames="idMedicoPorEspecialidad" 
+            <asp:GridView ID="dgvMedicoPorEspecialidad" runat="server" AutoGenerateColumns="False" DataKeyNames="idMedicoPorEspecialidad"
                 CssClass="gridview-style" AllowPaging="true" PageSize="10" OnPageIndexChanging="dgvMedicoPorEspecialidad_PageIndexChanging" OnRowDeleting="dataGridViewMedicos_RowDeleting">
-               <RowStyle CssClass="gridview-row" />
+                <RowStyle CssClass="gridview-row" />
                 <HeaderStyle CssClass="gridview-header" />
                 <Columns>
                     <asp:BoundField DataField="Legajo" HeaderText="Legajo" Visible="false" />
@@ -33,5 +33,8 @@
     </asp:UpdatePanel>
     <div class="login-container">
         <a href="AgregarEspecialidadMedico.aspx" class="btn btn-primary">Agregar</a>
+    </div>
+    <div class="login-container">
+        <asp:Button ID="btnLimpiarTurnos" runat="server" Text="Limpiar Turnos" OnClick="btnLimpiarTurnos_Click" />
     </div>
 </asp:Content>

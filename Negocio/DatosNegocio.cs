@@ -14,7 +14,7 @@ namespace Negocio
             using (AccesoDatos datos = new AccesoDatos())
             {
                 // Configurar el stored procedure y parámetros
-                datos.SetearQuery(" SELECT P.nombre AS NombrePaciente,P.apellido AS ApellidoPaciente,e.nombreEspecialidad AS Especialidad, S.idSlot, S.fecha, S.horaInicio, S.horaFin FROM Pacientes P INNER JOIN SlotsTurnos S ON P.dni = S.DniPaciente inner join Especialidades e on e.idEspecialidad = S.idMedicoPorEspecialidad WHERE P.dni = @DniPaciente;");
+                datos.SetearQuery(" SELECT P.nombre AS NombrePaciente, P.apellido AS ApellidoPaciente,  E.nombreEspecialidad AS Especialidad, S.idSlot, S.fecha, S.horaInicio, S.horaFin FROM Pacientes P INNER JOIN SlotsTurnos S ON P.dni = S.DniPaciente INNER JOIN MedicoPorEspecialidad AS ME ON S.idMedicoPorEspecialidad = ME.id_MedicoPorEspecialidad INNER JOIN Especialidades E ON E.idEspecialidad = ME.idEspecialidad WHERE P.dni = 123456789;");
                 datos.setearParametros("@DniPaciente", dni);
 
                 // Ejecutar la lectura

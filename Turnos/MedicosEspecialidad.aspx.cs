@@ -2,6 +2,8 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -31,6 +33,27 @@ namespace Turnos
             }
         }
 
+        protected void btnLimpiarTurnos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (AccesoDatos datos = new AccesoDatos())
+                {
+                    datos.LimpiarTurnos();
+                }
+
+                // Recargar o realizar cualquier acción adicional después de limpiar los turnos
+                // Puedes recargar la página o realizar alguna otra lógica según tus necesidades
+                Response.Redirect(Request.RawUrl);
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción según tus necesidades
+                Console.WriteLine("Error al limpiar los turnos: " + ex.Message);
+            }
+        }
+
+       
         private void CargarMedicosPorEspecialidad(long idEspecialidad)
         {
             MedicoPorEspecialidadNegocio negocio = new MedicoPorEspecialidadNegocio();
