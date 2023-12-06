@@ -94,6 +94,40 @@ namespace Negocio
                 CerrarConexion();
             }
         }
+        public bool ExisteDni(string dni)
+        {
+            try
+            {
+                SetearQuery("SELECT COUNT(*) FROM Pacientes WHERE dni = @Dni");
+                setearParametros("@Dni", dni);
+
+                int cantidad = Convert.ToInt32(ejecutarScalar());
+
+                return cantidad > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool ExisteCorreo(string correo)
+        {
+            try
+            {
+                SetearQuery("SELECT COUNT(*) FROM Usuarios WHERE mail = @Correo AND estado = 1");
+                setearParametros("@Correo", correo);
+
+                int cantidad = Convert.ToInt32(ejecutarScalar());
+
+                return cantidad > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         public void Dispose()
         {

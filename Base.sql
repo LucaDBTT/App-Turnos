@@ -1,3 +1,5 @@
+drop database DB_ProyectoFinal
+
 CREATE DATABASE DB_ProyectoFinal;
 GO
 USE DB_ProyectoFinal;
@@ -50,7 +52,7 @@ create table Usuarios(
  idProfesional bigint ,
  idAdministrador bigint,
  dni bigint not null,
- mail varchar(50) not null ,
+ mail varchar(50) not null unique ,
  pass varchar (20) not null, 
  tipoUsuario int not null,
  estado bit not null,
@@ -58,6 +60,9 @@ create table Usuarios(
  foreign key (idProfesional) references Profesionales(legajo),
  foreign key (idAdministrador) references Administrador(idAdministrador)
 )
+
+SELECT COUNT(*) FROM Usuarios WHERE mail = @Correo AND estado = 1
+
 CREATE TABLE Sede ( 
     idSede bigint not null  identity(1,1) primary key,
     nombreSede varchar(50) not null,
@@ -108,12 +113,12 @@ CREATE TABLE SlotsTurnos (
 	foreign key (DniPaciente) references Pacientes(dni)
 );
 
-
+select * from Coberturas
 -- Inserciones para la tabla Coberturas
-INSERT INTO Coberturas (nombreCobertura) VALUES
-('Obra Social 1'),
-('Obra Social 2'),
-('Obra Social 3');
+INSERT INTO Coberturas (nombreCobertura,estado) VALUES
+('Obra Social 1',1),
+('Obra Social 2',1),
+('Obra Social 3',1);
 
 -- Inserciones para la tabla Profesionales
 INSERT INTO Profesionales (dni, nombre, apellido, Contraseña, estado) VALUES
@@ -173,7 +178,8 @@ INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio
 (2, null, '2023-03-02', '12:30:00', '13:30:00', 0),
 (3, null, '2023-03-03', '12:00:00', '13:00:00', 0);
 
-
+select * from Usuarios
+delete  from Pacientes
 INSERT INTO TiposUsuario (idTipoUsuario, nombreTipoUsuario) VALUES
 (1, 'Paciente'),
 (2, 'Administrador'),

@@ -27,17 +27,51 @@ namespace Turnos
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
+            AccesoDatos datos = new AccesoDatos();
+
             try
             {
                 // Verificar si los campos obligatorios están llenos
                 if (string.IsNullOrEmpty(txtDni.Text) || string.IsNullOrEmpty(txtFechaNacimiento.Text) || string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtApellido.Text) || ddlCoberturas.SelectedIndex == 0 || string.IsNullOrEmpty(txtContraseña.Text) || string.IsNullOrEmpty(txtCorreo.Text))
                 {
-                    // Mostrar un mensaje de error o tomar la acción correspondiente
-                    // Por ejemplo:
-                    
-                     lblMensajeError.Text = "Por favor completa todos los campos obligatorios antes de continuar...";
-                    return; 
+                    lblMensajeError.Text = "Por favor completa todos los campos obligatorios antes de continuar...";
+                    return;
                 }
+
+                // Validar que el DNI sea numérico
+                if (!long.TryParse(txtDni.Text, out _))
+                {
+                    lblMensajeError.Text = "El DNI debe contener solo números.";
+                    return;
+                }
+
+                // Validar que la fecha de nacimiento no sea la fecha actual
+                if (DateTime.TryParseExact(txtFechaNacimiento.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaNacimiento))
+                {
+                    if (fechaNacimiento.Date == DateTime.Today)
+                    {
+                        lblMensajeError.Text = "La fecha de nacimiento no puede ser la fecha actual.";
+                        return;
+                    }
+                }
+                else
+                {
+                    lblMensajeError.Text = "Formato de fecha de nacimiento no válido.";
+                    return;
+                }
+
+                if (datos.ExisteCorreo(txtCorreo.Text))
+                {
+                    lblMensajeError.Text = "Este correo electrónico ya está asociado a un usuario.";
+                    return;
+                }
+                if (datos.ExisteDni(txtDni.Text))
+                {
+                    lblMensajeError.Text = "El DNI ingresado ya está registrado para otro paciente.";
+                    return;
+                }
+
+
 
                 // Continuar con el resto del código para guardar los datos del paciente
                 Usuario usuario = new Usuario();
