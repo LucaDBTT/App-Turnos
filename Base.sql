@@ -96,7 +96,8 @@ CREATE TABLE Consultas(
 
 create TABLE HorarioLaboral (
     idHorario bigint not null identity(1,1) primary key,
-    Fecha date not null ,
+    Fecha date null ,
+	diaSemana varchar(15) not null,
     horaInicio time not null,
     horaFin time not null,
     CONSTRAINT UQ_HorarioLaboral UNIQUE (Fecha, horaInicio, horaFin)
@@ -213,11 +214,17 @@ ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a
 
 
 
+create procedure SP_LimpiarTurnos
+as 
+begin
+update SlotsTurnos
+set Estado=1
+where GETDATE() > fecha and estado =0 ; 
 
-
-
-select * from Usuarios
-
+update SlotsTurnos
+set fecha = DATEADD(DAY,7,fecha)
+where GETDATE() > fecha and estado =1 ; 
+end
 
 CREATE OR ALTER TRIGGER DividirHorarioEnTurnos
 ON MedicoPorEspecialidad
@@ -229,14 +236,29 @@ BEGIN
     DECLARE @horaInicio time;
     DECLARE @horaFin time;
     DECLARE @IDHorario bigint;
-    
-    SELECT @IDHorario = i.idHorario,
-           @idMedicoPorEspecialidad = i.id_MedicoPorEspecialidad
+    DECLARE @dia varchar(15);
+
+    SELECT @IDHorario = i.idHorario, @dia = diaSemana, @idMedicoPorEspecialidad = i.id_MedicoPorEspecialidad
     FROM inserted AS i;
 
-    SELECT @horaInicio = horaInicio,
-           @horaFin = horaFin,
-		   @fecha = Fecha
+    DECLARE @hoy DATE = GETDATE();
+
+    -- Calcular la fecha del próximo día especificado a partir de la fecha actual
+    DECLARE @dias int;
+    SET @dias = CASE @dia
+        WHEN 'Lunes' THEN (8 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Martes' THEN (9 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Miércoles' THEN (10 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Jueves' THEN (11 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Viernes' THEN (12 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Sábado' THEN (13 - DATEPART(WEEKDAY, @hoy)) % 7
+        WHEN 'Domingo' THEN (14 - DATEPART(WEEKDAY, @hoy)) % 7
+        ELSE 0
+    END;
+
+    SET @fecha = DATEADD(DAY, @dias, @hoy);
+
+    SELECT @horaInicio = horaInicio, @horaFin = horaFin
     FROM HorarioLaboral
     WHERE idHorario = @IDHorario;
 
@@ -244,7 +266,6 @@ BEGIN
     DECLARE @horaActual time = @horaInicio;
     DECLARE @fechaProximaSemana date;
 
-    -- Obtener la fecha de la próxima semana a partir de la fecha en HorarioLaboral
     SET @fechaProximaSemana = DATEADD(DAY, 7, @fecha);
 
     WHILE @horaActual <= @horaFin
@@ -255,3 +276,4 @@ BEGIN
         SET @horaActual = DATEADD(MINUTE, @intervaloMinutos, @horaActual);
     END;
 END;
+
