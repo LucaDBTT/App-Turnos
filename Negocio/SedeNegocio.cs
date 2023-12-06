@@ -82,7 +82,7 @@ namespace Negocio
 
             try
             {
-                Datos.SetearQuery("UPDATE Sedes SET nombreSede = @nombre WHERE idSede = @sede");
+                Datos.SetearQuery("UPDATE Sede SET nombreSede = @nombre WHERE idSede = @sede");
 
                 Datos.setearParametros("@nombre", nuevo.NombreSede);
                

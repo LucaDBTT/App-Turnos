@@ -17,10 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("SELECT u.idUsuario, u.dni, u.mail,u.tipoUsuario, p.nombre AS NombrePaciente, p.apellido AS ApellidoPaciente, m.nombre AS NombreProfesional, m.apellido AS ApellidoProfesional, a.nombre AS NombreAdministrador ,tp.nombreTipoUsuario FROM Usuarios u LEFT JOIN Pacientes p ON u.idPaciente = p.idPaciente LEFT JOIN Profesionales m ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a.idAdministrador inner join TiposUsuario tp on tp.idTipoUsuario = u.tipoUsuario");
-
-                if (!string.IsNullOrEmpty(dni))
-                    datos.Comando.CommandText += " where u.dni = " + dni;
+                datos.SetearQuery("SELECT u.idUsuario,u.dni,u.mail,u.tipoUsuario,COALESCE(p.nombre, m.nombre, a.nombre) AS Nombre,COALESCE(p.apellido, m.apellido, a.apellido) AS Apellido, tp.nombreTipoUsuario FROM Usuarios u LEFT JOIN Pacientes p ON u.idPaciente = p.idPaciente LEFT JOIN Profesionales m ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a.idAdministrador INNER JOIN TiposUsuario tp ON tp.idTipoUsuario = u.tipoUsuario where u.estado = 1");
 
                 datos.EjecutarLectura();
 
@@ -38,17 +35,18 @@ namespace Negocio
                     switch (aux.TipoUsuario)
                     {
                         case 1: // Paciente
-                            aux.Nombre = (string)datos.lector["NombrePaciente"];
-                            aux.Apellido = (string)datos.lector["ApellidoPaciente"];
+                            aux.Nombre = datos.lector["Nombre"] != DBNull.Value ? (string)datos.lector["Nombre"] : string.Empty;
+                            aux.Apellido = datos.lector["Apellido"] != DBNull.Value ? (string)datos.lector["Apellido"] : string.Empty;
                             break;
 
                         case 2: // Administrador
-                            aux.Nombre = (string)datos.lector["NombreAdministrador"];
+                            aux.Nombre = datos.lector["Nombre"] != DBNull.Value ? (string)datos.lector["Nombre"] : string.Empty;
+                            aux.Apellido = datos.lector["Apellido"] != DBNull.Value ? (string)datos.lector["Apellido"] : string.Empty;
                             break;
 
                         case 3: // Profesional
-                            aux.Nombre = (string)datos.lector["NombreProfesional"];
-                            aux.Apellido = (string)datos.lector["ApellidoProfesional"];
+                            aux.Nombre = datos.lector["Nombre"] != DBNull.Value ? (string)datos.lector["Nombre"] : string.Empty;
+                            aux.Apellido = datos.lector["Apellido"] != DBNull.Value ? (string)datos.lector["Apellido"] : string.Empty;
                             break;
 
                         // Puedes agregar más casos según sea necesario
@@ -135,7 +133,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearQuery("UPDATE Pacientes SET estado = 0 WHERE dni = @dni");
+                datos.SetearQuery("UPDATE Usuarios SET estado = 0 WHERE dni = @dni");
                 datos.setearParametros("@dni", dni);
                 datos.ejecutarAccion();
             }

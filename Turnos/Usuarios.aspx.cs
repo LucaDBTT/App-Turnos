@@ -39,11 +39,6 @@ namespace Turnos
             dataGridViewUsuarios.DataBind();
         }
 
-        protected void dataGridViewUsuarios_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string dni = dataGridViewUsuarios.SelectedDataKey.Value.ToString();
-            Response.Redirect("AgregarUsuario.aspx?dni=" + dni);
-        }
 
         protected void dataGridViewUsuarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {

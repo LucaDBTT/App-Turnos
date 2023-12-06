@@ -1,30 +1,11 @@
-drop DATABASE DB_ProyectoFinal;
 CREATE DATABASE DB_ProyectoFinal;
 GO
-
 USE DB_ProyectoFinal;
 GO
 CREATE TABLE TiposUsuario (
     idTipoUsuario int not null primary key,
     nombreTipoUsuario varchar(50) not null
 );
-
-INSERT INTO TiposUsuario (idTipoUsuario, nombreTipoUsuario) VALUES
-(1, 'Paciente'),
-(2, 'Administrador'),
-(3, 'Profesional');
-
-SELECT u.idUsuario, u.dni, u.mail,
-                                  p.nombre AS NombrePaciente, p.apellido AS ApellidoPaciente, 
-                                  m.nombre AS NombreProfesional, m.apellido AS ApellidoProfesional, 
-                                  a.nombre AS NombreAdministrador ,
-                                  tp.nombreTipoUsuario
-                                  FROM Usuarios u 
-                                  LEFT JOIN Pacientes p ON u.idPaciente = p.idPaciente 
-                                  LEFT JOIN Profesionales m ON u.idProfesional = m.legajo 
-                                  LEFT JOIN Administrador a ON u.idAdministrador = a.idAdministrador
-								  inner join TiposUsuario tp on tp.idTipoUsuario = u.tipoUsuario
-
 CREATE TABLE Coberturas (
     idCobertura bigint not null identity(1,1) primary key,
     nombreCobertura varchar(50) not null
@@ -39,11 +20,6 @@ CREATE TABLE Profesionales (
 	tipoUsuario int not null default 3,
 
 );
-
-
---select * from Profesionales
---delete from Profesionales
-
 create TABLE Pacientes (
     idPaciente bigint not null identity(1,1) primary key, 
     dni bigint not null unique,
@@ -67,13 +43,6 @@ CREATE TABLE Administrador (
 	tipoUsuario int not null default 2,
 );
 
---INSERT INTO Administrador (nombre, apellido, dni, telefono, estado)
---VALUES 
-    --('Juan', 'Perez', 123456789, 987654321, 1)
-
-	--select * from Administrador
-
---tipoUsuario 2=admin 3=medico 1=paciente o capaz solo uno y 2
 create table Usuarios(
  idUsuario bigint not null  primary key identity(1,1),
  idPaciente bigint,
@@ -83,32 +52,22 @@ create table Usuarios(
  mail varchar(50) not null ,
  pass varchar (20) not null, 
  tipoUsuario int not null,
+ estado bit not null,
  foreign key (idPaciente) references Pacientes(idPaciente),
  foreign key (idProfesional) references Profesionales(legajo),
  foreign key (idAdministrador) references Administrador(idAdministrador)
 )
-
-INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador, dni, mail, pass, tipoUsuario)
-VALUES 
-    (NULL, NULL, 1, 123456789, 'paciente1@example.com', 'contrasena1', 2)
-
-
 CREATE TABLE Sede ( 
     idSede bigint not null  identity(1,1) primary key,
     nombreSede varchar(50) not null,
     estado bit not null
 );
---select * from Sede
---delete from Sede
 CREATE TABLE Especialidades(
     idEspecialidad bigint not null identity(1,1) primary key,
     nombreEspecialidad varchar(50) not null,
     estado bit not null,
 	URLimagen varchar (80)
 );
-
---select * from Especialidades
---delete from Especialidades
 
 CREATE TABLE Consultas(
     idConsultas  bigint not null identity(1,1) primary key,
@@ -123,12 +82,6 @@ CREATE TABLE HorarioLaboral (
     CONSTRAINT UQ_HorarioLaboral UNIQUE (diaSemana, horaInicio, horaFin)
 );
 
---select * from HorarioLaboral
---delete from HorarioLaboral
- 
--- insert into HorarioLaboral (diaSemana, horaInicio, horaFin) Values (@diaSemana, @horaInicio, @horaFin) 
-
-
 CREATE TABLE MedicoPorEspecialidad(
     id_MedicoPorEspecialidad bigint not null identity(1,1) primary key,
     legajo bigint not null,
@@ -141,7 +94,6 @@ CREATE TABLE MedicoPorEspecialidad(
     foreign key (idEspecialidad) references Especialidades(idEspecialidad),
     foreign key (idHorario) references HorarioLaboral (idHorario)
 );
---select * from MedicoPorEspecialidad
 
 CREATE TABLE SlotsTurnos (
     idSlot bigint not null identity(1,1) primary key,
@@ -179,11 +131,11 @@ INSERT INTO Administrador (nombre, apellido, dni, telefono, estado) VALUES
 ('Admin', 'Apellido', 999888777, 123456789, 1);
 
 -- Inserciones para la tabla Usuarios
-INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador,dni, mail, pass, tipoUsuario) VALUES
-(NULL, 1, NULL, 987654321, 'medico1@mail.com', 'password2', 2),
-(NULL, NULL, 1 ,6756757657,'admin@mail.com', 'password3', 3);
+INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador,dni, mail, pass, tipoUsuario, estado) VALUES
+(NULL, 1, NULL, 987654321, 'PACIENTE@mail.com', 'password1', 1, 1),
+(NULL, 1, NULL, 987654321, 'medico1@mail.com', 'password2', 2, 1),
+(NULL, NULL, 1 ,6756757657,'admin@mail.com', 'password3', 3, 1);
 
-insert into Usuarios (idProfesional,dni, mail, pass, tipoUsuario) values (@IdEntidad, @dni, @mail,@pass, @tipoUsuario) 
 -- Inserciones para la tabla Sede
 INSERT INTO Sede (nombreSede, estado) VALUES
 ('Sede 1', 1),
@@ -220,3 +172,11 @@ INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, DniPaciente, fecha, horaInicio
 (2, null, '2023-03-02', '12:30:00', '13:30:00', 0),
 (3, null, '2023-03-03', '12:00:00', '13:00:00', 0);
 
+
+INSERT INTO TiposUsuario (idTipoUsuario, nombreTipoUsuario) VALUES
+(1, 'Paciente'),
+(2, 'Administrador'),
+(3, 'Profesional');
+
+update Usuarios set estado = 1
+SELECT u.idUsuario,u.dni,u.mail,u.tipoUsuario,COALESCE(p.nombre, m.nombre, a.nombre) AS Nombre,COALESCE(p.apellido, m.apellido, a.apellido) AS Apellido, tp.nombreTipoUsuario FROM Usuarios u LEFT JOIN Pacientes p ON u.idPaciente = p.idPaciente LEFT JOIN Profesionales m ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a.idAdministrador INNER JOIN TiposUsuario tp ON tp.idTipoUsuario = u.tipoUsuario where u.estado = 1

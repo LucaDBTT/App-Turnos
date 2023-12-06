@@ -35,7 +35,7 @@ namespace Negocio
                     aux.Nombre = (string)datos.lector["nombreEspecialidad"];
                     if (datos.lector["URLimagen"] != DBNull.Value)
                     {
-                        aux.URLimagen = (string)datos.lector["nombreSede"];
+                        aux.URLimagen = (string)datos.lector["URLimagen"];
                     }
                     else
                     {

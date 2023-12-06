@@ -56,13 +56,23 @@ namespace Negocio
             {
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
-                    Datos.SetearQuery("insert into Usuarios (idProfesional,dni, mail, pass, tipoUsuario) values (@IdEntidad, @dni, @mail,@pass, @tipoUsuario) ");
+                    Datos.SetearQuery("INSERT INTO Usuarios (idProfesional, idPaciente, dni, mail, pass, tipoUsuario, estado) VALUES (@IdEntidadProfesional, @IdEntidadPaciente, @dni, @mail, @pass, @tipoUsuario, 1)");
 
                     Datos.setearParametros("@dni", nuevo.dni);
                     Datos.setearParametros("@mail", nuevo.User);
                     Datos.setearParametros("@pass", nuevo.Pass);
                     Datos.setearParametros("@tipoUsuario", nuevo.TipoUsuario);
-                    Datos.setearParametros("@IdEntidad", nuevo.IdEntidad);
+
+                    if (nuevo.TipoUsuario == TipoUsuarios.medico)
+                    {
+                        Datos.setearParametros("@IdEntidadProfesional", nuevo.IdEntidad);
+                        Datos.setearParametros("@IdEntidadPaciente", DBNull.Value); // Establecer como DBNull.Value para evitar conflictos
+                    }
+                    else if (nuevo.TipoUsuario == TipoUsuarios.paciente)
+                    {
+                        Datos.setearParametros("@IdEntidadProfesional", DBNull.Value); // Establecer como DBNull.Value para evitar conflictos
+                        Datos.setearParametros("@IdEntidadPaciente", nuevo.IdEntidad);
+                    }
 
                     Datos.ejecutarAccion();
                 }
