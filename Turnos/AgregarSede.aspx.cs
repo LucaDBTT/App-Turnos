@@ -49,7 +49,7 @@ namespace Turnos
 
                 { nuevo.AgregarSede(sede); }
 
-                Response.Redirect("AgregarMedico.aspx", false);
+                Response.Redirect("Sedes.aspx", false);
             }
             catch (Exception ex)
             {

@@ -50,7 +50,7 @@ namespace Turnos
 
                 { nuevo.AgregarEspecialidad(especialidad); }
 
-                Response.Redirect("AgregarMedico.aspx", false);
+                Response.Redirect("Patologias.aspx", false);
             }
             catch (Exception ex)
             {

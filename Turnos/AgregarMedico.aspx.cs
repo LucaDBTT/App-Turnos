@@ -78,15 +78,28 @@ namespace Turnos
                 SedeNegocio sedeNegocio = new SedeNegocio();
                 List<Sede> sedes= sedeNegocio.ListarSedes();
 
-                sede.NombreSede = ddlSedes.SelectedValue;
-                sedeNegocio.AgregarSede(sede);    
-               
+                sede.NombreSede = ddlSedes.SelectedValue; 
+                if (!string.IsNullOrEmpty(ddlSedes.SelectedValue))
+                {
+                    // Obtén el ID de la sede seleccionada
+                    long idSedeSeleccionada = long.Parse(ddlSedes.SelectedValue);
+
+                    // Asigna el ID de la sede a medicoPorEspecialidad
+                    medicoPorEspecialidad.IdSede = idSedeSeleccionada;
+                }
+
                 Especialidad especialidad = new Especialidad();
                 EspecialidadesNegocio especialidadesNegocio = new EspecialidadesNegocio();
 
                 especialidad.Nombre = ddlEspecialidad2.SelectedValue;
-                especialidadesNegocio.AgregarEspecialidad(especialidad);
+                if (!string.IsNullOrEmpty(ddlEspecialidad2.SelectedValue))
+                {
+                    // Obtén el ID de la sede seleccionada
+                    long idEspecialidadSeleccionada = long.Parse(ddlEspecialidad2.SelectedValue);
 
+                    // Asigna el ID de la sede a medicoPorEspecialidad
+                    medicoPorEspecialidad.IdEspecialidad= idEspecialidadSeleccionada;
+                }
 
                 medico.Nombre = txtNombre.Text;
                 medico.Apellido = txtApellido.Text;
@@ -115,9 +128,7 @@ namespace Turnos
                 medicoPorEspecialidad.Mail=txtMail.Text;
                 medicoPorEspecialidad.NombreEspecialidad = ddlEspecialidad2.SelectedValue;
                 medicoPorEspecialidad.DiaSemana = ddlDiasLaborales.SelectedValue;
-                medicoPorEspecialidad.IdEspecialidad = long.Parse(especialidad.id.ToString());
                 medicoPorEspecialidad.IdHorario = long.Parse(horarioLaboral.IdHorario.ToString());
-                medicoPorEspecialidad.IdSede = long.Parse(sede.IdSede.ToString());
                 medicoPorEspecialidad.Legajo = long.Parse(medico.Legajo.ToString());
                 medicoPorEspecialidad.HoraInicio = horarioInicio;
                 medicoPorEspecialidad.HoraFin = horarioFin;

@@ -57,7 +57,7 @@
 
 <div class="mb-3">
     <label for="ddlSedes" class="form-label">sedes</label>
-    <asp:DropDownList runat="server" ID="ddlSedes" CssClass="form-control" AppendDataBoundItems="true">
+    <asp:DropDownList runat="server" ID="ddlSedes" CssClass="form-control" AppendDataBoundItems="true" DataValueField="IdSede" >
         <asp:ListItem Text="--Seleccione--" Value="" />
     </asp:DropDownList>
     <div id="SedesHelp" class="form-text">Seleccione la sede del médico.</div>
@@ -87,7 +87,7 @@
              
             <div class="mb-3">   
                 <label for ="ddlEspecialidad2" class="form-label">Especialidad</label>
-                <asp:DropDownList runat="server" ID="ddlEspecialidad2" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:DropDownList runat="server" ID="ddlEspecialidad2" CssClass="form-control" AppendDataBoundItems="true"  DataValueField="id" >
                     <asp:ListItem Text="--Seleccione--" Value="" />
                     </asp:DropDownList>
               <div id="Especialidad2Help" class="form-text">Seleccione la especialidad del médico.</div>

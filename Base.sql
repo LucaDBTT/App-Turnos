@@ -8,7 +8,8 @@ CREATE TABLE TiposUsuario (
 );
 CREATE TABLE Coberturas (
     idCobertura bigint not null identity(1,1) primary key,
-    nombreCobertura varchar(50) not null
+    nombreCobertura varchar(50) not null,
+	estado bit not null
 );
 CREATE TABLE Profesionales ( 
     legajo bigint not null primary key identity(1,1),
@@ -132,7 +133,7 @@ INSERT INTO Administrador (nombre, apellido, dni, telefono, estado) VALUES
 
 -- Inserciones para la tabla Usuarios
 INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador,dni, mail, pass, tipoUsuario, estado) VALUES
-(NULL, 1, NULL, 987654321, 'PACIENTE@mail.com', 'password1', 1, 1),
+(NULL, null, 1, 987654321, 'admin@mail.com', 'password1', 2, 1),
 (NULL, 1, NULL, 987654321, 'medico1@mail.com', 'password2', 2, 1),
 (NULL, NULL, 1 ,6756757657,'admin@mail.com', 'password3', 3, 1);
 
@@ -177,6 +178,6 @@ INSERT INTO TiposUsuario (idTipoUsuario, nombreTipoUsuario) VALUES
 (1, 'Paciente'),
 (2, 'Administrador'),
 (3, 'Profesional');
-
+select * from Sede
 update Usuarios set estado = 1
 SELECT u.idUsuario,u.dni,u.mail,u.tipoUsuario,COALESCE(p.nombre, m.nombre, a.nombre) AS Nombre,COALESCE(p.apellido, m.apellido, a.apellido) AS Apellido, tp.nombreTipoUsuario FROM Usuarios u LEFT JOIN Pacientes p ON u.idPaciente = p.idPaciente LEFT JOIN Profesionales m ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a.idAdministrador INNER JOIN TiposUsuario tp ON tp.idTipoUsuario = u.tipoUsuario where u.estado = 1
