@@ -15,10 +15,28 @@ namespace Turnos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) 
+            if (!IsPostBack)
             {
-                CargarMedicos();
+                if (Request.QueryString["idEspecialidad"] != null)
+                {
+                    // Convierte el valor de la URL a un long (puedes cambiarlo según el tipo real)
+                    long idEspecialidad;
+                    if (long.TryParse(Request.QueryString["idEspecialidad"], out idEspecialidad))
+                    {
+                        // Carga los médicos por la especialidad específica
+                        CargarMedicosPorEspecialidad(idEspecialidad);
+                    }
+                }
+                
             }
+        }
+
+        private void CargarMedicosPorEspecialidad(long idEspecialidad)
+        {
+            MedicoPorEspecialidadNegocio negocio = new MedicoPorEspecialidadNegocio();
+            List<MedicoPorEspecialidad> listaMedicos = negocio.Turnos(idEspecialidad);
+            dgvMedicoPorEspecialidad.DataSource = listaMedicos;
+            dgvMedicoPorEspecialidad.DataBind();
         }
 
         private void CargarMedicos()

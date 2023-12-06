@@ -103,6 +103,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Especialidades.aspx" />
+    <Content Include="FiltrarMedicos.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="MedicosEspecialidad.aspx" />
@@ -175,6 +176,13 @@
     </Compile>
     <Compile Include="Especialidades.aspx.designer.cs">
       <DependentUpon>Especialidades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FiltrarMedicos.aspx.cs">
+      <DependentUpon>FiltrarMedicos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FiltrarMedicos.aspx.designer.cs">
+      <DependentUpon>FiltrarMedicos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

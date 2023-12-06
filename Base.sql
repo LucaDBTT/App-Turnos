@@ -46,6 +46,20 @@ CREATE TABLE Administrador (
 	tipoUsuario int not null default 2,
 );
 
+select * from Usuarios
+insert into Usuarios (idPaciente,idProfesional,idAdministrador,dni,mail,pass,tipoUsuario,estado) values (null,null,1,1111,'admin@','1111',2,1)
+
+
+select M.id_MedicoPorEspecialidad, M.legajo, p.apellido, p.nombre, p.Contraseña, M.idEspecialidad, E.nombreEspecialidad, M.idSede, S.nombreSede, M.idHorario, H.diaSemana, H.horaInicio, H.horaFin, P.estado 
+from MedicoPorEspecialidad AS M 
+inner join Profesionales AS P ON M.legajo = P.legajo
+inner join Especialidades as E ON M.idEspecialidad = E.idEspecialidad
+inner join Sede as S ON S.idSede = M.idSede 
+inner join HorarioLaboral as H ON M.idHorario = H.idHorario 
+WHERE M.estado = 1 AND P.estado = 1
+group by E.nombreEspecialidad
+
+
 create table Usuarios(
  idUsuario bigint not null  primary key identity(1,1),
  idPaciente bigint,
@@ -80,15 +94,20 @@ CREATE TABLE Consultas(
     nombreConsultas varchar(50) not null
 );
 
-CREATE TABLE HorarioLaboral (
+create TABLE HorarioLaboral (
     idHorario bigint not null identity(1,1) primary key,
-    diaSemana varchar(15) not null,
+    Fecha date not null ,
     horaInicio time not null,
     horaFin time not null,
-    CONSTRAINT UQ_HorarioLaboral UNIQUE (diaSemana, horaInicio, horaFin)
+    CONSTRAINT UQ_HorarioLaboral UNIQUE (Fecha, horaInicio, horaFin)
 );
 
-CREATE TABLE MedicoPorEspecialidad(
+
+
+
+
+
+create TABLE MedicoPorEspecialidad(
     id_MedicoPorEspecialidad bigint not null identity(1,1) primary key,
     legajo bigint not null,
     idEspecialidad bigint not null,
@@ -101,7 +120,7 @@ CREATE TABLE MedicoPorEspecialidad(
     foreign key (idHorario) references HorarioLaboral (idHorario)
 );
 
-CREATE TABLE SlotsTurnos (
+create TABLE SlotsTurnos (
     idSlot bigint not null identity(1,1) primary key,
     idMedicoPorEspecialidad bigint not null,
 	DniPaciente bigint null,
@@ -186,4 +205,53 @@ INSERT INTO TiposUsuario (idTipoUsuario, nombreTipoUsuario) VALUES
 (3, 'Profesional');
 select * from Sede
 update Usuarios set estado = 1
-SELECT u.idUsuario,u.dni,u.mail,u.tipoUsuario,COALESCE(p.nombre, m.nombre, a.nombre) AS Nombre,COALESCE(p.apellido, m.apellido, a.apellido) AS Apellido, tp.nombreTipoUsuario FROM Usuarios u LEFT JOIN Pacientes p ON u.idPaciente = p.idPaciente LEFT JOIN Profesionales m ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a.idAdministrador INNER JOIN TiposUsuario tp ON tp.idTipoUsuario = u.tipoUsuario where u.estado = 1
+SELECT u.idUsuario,u.dni,u.mail,u.tipoUsuario,COALESCE(p.nombre, m.nombre, a.nombre) 
+AS Nombre,COALESCE(p.apellido, m.apellido, a.apellido) AS Apellido, tp.nombreTipoUsuario 
+FROM Usuarios u LEFT JOIN Pacientes p ON u.idPaciente = p.idPaciente LEFT JOIN Profesionales m 
+ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a.idAdministrador INNER JOIN TiposUsuario tp ON tp.idTipoUsuario = u.tipoUsuario where u.estado = 1
+
+
+
+
+
+
+
+select * from Usuarios
+
+
+CREATE OR ALTER TRIGGER DividirHorarioEnTurnos
+ON MedicoPorEspecialidad
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @idMedicoPorEspecialidad bigint;
+    DECLARE @fecha date;
+    DECLARE @horaInicio time;
+    DECLARE @horaFin time;
+    DECLARE @IDHorario bigint;
+    
+    SELECT @IDHorario = i.idHorario,
+           @idMedicoPorEspecialidad = i.id_MedicoPorEspecialidad
+    FROM inserted AS i;
+
+    SELECT @horaInicio = horaInicio,
+           @horaFin = horaFin,
+		   @fecha = Fecha
+    FROM HorarioLaboral
+    WHERE idHorario = @IDHorario;
+
+    DECLARE @intervaloMinutos int = 60;
+    DECLARE @horaActual time = @horaInicio;
+    DECLARE @fechaProximaSemana date;
+
+    -- Obtener la fecha de la próxima semana a partir de la fecha en HorarioLaboral
+    SET @fechaProximaSemana = DATEADD(DAY, 7, @fecha);
+
+    WHILE @horaActual <= @horaFin
+    BEGIN
+        INSERT INTO SlotsTurnos (idMedicoPorEspecialidad, fecha, horaInicio, horaFin, Estado)
+        VALUES (@idMedicoPorEspecialidad, @fechaProximaSemana, @horaActual, DATEADD(MINUTE, @intervaloMinutos, @horaActual), 0);
+        
+        SET @horaActual = DATEADD(MINUTE, @intervaloMinutos, @horaActual);
+    END;
+END;

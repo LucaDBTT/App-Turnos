@@ -85,7 +85,7 @@
     </asp:UpdatePanel>
     <div class="login-container">
         <a href="AgregarMedico.aspx" class="btn btn-primary">Agregar Médico</a>
-         <a href="MedicosEspecialidad.aspx" class="btn btn-primary">Ver mas detalles</a>
+         <a href="FiltrarMedicos.aspx" class="btn btn-primary">Ver mas detalles</a>
     </div>
 
 </asp:Content>
