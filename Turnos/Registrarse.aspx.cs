@@ -29,12 +29,22 @@ namespace Turnos
         {
             try
             {
+                // Verificar si los campos obligatorios están llenos
+                if (string.IsNullOrEmpty(txtDni.Text) || string.IsNullOrEmpty(txtFechaNacimiento.Text) || string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtApellido.Text) || ddlCoberturas.SelectedIndex == 0 || string.IsNullOrEmpty(txtContraseña.Text) || string.IsNullOrEmpty(txtCorreo.Text))
+                {
+                    // Mostrar un mensaje de error o tomar la acción correspondiente
+                    // Por ejemplo:
+                    
+                     lblMensajeError.Text = "Por favor completa todos los campos obligatorios antes de continuar...";
+                    return; 
+                }
+
+                // Continuar con el resto del código para guardar los datos del paciente
                 Usuario usuario = new Usuario();
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
                 ServicioEmail emailService = new ServicioEmail();
-                usuarios nuevo = new usuarios(txtCorreo.Text,txtContraseña.Text,usuario.dni,false,false,false);
+                usuarios nuevo = new usuarios(txtCorreo.Text, txtContraseña.Text, usuario.dni, false, false, false);
                 UsuariosNegocio negocio = new UsuariosNegocio();
-
 
                 // Obtener valores de los controles en el formulario
                 usuario.dni = long.Parse(txtDni.Text);
@@ -62,24 +72,22 @@ namespace Turnos
 
                 usuarioNegocio.AgregarUsuario(usuario);
 
-                nuevo.Mail= txtCorreo.Text;
+                nuevo.Mail = txtCorreo.Text;
                 nuevo.Pass = txtContraseña.Text;
                 nuevo.dni = usuario.dni;
                 nuevo.IdEntidad = usuarioNegocio.ObtenerUltimoIdPaciente();
                 negocio.RegistrarUsuarios(nuevo);
                 emailService.armarCorreo(nuevo.Mail, "Bienvenid@ a JPSalud", "Hola" + usuario.Nombre + "nos complacete tenerte como usuario");
                 emailService.enviarMail();
-               
 
                 Response.Redirect("Default.aspx", false);
-
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
+
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
