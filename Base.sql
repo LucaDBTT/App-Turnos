@@ -70,7 +70,7 @@ CREATE TABLE Especialidades(
     idEspecialidad bigint not null identity(1,1) primary key,
     nombreEspecialidad varchar(50) not null,
     estado bit not null,
-	URLimagen varchar (80)
+	URLimagen varchar (500)
 );
 
 CREATE TABLE Consultas(
@@ -137,9 +137,11 @@ INSERT INTO Administrador (nombre, apellido, dni, telefono, estado) VALUES
 
 -- Inserciones para la tabla Usuarios
 INSERT INTO Usuarios (idPaciente, idProfesional, idAdministrador,dni, mail, pass, tipoUsuario, estado) VALUES
-(NULL, null, 1, 123456789, 'paciente@mail.com', 'password2', 1, 1),
+(NULL, null, 1, 999888777, 'ADMIN@mail.com', 'password1', 2, 2),
 (NULL, 1, NULL, 987654321, 'medico1@mail.com', 'password2', 2, 1),
 (NULL, NULL, 1 ,6756757657,'admin@mail.com', 'password3', 3, 1);
+
+delete Administrador where nombre = 'Admin'
 
 -- Inserciones para la tabla Sede
 INSERT INTO Sede (nombreSede, estado) VALUES

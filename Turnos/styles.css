@@ -435,3 +435,60 @@
 
 
 
+.content-container {
+    margin-top: 0px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-y: auto;
+    margin-bottom: 150px !important;
+    padding-bottom: 20px; /* Ajusta el espacio inferior para las cards */
+    margin-left: 20px;
+    position: relative !important;
+}
+
+/* Estilos para las cards en el container */
+.cards-container {
+    margin-bottom: 150px !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    flex-grow: 1; /* Asegura que el contenedor de las tarjetas crezca para ocupar el espacio disponible */
+}
+
+    .cards-container a {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra horizontalmente el contenido */
+        background-image: linear-gradient(45deg, #215b30, #14421f);
+        color: white;
+        padding: 220px; /* Ajusta el padding para el contenido */
+        border: none;
+        border-radius: 15px; /* Bordes más redondeados */
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-image 0.3s ease;
+        width: 250px; /* Ancho de las cards */
+        height: 50px; /* Altura de las cards */
+        margin: 30px !important; /* Ajusta el margen entre las cards */
+    }
+
+        .cards-container a:hover {
+            background-image: linear-gradient(45deg, #14421f, #215b30);
+            text-decoration: none;
+        }
+
+.footer {
+    position: absolute; /* Asegura que el footer tenga posición absoluta */
+    bottom: 0; /* Fija el footer en la parte inferior del contenedor principal */
+    width: 100%; /* Ajusta el ancho del footer según sea necesario */
+    background-color: #212529;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    z-index: 0; /* Asegura que el footer esté detrás de las cards */
+}
