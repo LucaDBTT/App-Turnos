@@ -10,18 +10,18 @@ namespace Negocio
     public class CoberturasNegocio
     {
 
-        public List<Coberturas> ListarCoberturas(string id = "")
+        public List<Cobertura> ListarCoberturas(string id = "")
         {
-            List<Coberturas> Lista = new List<Coberturas>();
+            List<Cobertura> Lista = new List<Cobertura>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.SetearQuery("SELECT c.idCobertura, c.nombreCobertura FROM Coberturas c");
+                datos.SetearQuery("SELECT idCobertura, nombreCobertura FROM Coberturas where estado = 1");
 
                 if (!string.IsNullOrEmpty(id))
                 {
-                    datos.Comando.CommandText += " AND c.nombreCobertura = @Id";
+                    datos.Comando.CommandText += " AND idCobertura = @Id";
                     datos.setearParametros("@Id", Convert.ToInt32(id));
                 }
 
@@ -29,7 +29,7 @@ namespace Negocio
 
                 while (datos.lector.Read())
                 {
-                    Coberturas aux = new Coberturas();
+                    Cobertura aux = new Cobertura();
 
                     aux.idCobertura = (long)datos.lector["idCobertura"];
                     aux.Nombre = (string)datos.lector["nombreCobertura"];
@@ -48,7 +48,7 @@ namespace Negocio
             }
         }
 
-        public long AgregarCobertura(Coberturas nuevo)
+        public long AgregarCobertura(Cobertura nuevo)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace Negocio
             }
         }
 
-        public void Modificar(Coberturas nuevo)
+        public void Modificar(Cobertura nuevo)
         {
             AccesoDatos Datos = new AccesoDatos();
 

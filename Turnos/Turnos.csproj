@@ -96,11 +96,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgendaMedico.aspx" />
+    <Content Include="AgregarCobertura.aspx" />
     <Content Include="AgregarEspecialidad.aspx" />
     <Content Include="AgregarMedico.aspx" />
     <Content Include="AgregarSede.aspx" />
     <Content Include="AgregarTurno.aspx" />
     <Content Include="AgregarUsuario.aspx" />
+    <Content Include="Coberturas.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Especialidades.aspx" />
@@ -129,6 +131,13 @@
     </Compile>
     <Compile Include="AgendaMedico.aspx.designer.cs">
       <DependentUpon>AgendaMedico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AgregarCobertura.aspx.cs">
+      <DependentUpon>AgregarCobertura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgregarCobertura.aspx.designer.cs">
+      <DependentUpon>AgregarCobertura.aspx</DependentUpon>
     </Compile>
     <Compile Include="AgregarEspecialidad.aspx.cs">
       <DependentUpon>AgregarEspecialidad.aspx</DependentUpon>
@@ -164,6 +173,13 @@
     </Compile>
     <Compile Include="AgregarUsuario.aspx.designer.cs">
       <DependentUpon>AgregarUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Coberturas.aspx.cs">
+      <DependentUpon>Coberturas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Coberturas.aspx.designer.cs">
+      <DependentUpon>Coberturas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

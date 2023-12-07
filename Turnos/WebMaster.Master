@@ -40,6 +40,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/Usuarios.aspx">Usuarios</a>
                             </li>
+                            <li class="nav-item">
+                           <a class="nav-link active" aria-current="page" href="/Coberturas.aspx">Coberturas</a>
+                           </li>
 
                         </ul>
                         <ul class="navbar-nav">

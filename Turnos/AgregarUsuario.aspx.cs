@@ -64,7 +64,7 @@ namespace Turnos
                 usuario.Apellido = txtApellido.Text;
 
                 // Instanciar un objeto Cobertura y asignar su Id
-                usuario.Cobertura = new Coberturas();
+                usuario.Cobertura = new Cobertura();
                 usuario.Cobertura.idCobertura = long.Parse(ddlCoberturas.SelectedValue);
 
                 usuario.Contrasena = txtContraseña.Text;

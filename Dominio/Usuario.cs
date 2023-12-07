@@ -11,7 +11,7 @@ namespace Dominio
     public class Usuario : Persona
     {
         public long IdUsuario { get; set; }
-        public Coberturas Cobertura { get; set; }
+        public Cobertura Cobertura { get; set; }
         public long NroAfiliado { get; set; }
         public string Contrasena { get; set; }
         public long TipoUsuario { get; set; }
