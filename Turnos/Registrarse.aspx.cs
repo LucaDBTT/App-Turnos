@@ -32,7 +32,7 @@ namespace Turnos
             try
             {
                 // Verificar si los campos obligatorios están llenos
-                if (string.IsNullOrEmpty(txtDni.Text) || string.IsNullOrEmpty(txtFechaNacimiento.Text) || string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtApellido.Text) || ddlCoberturas.SelectedIndex == 0 || string.IsNullOrEmpty(txtContraseña.Text) || string.IsNullOrEmpty(txtCorreo.Text))
+                if (string.IsNullOrEmpty(txtDni.Text) || string.IsNullOrEmpty(txtFechaNacimiento.Text) || string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtApellido.Text)  || string.IsNullOrEmpty(txtContraseña.Text) || string.IsNullOrEmpty(txtCorreo.Text))
                 {
                     lblMensajeError.Text = "Por favor completa todos los campos obligatorios antes de continuar...";
                     return;

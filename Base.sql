@@ -111,6 +111,7 @@ create TABLE SlotsTurnos (
     foreign key (idMedicoPorEspecialidad) references MedicoPorEspecialidad(id_MedicoPorEspecialidad),
 	foreign key (DniPaciente) references Pacientes(dni)
 );
+insert into Usuarios 
 
 select * from Coberturas
 -- Inserciones para la tabla Coberturas
@@ -195,7 +196,7 @@ ON u.idProfesional = m.legajo LEFT JOIN Administrador a ON u.idAdministrador = a
 
 
 -- el que va
-alter procedure SP_LimpiarTurnos
+create procedure SP_LimpiarTurnos
 as 
 begin
 update SlotsTurnos
@@ -290,7 +291,8 @@ y despues con estos datos los insertamos en en la nueva tabla de historial de tu
 con los datos ya actualizados
 
 */
-CREATE TRIGGER ActualizarHistorialTurnos
+disable trigger ActualizarHistorialTurnos
+create TRIGGER ActualizarHistorialTurnos
 ON SlotsTurnos
 INSTEAD OF UPDATE
 AS
@@ -313,11 +315,11 @@ BEGIN
         P.nombre,
         P.apellido,
         CASE 
-            WHEN i.Estado = 0 THEN 'Pendiente'
+            WHEN i.Estado = 0 THEN 'cancelado'
             WHEN i.Estado = 1 THEN 
                 CASE 
-                    WHEN d.Estado = 0 THEN 'Cancelado'
-                    ELSE 'Tomado'
+                    WHEN i.Estado = 0 THEN 'Tomado'
+                    ELSE 'cancelado'
                 END
             ELSE 'Otro'
         END AS EstadoTurno,
@@ -326,18 +328,19 @@ BEGIN
     INNER JOIN MedicoPorEspecialidad AS M ON i.idMedicoPorEspecialidad = M.id_MedicoPorEspecialidad
     INNER JOIN Profesionales AS P ON M.legajo = P.legajo
     INNER JOIN Sede AS S ON M.idSede = S.idSede
-    LEFT JOIN deleted AS d ON i.idSlot = d.idSlot;
+    
 END;
 
 
+select * from HistorialTurnos
 
 
 
 
 
 
-
-
+select   * from  SlotsTurnos
+select  * from HistorialTurnos 
 
 SELECT * FROM Pacientes
 select * from Usuarios
