@@ -95,6 +95,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AgendaMedico.aspx" />
     <Content Include="AgregarEspecialidad.aspx" />
     <Content Include="AgregarMedico.aspx" />
     <Content Include="AgregarSede.aspx" />
@@ -117,10 +118,18 @@
     <Content Include="TurnoObtenido.aspx" />
     <Content Include="Turnos.aspx" />
     <Content Include="UserDefault.aspx" />
+    <Content Include="UserMedico.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgendaMedico.aspx.cs">
+      <DependentUpon>AgendaMedico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgendaMedico.aspx.designer.cs">
+      <DependentUpon>AgendaMedico.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AgregarEspecialidad.aspx.cs">
       <DependentUpon>AgregarEspecialidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -264,6 +273,13 @@
     </Compile>
     <Compile Include="UserDefault.aspx.designer.cs">
       <DependentUpon>UserDefault.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserMedico.aspx.cs">
+      <DependentUpon>UserMedico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserMedico.aspx.designer.cs">
+      <DependentUpon>UserMedico.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.aspx.cs">
       <DependentUpon>Usuarios.aspx</DependentUpon>

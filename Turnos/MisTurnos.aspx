@@ -32,8 +32,8 @@
             color: #fff;
         }
 
-        .gridview-style tr:nth-child(even) {
-            background-color: #f9f9f9;
+        .gridview-style tr {
+            background-color: #f9f9f9; /* Establecer el color de fondo para todas las filas */
             color: black;
         }
 

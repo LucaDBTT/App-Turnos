@@ -27,5 +27,26 @@ namespace Negocio
                 return dataTable;
             }
         }
+
+
+        public DataTable ObtenerAgendaMedicos(long dni)
+        {
+            using (AccesoDatos datos = new AccesoDatos())
+            {
+                // Configurar el stored procedure y parámetros
+                datos.SetearQuery(" SELECT P.nombre AS NombrePaciente, P.apellido AS ApellidoPaciente, e.nombreEspecialidad AS Especialidad, S.fecha, S.horaInicio, S.horaFin FROM Pacientes P INNER JOIN SlotsTurnos S ON P.dni = S.DniPaciente INNER JOIN Especialidades e ON e.idEspecialidad = S.idMedicoPorEspecialidad INNER JOIN Profesionales pr ON pr.legajo = S.idMedicoPorEspecialidad WHERE pr.dni = @dni ORDER BY S.fecha DESC, S.horaInicio DESC;");
+                datos.setearParametros("@dni", dni);
+
+                // Ejecutar la lectura
+                datos.EjecutarLectura();
+
+                // Crear DataTable para almacenar los resultados
+                DataTable dataTable = new DataTable();
+                dataTable.Load(datos.lector);
+
+                return dataTable;
+            }
+
+        }
     }
 }

@@ -380,6 +380,7 @@
         }
 
 .user-h1-custom {
+    margin-top:0px !important;
     font-weight: bold;
     font-size: 30px;
     color: #28a745;
@@ -427,6 +428,10 @@
     margin-bottom: 20px;
 }
 
+
+.logout-link:hover {
+    color: red !important; /* Cambia el color a rojo o el que desees */
+}
 
 
 

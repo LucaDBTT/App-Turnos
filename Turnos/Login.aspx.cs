@@ -40,7 +40,7 @@ namespace Turnos
                     }
                     else if (EsMedico())
                     {
-                        Response.Redirect("Default.aspx", false);
+                        Response.Redirect("UserMedico.aspx", false);
                     }
                 }
                 else

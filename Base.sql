@@ -265,28 +265,6 @@ BEGIN
     END;
 END;
 
-
-
-SELECT
-    P.nombre AS NombrePaciente,
-    P.apellido AS ApellidoPaciente,
-    E.nombreEspecialidad AS Especialidad,
-    S.idSlot,
-    S.fecha,
-    S.horaInicio,
-    S.horaFin
-FROM
-    Pacientes P
-INNER JOIN
-    SlotsTurnos S ON P.dni = S.DniPaciente
-INNER JOIN MedicoPorEspecialidad AS ME ON S.idMedicoPorEspecialidad = ME.id_MedicoPorEspecialidad
-INNER JOIN
-    Especialidades E ON E.idEspecialidad = ME.idEspecialidad
-WHERE
-    P.dni = 123456789;
-
-
-UPDATE SlotsTurnos SET DniPaciente = NULL
-	select * from MedicoPorEspecialidad
-
-	select * from SlotsTurnos
+SELECT * FROM Pacientes
+select * from Usuarios
+SELECT P.nombre AS NombrePaciente, P.apellido AS ApellidoPaciente, e.nombreEspecialidad AS Especialidad, S.fecha, S.horaInicio, S.horaFin FROM Pacientes P INNER JOIN SlotsTurnos S ON P.dni = S.DniPaciente INNER JOIN Especialidades e ON e.idEspecialidad = S.idMedicoPorEspecialidad INNER JOIN Profesionales pr ON pr.legajo = S.idMedicoPorEspecialidad WHERE pr.dni = @dni ORDER BY S.fecha DESC, S.horaInicio DESC

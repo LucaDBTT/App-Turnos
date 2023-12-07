@@ -32,9 +32,13 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     <div class="login-container">
-        <a href="AgregarEspecialidadMedico.aspx" class="btn btn-primary">Agregar</a>
-    </div>
-    <div class="login-container">
-        <asp:Button ID="btnLimpiarTurnos" runat="server" Text="Limpiar Turnos" OnClick="btnLimpiarTurnos_Click" />
-    </div>
+    <a href="AgregarEspecialidadMedico.aspx" class="btn btn-primary">Agregar</a>
+    <asp:Button ID="btnLimpiarTurnos" runat="server" Text="Limpiar Turnos" CssClass="btn btn-primary" OnClientClick="mostrarMensaje();" OnClick="btnLimpiarTurnos_Click" style="margin-top: 60px;" />
+</div>
+
+<script>
+    function mostrarMensaje() {
+        alert("¡Turnos Limpios, ya se asignaron los turnos de la siguiente semana para algunos medicos!");
+    }
+</script>
 </asp:Content>
