@@ -33,7 +33,7 @@ namespace Negocio
             using (AccesoDatos datos = new AccesoDatos())
             {
                 // Configurar el stored procedure y parámetros
-                datos.SetearQuery("SELECT H.idHistorial, H.fechaTurno, H.DniPaciente, H.nombreMedico, H.apellidoMedico, H.estadoTurno, H.nombreSede  FROM HistorialTurnos H WHERE H.DniPaciente = @DniPaciente");
+                datos.SetearQuery("SELECT H.fechaTurno as Fecha, H.DniPaciente as 'Dni del paciente', H.nombreMedico as 'Nombre del medico', H.apellidoMedico as 'Apellido del medico', H.estadoTurno as 'Estado del turno', H.nombreSede as Sede FROM HistorialTurnos H WHERE H.DniPaciente = @DniPaciente");
                 datos.setearParametros("@DniPaciente", dni);
 
                 // Ejecutar la lectura

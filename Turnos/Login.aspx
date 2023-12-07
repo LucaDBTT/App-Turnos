@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label for="txtPassword">Contraseña:</label>
                             <br />
-                            <asp:TextBox ID="txtPass" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtPass" runat="server" TextMode="Password"></asp:TextBox>
                         </div>   
                     <asp:Button runat="server" ID="Button1" Text="Ingresar" CssClass="btn btn-primary" OnClick="Button1_Click" />
                     <asp:Button runat="server" ID="btnRegistrarse" Text="Registrarse" CssClass="btn btn-primary" OnClick="btnRegistrarse_Click" />

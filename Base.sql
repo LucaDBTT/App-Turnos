@@ -274,10 +274,12 @@ END;
 CREATE TABLE HistorialTurnos (
     idHistorial bigint not null identity(1,1) primary key,
     fechaTurno date not null,
+	DniPaciente bigint null,
     nombreMedico varchar(100) not null,
     apellidoMedico varchar(100) not null,
     estadoTurno varchar(20) not null,
-    nombreSede varchar(50) not null
+    nombreSede varchar(50) not null,
+	foreign key (DniPaciente) references Pacientes(dni)
 );
 
 --Tigger para insertar los turnos en la tabla historica
@@ -330,16 +332,17 @@ END;
 se
 select * from HistorialTurnos
 
-CREATE TRIGGER INSERTARHISTORIALTURNOS
+alter TRIGGER INSERTARHISTORIALTURNOS
 ON SlotsTurnos
 AFTER UPDATE
 AS
 BEGIN
     IF EXISTS (SELECT 1 FROM inserted i JOIN deleted d ON i.idSlot = d.idSlot WHERE i.Estado = 0 AND d.Estado = 1)
     BEGIN
-        INSERT INTO HistorialTurnos (fechaTurno, nombreMedico, apellidoMedico, estadoTurno, nombreSede)
+        INSERT INTO HistorialTurnos (fechaTurno, DniPaciente, nombreMedico, apellidoMedico, estadoTurno, nombreSede)
         SELECT 
             i.fecha,
+			d.DniPaciente,
             P.nombre,
             P.apellido,
             'CANCELADO' AS EstadoTurno,
@@ -351,31 +354,8 @@ BEGIN
         INNER JOIN Sede AS S ON M.idSede = S.idSede
         WHERE i.Estado = 0 AND d.Estado = 1; 
     END
-    ELSE
-    BEGIN
-        INSERT INTO HistorialTurnos (fechaTurno, nombreMedico, apellidoMedico, estadoTurno, nombreSede)
-        SELECT 
-            i.fecha,
-            P.nombre,
-            P.apellido,
-            'CONFIRMADO' AS EstadoTurno,
-            S.nombreSede
-        FROM inserted AS i
-        INNER JOIN deleted AS d ON i.idSlot = d.idSlot
-        INNER JOIN MedicoPorEspecialidad AS M ON i.idMedicoPorEspecialidad = M.id_MedicoPorEspecialidad
-        INNER JOIN Profesionales AS P ON M.legajo = P.legajo
-        INNER JOIN Sede AS S ON M.idSede = S.idSede
-        WHERE i.Estado <> 0 OR (i.Estado = 0 AND d.Estado = 0); 
-    END
+
 END;
 
 
-
-
-
-select   * from  SlotsTurnos
-select  * from HistorialTurnos 
-
-SELECT * FROM Pacientes
-select * from Usuarios
-SELECT P.nombre AS NombrePaciente, P.apellido AS ApellidoPaciente, e.nombreEspecialidad AS Especialidad, S.fecha, S.horaInicio, S.horaFin FROM Pacientes P INNER JOIN SlotsTurnos S ON P.dni = S.DniPaciente INNER JOIN Especialidades e ON e.idEspecialidad = S.idMedicoPorEspecialidad INNER JOIN Profesionales pr ON pr.legajo = S.idMedicoPorEspecialidad WHERE pr.dni = @dni ORDER BY S.fecha DESC, S.horaInicio DESC
+delete FROM HistorialTurnos
