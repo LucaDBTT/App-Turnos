@@ -292,7 +292,7 @@ con los datos ya actualizados
 
 */
 disable trigger ActualizarHistorialTurnos
-create TRIGGER ActualizarHistorialTurnos
+DROP TRIGGER ActualizarHistorialTurnos
 ON SlotsTurnos
 INSTEAD OF UPDATE
 AS
@@ -315,13 +315,9 @@ BEGIN
         P.nombre,
         P.apellido,
         CASE 
-            WHEN i.Estado = 0 THEN 'cancelado'
-            WHEN i.Estado = 1 THEN 
-                CASE 
-                    WHEN i.Estado = 0 THEN 'Tomado'
-                    ELSE 'cancelado'
-                END
-            ELSE 'Otro'
+            WHEN i.Estado = 0 THEN 'Cancelado'
+            WHEN i.Estado = 1 THEN 'Tomado'
+               
         END AS EstadoTurno,
         S.nombreSede
     FROM inserted AS i
@@ -331,9 +327,47 @@ BEGIN
     
 END;
 
-
+se
 select * from HistorialTurnos
 
+CREATE TRIGGER INSERTARHISTORIALTURNOS
+ON SlotsTurnos
+AFTER UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM inserted i JOIN deleted d ON i.idSlot = d.idSlot WHERE i.Estado = 0 AND d.Estado = 1)
+    BEGIN
+        INSERT INTO HistorialTurnos (fechaTurno, nombreMedico, apellidoMedico, estadoTurno, nombreSede)
+        SELECT 
+            i.fecha,
+            P.nombre,
+            P.apellido,
+            'CANCELADO' AS EstadoTurno,
+            S.nombreSede
+        FROM inserted AS i
+        INNER JOIN deleted AS d ON i.idSlot = d.idSlot
+        INNER JOIN MedicoPorEspecialidad AS M ON i.idMedicoPorEspecialidad = M.id_MedicoPorEspecialidad
+        INNER JOIN Profesionales AS P ON M.legajo = P.legajo
+        INNER JOIN Sede AS S ON M.idSede = S.idSede
+        WHERE i.Estado = 0 AND d.Estado = 1; 
+    END
+    ELSE
+    BEGIN
+        INSERT INTO HistorialTurnos (fechaTurno, nombreMedico, apellidoMedico, estadoTurno, nombreSede)
+        SELECT 
+            i.fecha,
+            P.nombre,
+            P.apellido,
+            'CONFIRMADO' AS EstadoTurno,
+            S.nombreSede
+        FROM inserted AS i
+        INNER JOIN deleted AS d ON i.idSlot = d.idSlot
+        INNER JOIN MedicoPorEspecialidad AS M ON i.idMedicoPorEspecialidad = M.id_MedicoPorEspecialidad
+        INNER JOIN Profesionales AS P ON M.legajo = P.legajo
+        INNER JOIN Sede AS S ON M.idSede = S.idSede
+        WHERE i.Estado <> 0 OR (i.Estado = 0 AND d.Estado = 0); 
+    END
+END;
 
 
 

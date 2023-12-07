@@ -119,6 +119,7 @@
     <Content Include="styles.css" />
     <Content Include="TurnoObtenido.aspx" />
     <Content Include="Turnos.aspx" />
+    <Content Include="TurnosHistoricos.aspx" />
     <Content Include="UserDefault.aspx" />
     <Content Include="UserMedico.aspx" />
     <Content Include="Usuarios.aspx" />
@@ -282,6 +283,13 @@
     </Compile>
     <Compile Include="Turnos.aspx.designer.cs">
       <DependentUpon>Turnos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TurnosHistoricos.aspx.cs">
+      <DependentUpon>TurnosHistoricos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TurnosHistoricos.aspx.designer.cs">
+      <DependentUpon>TurnosHistoricos.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserDefault.aspx.cs">
       <DependentUpon>UserDefault.aspx</DependentUpon>

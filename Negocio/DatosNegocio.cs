@@ -28,6 +28,24 @@ namespace Negocio
             }
         }
 
+        public DataTable ObtenerDatosHistoricos(long dni)
+        {
+            using (AccesoDatos datos = new AccesoDatos())
+            {
+                // Configurar el stored procedure y parámetros
+                datos.SetearQuery("SELECT H.idHistorial, H.fechaTurno, H.DniPaciente, H.nombreMedico, H.apellidoMedico, H.estadoTurno, H.nombreSede  FROM HistorialTurnos H WHERE H.DniPaciente = @DniPaciente");
+                datos.setearParametros("@DniPaciente", dni);
+
+                // Ejecutar la lectura
+                datos.EjecutarLectura();
+
+                // Crear DataTable para almacenar los resultados
+                DataTable dataTable = new DataTable();
+                dataTable.Load(datos.lector);
+                return dataTable;
+            }
+        }
+
 
         public DataTable ObtenerAgendaMedicos(long dni)
         {
