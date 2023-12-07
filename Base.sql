@@ -238,7 +238,7 @@ BEGIN
 
     DECLARE @hoy DATE = GETDATE();
 
-    -- Calcular la fecha del próximo día especificado a partir de la fecha actual
+  
     DECLARE @dias int;
     SET @dias = CASE @dia
         WHEN 'Lunes' THEN (7 + 2 - DATEPART(WEEKDAY, @hoy)) % 7
@@ -264,6 +264,78 @@ BEGIN
         SET @horaActual = DATEADD(MINUTE, @intervaloMinutos, @horaActual);
     END;
 END;
+
+--------------------------
+--Tabla para historial turnos .
+
+CREATE TABLE HistorialTurnos (
+    idHistorial bigint not null identity(1,1) primary key,
+    fechaTurno date not null,
+    nombreMedico varchar(100) not null,
+    apellidoMedico varchar(100) not null,
+    estadoTurno varchar(20) not null,
+    nombreSede varchar(50) not null
+);
+
+--Tigger para insertar los turnos en la tabla historica
+--Despues se tiene que filtrar por id de Usuario en el dgv
+
+/*
+-- lo que hace aca es que una vez que es tomado el turno , osea cuando se updatea 
+y cambia el estado para ser tomado, se disapra este trigger , como es un instead 
+esto se ejecuta 'en cambio' a otra accion, entonces hacemos el update 'manual' 
+y despues con estos datos los insertamos en en la nueva tabla de historial de turnos
+con los datos ya actualizados
+
+*/
+CREATE TRIGGER ActualizarHistorialTurnos
+ON SlotsTurnos
+INSTEAD OF UPDATE
+AS
+BEGIN
+    UPDATE st
+    SET 
+        st.idMedicoPorEspecialidad = i.idMedicoPorEspecialidad,
+        st.DniPaciente = i.DniPaciente,
+        st.fecha = i.fecha,
+        st.horaInicio = i.horaInicio,
+        st.horaFin = i.horaFin,
+        st.Estado = i.Estado
+    FROM SlotsTurnos st
+    JOIN inserted i ON st.idSlot = i.idSlot;
+
+    -- Ahora registramos los cambios en el historial
+    INSERT INTO HistorialTurnos (fechaTurno, nombreMedico, apellidoMedico, estadoTurno, nombreSede)
+    SELECT 
+        i.fecha,
+        P.nombre,
+        P.apellido,
+        CASE 
+            WHEN i.Estado = 0 THEN 'Pendiente'
+            WHEN i.Estado = 1 THEN 
+                CASE 
+                    WHEN d.Estado = 0 THEN 'Cancelado'
+                    ELSE 'Tomado'
+                END
+            ELSE 'Otro'
+        END AS EstadoTurno,
+        S.nombreSede
+    FROM inserted AS i
+    INNER JOIN MedicoPorEspecialidad AS M ON i.idMedicoPorEspecialidad = M.id_MedicoPorEspecialidad
+    INNER JOIN Profesionales AS P ON M.legajo = P.legajo
+    INNER JOIN Sede AS S ON M.idSede = S.idSede
+    LEFT JOIN deleted AS d ON i.idSlot = d.idSlot;
+END;
+
+
+
+
+
+
+
+
+
+
 
 SELECT * FROM Pacientes
 select * from Usuarios
