@@ -65,10 +65,11 @@ namespace Negocio
                 using (AccesoDatos Datos = new AccesoDatos())
                 {
 
-                    Datos.SetearQuery("INSERT INTO Especialidades  ( nombreEspecialidad, estado ) VALUES ( @Nombre, @Estado ); SELECT SCOPE_IDENTITY();");
+                    Datos.SetearQuery("INSERT INTO Especialidades  ( nombreEspecialidad, URLimagen, estado ) VALUES ( @Nombre,@URLimagen, @Estado ); SELECT SCOPE_IDENTITY();");
 
 
                     Datos.setearParametros("@Nombre", nuevo.Nombre);
+                    Datos.setearParametros("@URLimagen", nuevo.URLimagen);
                     Datos.setearParametros("@Estado", 1);
 
 
@@ -93,10 +94,10 @@ namespace Negocio
 
             try
             {
-                Datos.SetearQuery("UPDATE Especialidades SET nombreEspecialidad = @nombre WHERE idEspecialidad = @id");
+                Datos.SetearQuery("UPDATE Especialidades SET nombreEspecialidad = @nombre, URLimagen = @imagen WHERE idEspecialidad = @id");
 
                 Datos.setearParametros("@nombre", nuevo.Nombre);
-
+                Datos.setearParametros("@imagen", nuevo.URLimagen);
                 Datos.setearParametros("@id", nuevo.id);
 
                 Datos.ejecutarAccion();

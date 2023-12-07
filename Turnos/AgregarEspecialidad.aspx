@@ -8,11 +8,6 @@
                 alert("Por favor, ingrese el nombre de la especialidad.");
                 return false;
             }
-            if (!/^[a-zA-Z]+$/.test(nombreEspecialidad)) {
-                alert("El nombre de la especialidad no debe contener números.");
-                return false;
-            }
-            return true;
         }
      </script>
 </asp:Content>
@@ -28,6 +23,17 @@
             <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" name="txtNombre" />
             <div id="NombreHelp" class="form-text">Ingrese el nombre de la Especialidad.</div>
         </div>  
+
+        <div class="mb-3">
+        <label for="txtURLImagen" class="form-label">URL de la Imagen</label>
+        <asp:TextBox runat="server" ID="txtURLImagen" CssClass="form-control" name="txtURLImagen" OnTextChanged="txtURLImagen_TextChanged" AutoPostBack="true"/>
+        <div id="URLImagenHelp" class="form-text">Ingrese la URL de la imagen.</div>
+        </div>
+       
+        <div class="mb-3">
+        <asp:Image runat="server" ID="imgEspecialidad" CssClass="img-fluid" />
+        </div>
+
         <div class="mb-3">
             <asp:Button runat="server" ID="btnAgregar" Text="Aceptar"  CssClass="btn btn-primary" OnClientClick="return validarFormulario();" OnClick="btnAgregar_Click" />
             <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" CssClass="btn btn-primary" Onclick="btnCancelar_Click" />
